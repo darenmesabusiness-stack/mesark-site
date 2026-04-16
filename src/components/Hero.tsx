@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden noise">
+    <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden noise">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue/5 via-bg-primary to-bg-primary" />
       <div className="absolute top-[-200px] left-1/3 w-[600px] h-[600px] bg-accent/8 rounded-full blur-[150px]" />
@@ -41,7 +41,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
           <Link
             href="/servers"
