@@ -9,24 +9,21 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-text-primary mb-3">Play</h4>
             <div className="space-y-2">
               <Link href="/servers" className="block text-sm text-text-muted hover:text-accent transition">Server IPs</Link>
-              <Link href="/settings" className="block text-sm text-text-muted hover:text-accent transition">Settings</Link>
-              <Link href="/wipe" className="block text-sm text-text-muted hover:text-accent transition">Wipe Schedule</Link>
+              <Link href="/settings" className="block text-sm text-text-muted hover:text-accent transition">Settings & Wipe</Link>
               <Link href="https://store.mesark.net" className="block text-sm text-text-muted hover:text-accent transition">Store</Link>
             </div>
           </div>
           <div>
             <h4 className="text-sm font-semibold text-text-primary mb-3">Rules</h4>
             <div className="space-y-2">
-              <Link href="/rules" className="block text-sm text-text-muted hover:text-accent transition">Server Rules</Link>
-              <Link href="/punishments" className="block text-sm text-text-muted hover:text-accent transition">Punishments</Link>
-              <Link href="/unban" className="block text-sm text-text-muted hover:text-accent transition">Unban Policy</Link>
+              <Link href="/rules" className="block text-sm text-text-muted hover:text-accent transition">Rules & Punishments</Link>
             </div>
           </div>
           <div>
             <h4 className="text-sm font-semibold text-text-primary mb-3">Compete</h4>
             <div className="space-y-2">
-              <Link href="/hof" className="block text-sm text-text-muted hover:text-accent transition">Hall of Fame</Link>
-              <Link href="https://leaderboards.mesark.fun" className="block text-sm text-text-muted hover:text-accent transition">Leaderboards</Link>
+              <Link href="/compete" className="block text-sm text-text-muted hover:text-accent transition">Hall of Fame</Link>
+              <Link href="https://leaderboards.mesark.net" className="block text-sm text-text-muted hover:text-accent transition">Leaderboards</Link>
             </div>
           </div>
           <div>

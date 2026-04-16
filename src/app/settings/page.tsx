@@ -1,15 +1,16 @@
 import { PageHeader } from "@/components/PageHeader";
-import { ContentSection, InfoCard } from "@/components/ContentSection";
+import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
 
 export default function SettingsPage() {
   return (
     <>
       <PageHeader
-        title="Server Settings"
-        subtitle="Rates and configuration for each cluster."
+        title="Settings & Wipe Schedule"
+        subtitle="Rates, configuration, and wipe times for each cluster."
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
+        {/* ── Server Settings ── */}
         <ContentSection title="3 Man / 6 Man Cluster" defaultOpen={true}>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             <InfoCard title="XP Multiplier" value="35x" accent />
@@ -59,6 +60,22 @@ export default function SettingsPage() {
             <InfoCard title="Tame Limit" value="200 dinos" />
             <InfoCard title="Saddle Armor" value="Default cap" />
             <InfoCard title="Weapon Damage" value="400% cap" accent />
+          </div>
+        </ContentSection>
+
+        {/* ── Wipe Schedule ── */}
+        <ContentSection title="Wipe Times">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            <InfoCard title="Solo" value="Monday" accent />
+            <InfoCard title="Duo" value="Friday" accent />
+            <InfoCard title="3/6 Man" value="Saturday" accent />
+            <InfoCard title="100x 2/6 Man" value="Wednesday" accent />
+            <InfoCard title="All Clusters" value="1:00 PM EST" />
+          </div>
+          <div className="mt-4 space-y-1">
+            <RuleItem text="3/6 Man rotates between 3 Man and 6 Man every Saturday." />
+            <RuleItem text="100x rotates between 2 Man and 6 Man every Wednesday." />
+            <RuleItem text="Hall of Fame submissions must be completed within 48 hours of wipe." />
           </div>
         </ContentSection>
       </div>

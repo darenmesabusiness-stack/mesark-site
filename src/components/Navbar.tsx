@@ -7,11 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 const NAV_LINKS = [
   { href: "/servers", label: "Servers" },
   { href: "/rules", label: "Rules" },
-  { href: "/punishments", label: "Punishments" },
   { href: "/settings", label: "Settings" },
-  { href: "/wipe", label: "Wipe Schedule" },
-  { href: "/unban", label: "Unban" },
-  { href: "/hof", label: "Hall of Fame" },
+  { href: "/compete", label: "Compete" },
   { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
   { href: "https://store.mesark.net", label: "Store", external: true },
 ];
