@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
+
+export const metadata: Metadata = {
+  title: "Settings & Wipe Schedule — MESA ARK",
+  description: "Server rates, configuration, and wipe schedule for every MESA ARK cluster. XP, harvesting, taming, breeding, and more.",
+};
 
 export default function SettingsPage() {
   return (

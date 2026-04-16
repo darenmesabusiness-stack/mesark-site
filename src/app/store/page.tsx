@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
+
+export const metadata: Metadata = {
+  title: "Store — MESA ARK",
+  description: "Purchase ranks, starter kits, and cosmetic items for MESA ARK PvP servers. All purchases support server maintenance.",
+};
 
 export default function StorePage() {
   return (

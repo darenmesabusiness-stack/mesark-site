@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection } from "@/components/ContentSection";
 import { CopyIP } from "@/components/CopyIP";
+
+export const metadata: Metadata = {
+  title: "Server List — MESA ARK",
+  description: "Browse 106+ ARK: Survival Evolved PvP servers across Solo, Duo, 3/6 Man, 4 Man, and 100x clusters. Copy any server IP to join.",
+};
 
 const clusters = [
   {
