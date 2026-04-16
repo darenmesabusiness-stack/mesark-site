@@ -24,7 +24,7 @@ export function Hero() {
           transition={{ duration: 0.8 }}
         >
           {/* Title */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none mb-6 mesa-glow">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none mb-6">
             <span className="text-blue">MESA</span>
             <span className="text-accent">RK</span>
           </h1>

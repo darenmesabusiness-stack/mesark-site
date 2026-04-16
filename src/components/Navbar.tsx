@@ -39,7 +39,11 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 target={link.external ? "_blank" : undefined}
-                className="px-3 py-2 text-sm text-text-muted hover:text-text-primary hover:bg-white/5 rounded-lg transition-all"
+                className={
+                  link.label === "Store"
+                    ? "px-4 py-2 text-sm font-semibold bg-blue/80 hover:bg-blue text-white rounded-lg transition-all glow-blue"
+                    : "px-3 py-2 text-sm text-text-muted hover:text-text-primary hover:bg-white/5 rounded-lg transition-all"
+                }
               >
                 {link.label}
               </Link>
@@ -47,7 +51,7 @@ export function Navbar() {
             <Link
               href="https://discord.gg/ZXmpp6fzDe"
               target="_blank"
-              className="ml-3 px-4 py-2 text-sm font-semibold bg-accent hover:bg-accent-secondary text-white rounded-lg transition-all glow-red"
+              className="ml-2 px-4 py-2 text-sm font-semibold bg-accent hover:bg-accent-secondary text-white rounded-lg transition-all glow-red"
             >
               Support
             </Link>
