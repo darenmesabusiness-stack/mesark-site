@@ -2,6 +2,15 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import {
+  WrenchScrewdriverIcon,
+  ShieldCheckIcon,
+  EyeIcon,
+  TrophyIcon,
+  ChartBarIcon,
+  ScaleIcon,
+} from "@heroicons/react/24/outline";
+import type { ComponentType, SVGProps } from "react";
 
 const CLUSTERS = [
   {
@@ -30,13 +39,13 @@ const CLUSTERS = [
   },
 ];
 
-const FEATURES = [
-  { title: "Custom Mods", desc: "Mesa City, custom cloning, cryo breeders, tool gun, teleporters, and more." },
-  { title: "Active Admins", desc: "24/7 support team monitoring servers and handling tickets." },
-  { title: "Anti-Cheat", desc: "Multi-layer detection: behavioral analysis, mesh protection, HWID tracking." },
-  { title: "Competitive Seasons", desc: "Hall of Fame system with real cash prizes up to $500+ per season." },
-  { title: "Custom Leaderboards", desc: "Live tribe scores, kill tracking, and seasonal rankings." },
-  { title: "Balanced PvP", desc: "Per-dino damage/resistance tuning, wipe delays, ORP systems." },
+const FEATURES: { title: string; desc: string; icon: ComponentType<SVGProps<SVGSVGElement>> }[] = [
+  { title: "Custom Mods", desc: "Mesa City, custom cloning, cryo breeders, tool gun, teleporters, and more.", icon: WrenchScrewdriverIcon },
+  { title: "Active Admins", desc: "24/7 support team monitoring servers and handling tickets.", icon: ShieldCheckIcon },
+  { title: "Anti-Cheat", desc: "Multi-layer detection: behavioral analysis, mesh protection, HWID tracking.", icon: EyeIcon },
+  { title: "Competitive Seasons", desc: "Hall of Fame system with real cash prizes up to $500+ per season.", icon: TrophyIcon },
+  { title: "Custom Leaderboards", desc: "Live tribe scores, kill tracking, and seasonal rankings.", icon: ChartBarIcon },
+  { title: "Balanced PvP", desc: "Per-dino damage/resistance tuning, wipe delays, ORP systems.", icon: ScaleIcon },
 ];
 
 export function Features() {
@@ -96,6 +105,7 @@ export function Features() {
                 transition={{ delay: i * 0.05 }}
                 className="p-6 rounded-xl border border-border bg-bg-card/50 hover:border-accent/30 transition-all"
               >
+                <feature.icon className="w-6 h-6 text-accent mb-3" />
                 <h3 className="font-bold mb-2">{feature.title}</h3>
                 <p className="text-sm text-text-muted">{feature.desc}</p>
               </motion.div>
