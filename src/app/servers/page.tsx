@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { ServerList } from "@/components/ServerList";
+import { WipeCountdown } from "@/components/WipeCountdown";
 import { clusters } from "@/data/servers";
 
 export const metadata: Metadata = {
@@ -34,6 +35,9 @@ export default function ServersPage() {
             />
           </div>
         </div>
+
+        {/* Wipe countdown */}
+        <WipeCountdown />
 
         <ServerList clusters={clusters} />
       </div>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { WipeCountdown } from "@/components/WipeCountdown";
 
 export function Hero() {
   return (
@@ -83,6 +84,17 @@ export function Hero() {
               <div className="text-xs text-text-muted mt-1 uppercase tracking-wider">{stat.label}</div>
             </div>
           ))}
+        </motion.div>
+
+        {/* Wipe countdown */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="mt-10"
+        >
+          <p className="text-xs text-text-muted/50 uppercase tracking-wider mb-3">Next wipes</p>
+          <WipeCountdown compact />
         </motion.div>
       </div>
 
