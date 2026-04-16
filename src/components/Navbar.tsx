@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/wipe", label: "Wipe Schedule" },
   { href: "/unban", label: "Unban" },
   { href: "/hof", label: "Hall of Fame" },
+  { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
   { href: "https://store.mesark.net", label: "Store", external: true },
 ];
 
