@@ -161,6 +161,7 @@ export default function ServersPage() {
               title="How to Connect to MESA Servers"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              loading="lazy"
               className="w-full h-full border-0"
             />
           </div>
