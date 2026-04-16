@@ -64,7 +64,7 @@ export function Features() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Link href="/settings" className="block group">
+                <Link href="/servers" className="block group">
                   <div className={`relative p-6 rounded-xl border border-border bg-gradient-to-b ${cluster.color} hover:border-accent/50 transition-all`}>
                     <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition">{cluster.name}</h3>
                     <p className="text-sm text-text-muted mb-4">{cluster.desc}</p>
