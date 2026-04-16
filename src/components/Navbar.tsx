@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,10 +25,12 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <img
-              src="https://cdn.discordapp.com/icons/1072737953895415858/44f5c6b6775e45774484da23a2b918c6.png?size=128"
+            <Image
+              src="/favicon.png"
               alt="MESA"
-              className="w-9 h-9 rounded-lg group-hover:scale-105 transition-transform"
+              width={36}
+              height={36}
+              className="rounded-lg group-hover:scale-105 transition-transform"
             />
           </Link>
 
