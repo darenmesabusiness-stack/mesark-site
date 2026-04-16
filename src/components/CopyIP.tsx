@@ -18,7 +18,7 @@ export function CopyIP({ ip, label }: { ip: string; label: string }) {
     >
       <span className="text-text-primary text-sm font-medium">{label}</span>
       <div className="flex items-center gap-2">
-        <code className="text-xs text-text-muted font-mono hidden sm:block">{ip}</code>
+        <code className="text-[10px] sm:text-xs text-text-muted font-mono">{ip}</code>
         <span className={`text-xs font-semibold transition ${copied ? "text-green-400" : "text-accent group-hover:text-accent/80"}`}>
           {copied ? "Copied!" : "Copy IP"}
         </span>
