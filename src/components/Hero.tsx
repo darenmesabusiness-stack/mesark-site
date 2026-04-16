@@ -23,16 +23,10 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-accent/30 bg-accent/5 text-sm text-accent">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            Servers Online
-          </div>
-
           {/* Title */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none mb-6">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none mb-6 mesa-glow">
             <span className="text-blue">MESA</span>
-            <span className="text-accent glow-text">RK</span>
+            <span className="text-accent">RK</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-text-muted max-w-2xl mx-auto mb-4">
@@ -65,7 +59,7 @@ export function Hero() {
           <Link
             href="https://store.mesark.net"
             target="_blank"
-            className="px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-border text-text-primary font-semibold rounded-lg transition-all text-sm tracking-wide"
+            className="px-8 py-3.5 bg-blue/10 hover:bg-blue/20 border border-blue/30 text-text-primary font-bold rounded-lg transition-all glow-blue text-sm tracking-wide"
           >
             STORE
           </Link>

@@ -83,3 +83,29 @@ body {
   background-size: 200% 100%;
   animation: gradient-shift 3s ease-in-out infinite;
 }
+
+/* MESA title glow */
+@keyframes mesa-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 20px rgba(45, 122, 239, 0.4),
+      0 0 40px rgba(45, 122, 239, 0.2),
+      0 0 80px rgba(45, 122, 239, 0.1),
+      0 0 20px rgba(232, 123, 53, 0.3),
+      0 0 60px rgba(232, 123, 53, 0.1);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      0 0 30px rgba(45, 122, 239, 0.6),
+      0 0 60px rgba(45, 122, 239, 0.3),
+      0 0 100px rgba(45, 122, 239, 0.15),
+      0 0 30px rgba(232, 123, 53, 0.5),
+      0 0 80px rgba(232, 123, 53, 0.15);
+    filter: brightness(1.1);
+  }
+}
+
+.mesa-glow {
+  animation: mesa-pulse 3s ease-in-out infinite;
+}

@@ -5,10 +5,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
+  { href: "/servers", label: "Servers" },
   { href: "/rules", label: "Rules" },
   { href: "/punishments", label: "Punishments" },
   { href: "/settings", label: "Settings" },
-  { href: "/servers", label: "Servers" },
   { href: "/wipe", label: "Wipe Schedule" },
   { href: "/unban", label: "Unban" },
   { href: "/hof", label: "Hall of Fame" },
@@ -24,15 +24,12 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center group">
             <img
               src="https://cdn.discordapp.com/icons/1072737953895415858/44f5c6b6775e45774484da23a2b918c6.png?size=128"
               alt="MESA"
-              className="w-9 h-9 rounded-full ring-2 ring-blue/50 group-hover:ring-blue transition-all"
+              className="w-9 h-9 rounded-lg group-hover:scale-105 transition-transform"
             />
-            <span className="text-xl font-bold tracking-wider">
-              <span className="text-blue">MESA</span><span className="text-accent">RK</span>
-            </span>
           </Link>
 
           {/* Desktop nav */}
