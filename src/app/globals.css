@@ -109,3 +109,28 @@ body {
 .mesa-glow {
   animation: mesa-pulse 3s ease-in-out infinite;
 }
+
+/* Morphing gradient blobs */
+@keyframes blob-1 {
+  0%, 100% { top: -10%; left: -5%; transform: scale(1); }
+  25% { top: 10%; left: 30%; transform: scale(1.1); }
+  50% { top: 40%; left: 60%; transform: scale(0.9); }
+  75% { top: 20%; left: 10%; transform: scale(1.05); }
+}
+
+@keyframes blob-2 {
+  0%, 100% { top: 60%; right: -10%; transform: scale(1); }
+  25% { top: 30%; right: 20%; transform: scale(1.15); }
+  50% { top: 10%; right: 50%; transform: scale(0.85); }
+  75% { top: 50%; right: 30%; transform: scale(1.1); }
+}
+
+@keyframes blob-3 {
+  0%, 100% { bottom: -5%; left: 40%; transform: scale(1); }
+  33% { bottom: 30%; left: 10%; transform: scale(1.2); }
+  66% { bottom: 20%; left: 70%; transform: scale(0.9); }
+}
+
+.animate-blob-1 { animation: blob-1 25s ease-in-out infinite; }
+.animate-blob-2 { animation: blob-2 30s ease-in-out infinite; }
+.animate-blob-3 { animation: blob-3 20s ease-in-out infinite; }

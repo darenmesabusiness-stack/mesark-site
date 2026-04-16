@@ -3,6 +3,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { AnimatedBackground, MouseGlow } from "@/components/AnimatedBackground";
 
 export const metadata: Metadata = {
   title: "MESA — ARK PvP Servers",
@@ -25,6 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
+        <AnimatedBackground />
+        <MouseGlow />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
