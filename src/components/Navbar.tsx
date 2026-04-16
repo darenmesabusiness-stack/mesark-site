@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
@@ -15,6 +16,7 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-primary/80 backdrop-blur-xl border-b border-border">
@@ -31,20 +33,27 @@ export function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                className={
-                  link.label === "Store"
-                    ? "px-4 py-2 text-sm font-semibold bg-blue/80 hover:bg-blue text-white rounded-lg transition-all glow-blue"
-                    : "px-3 py-2 text-sm text-text-muted hover:text-text-primary hover:bg-white/5 rounded-lg transition-all"
-                }
-              >
-                {link.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive = !link.external && pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  className={
+                    link.label === "Store"
+                      ? "px-4 py-2 text-sm font-semibold bg-blue/80 hover:bg-blue text-white rounded-lg transition-all glow-blue"
+                      : `px-3 py-2 text-sm rounded-lg transition-all ${
+                          isActive
+                            ? "text-text-primary bg-white/5"
+                            : "text-text-muted hover:text-text-primary hover:bg-white/5"
+                        }`
+                  }
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <Link
               href="https://discord.gg/ZXmpp6fzDe"
               target="_blank"
@@ -80,17 +89,24 @@ export function Navbar() {
             className="lg:hidden border-t border-border bg-bg-secondary/95 backdrop-blur-xl"
           >
             <div className="px-4 py-3 space-y-1">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  onClick={() => setOpen(false)}
-                  className="block px-3 py-2 text-sm text-text-muted hover:text-text-primary hover:bg-white/5 rounded-lg"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const isActive = !link.external && pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    onClick={() => setOpen(false)}
+                    className={`block px-3 py-2 text-sm rounded-lg ${
+                      isActive
+                        ? "text-text-primary bg-white/5"
+                        : "text-text-muted hover:text-text-primary hover:bg-white/5"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
               <Link
                 href="https://discord.gg/ZXmpp6fzDe"
                 target="_blank"
