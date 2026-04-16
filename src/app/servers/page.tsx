@@ -143,6 +143,23 @@ export default function ServersPage() {
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
+        {/* How to connect */}
+        <div className="rounded-xl border border-border bg-bg-card/50 overflow-hidden">
+          <div className="px-6 py-4">
+            <h3 className="font-bold text-lg mb-1">How to Connect</h3>
+            <p className="text-sm text-text-muted">Copy a server IP below, then follow this quick guide to join.</p>
+          </div>
+          <div className="aspect-video w-full">
+            <iframe
+              src="https://www.youtube.com/embed/ZPXEAtJMTrc"
+              title="How to Connect to MESA Servers"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full border-0"
+            />
+          </div>
+        </div>
+
         {clusters.map((cluster, i) => (
           <ContentSection key={cluster.name} title={cluster.name} defaultOpen={i === 0}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
