@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mesark.net"),
   title: "MESA — ARK PvP Servers",
   description: "The #1 competitive ARK: Survival Evolved PvP server network. Solo, Duo, 3/6 Man, and 100x clusters.",
   icons: {
