@@ -25,6 +25,43 @@ function KeybindRow({ keys, desc }: { keys: string; desc: string }) {
   );
 }
 
+function ClusterCard({ name, wipe, rates }: {
+  name: string;
+  wipe: string;
+  rates: { xp: string; harvest: string; tame: string; breed: string; stack: string; dinos: string; saddle: string; weapon: string };
+}) {
+  return (
+    <div className="relative rounded-xl border border-accent/30 bg-gradient-to-br from-accent/[0.06] to-transparent p-5 hover:border-accent/50 transition group">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent opacity-60" />
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-bold text-lg text-text-primary">{name}</h3>
+        <span className="text-xs font-semibold uppercase tracking-wider bg-accent/15 text-accent px-3 py-1 rounded-full">
+          Wipe {wipe}
+        </span>
+      </div>
+      <div className="grid grid-cols-4 gap-2">
+        <StatBlock label="XP" value={rates.xp} />
+        <StatBlock label="Harvest" value={rates.harvest} />
+        <StatBlock label="Taming" value={rates.tame} />
+        <StatBlock label="Breeding" value={rates.breed} />
+        <StatBlock label="Stack" value={rates.stack} />
+        <StatBlock label="Dinos" value={rates.dinos} />
+        <StatBlock label="Saddle" value={rates.saddle} />
+        <StatBlock label="Weapon" value={rates.weapon} />
+      </div>
+    </div>
+  );
+}
+
+function StatBlock({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="text-center py-1.5">
+      <div className="text-[10px] uppercase tracking-wider text-text-muted/60 mb-0.5">{label}</div>
+      <div className="text-sm font-bold text-accent">{value}</div>
+    </div>
+  );
+}
+
 export default function SettingsPage() {
   return (
     <>
@@ -35,57 +72,15 @@ export default function SettingsPage() {
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
         {/* ── Cluster Settings ── */}
-        <ContentSection title="3 Man / 6 Man Cluster" defaultOpen={true}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            <InfoCard title="XP Multiplier" value="35x" accent />
-            <InfoCard title="Harvesting" value="15x" accent />
-            <InfoCard title="Taming" value="Instant" accent />
-            <InfoCard title="Breeding" value="50x" />
-            <InfoCard title="Stack Size" value="3,000" />
-            <InfoCard title="Tame Limit" value="200 dinos" />
-            <InfoCard title="Saddle Armor" value="Default cap" />
-            <InfoCard title="Weapon Damage" value="400% cap" accent />
+        <div className="mb-2">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-accent mb-4">Cluster Settings</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <ClusterCard name="3/6 Man" wipe="Saturday" rates={{ xp: "35x", harvest: "15x", tame: "Instant", breed: "50x", stack: "3,000", dinos: "200", saddle: "Default", weapon: "400%" }} />
+            <ClusterCard name="100x" wipe="Wednesday" rates={{ xp: "100x", harvest: "100x", tame: "Instant", breed: "100x", stack: "25,000", dinos: "600", saddle: "125", weapon: "100x" }} />
+            <ClusterCard name="Solo / Duo" wipe="Mon / Fri" rates={{ xp: "25x", harvest: "25x", tame: "Instant", breed: "50x", stack: "5,000", dinos: "600", saddle: "Default", weapon: "Default" }} />
+            <ClusterCard name="4 Man" wipe="Saturday" rates={{ xp: "35x", harvest: "15x", tame: "Instant", breed: "50x", stack: "3,000", dinos: "200", saddle: "Default", weapon: "400%" }} />
           </div>
-        </ContentSection>
-
-        <ContentSection title="100x Cluster">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            <InfoCard title="XP Multiplier" value="100x" accent />
-            <InfoCard title="Harvesting" value="100x" accent />
-            <InfoCard title="Taming" value="100x (Instant)" accent />
-            <InfoCard title="Breeding" value="100x" />
-            <InfoCard title="Stack Size" value="25,000" />
-            <InfoCard title="Tame Limit" value="600 dinos" />
-            <InfoCard title="Saddle Armor" value="125 cap" />
-            <InfoCard title="Weapon Damage" value="100x rates" accent />
-          </div>
-        </ContentSection>
-
-        <ContentSection title="Solo / Duo Cluster">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            <InfoCard title="XP Multiplier" value="25x" accent />
-            <InfoCard title="Harvesting" value="25x" accent />
-            <InfoCard title="Taming" value="Instant" accent />
-            <InfoCard title="Breeding" value="50x" />
-            <InfoCard title="Stack Size" value="5,000" />
-            <InfoCard title="Tame Limit" value="600 dinos" />
-            <InfoCard title="Saddle Armor" value="Default cap" />
-            <InfoCard title="Weapon Damage" value="Default cap" />
-          </div>
-        </ContentSection>
-
-        <ContentSection title="4 Man Cluster">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            <InfoCard title="XP Multiplier" value="35x" accent />
-            <InfoCard title="Harvesting" value="15x" accent />
-            <InfoCard title="Taming" value="Instant" accent />
-            <InfoCard title="Breeding" value="50x" />
-            <InfoCard title="Stack Size" value="3,000" />
-            <InfoCard title="Tame Limit" value="200 dinos" />
-            <InfoCard title="Saddle Armor" value="Default cap" />
-            <InfoCard title="Weapon Damage" value="400% cap" accent />
-          </div>
-        </ContentSection>
+        </div>
 
         {/* ── Wipe Schedule ── */}
         <ContentSection title="Wipe Times" defaultOpen={true}>
@@ -103,7 +98,11 @@ export default function SettingsPage() {
           </div>
         </ContentSection>
 
-        {/* ── General Changes ── */}
+        {/* ── Server Info ── */}
+        <div className="pt-6">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-text-muted mb-4">Server Info & Guides</h2>
+        </div>
+
         <ContentSection title="General Changes & QOL">
           <h4 className="font-semibold text-text-primary mb-2">Environmental</h4>
           <div className="space-y-1">
