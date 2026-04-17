@@ -156,7 +156,7 @@ export default function SettingsPage() {
             <RuleItem text="Blue Shield hitmarkers & Orange hitmarker for shooting player on dino." />
             <RuleItem text="Fabricated Sniper Rifle is automatically silenced." />
             <RuleItem text="Bola lasts 10 seconds." />
-            <RuleItem text="Nets work only if player is wearing at least 1 piece of Tek armor." />
+            <RuleItem text="You CAN net players wearing Tek armor. Nets only work on players with at least 1 piece of Tek equipped — no Tek, no net." />
             <RuleItem text="Net cooldown: 60 seconds." />
             <RuleItem text="Phase pistol stun disabled on players." />
             <RuleItem text="Shocking Tranquilizer dart does not shock players." />
