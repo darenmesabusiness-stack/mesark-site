@@ -181,11 +181,12 @@ export default function SettingsPage() {
         <ContentSection title="Discord Tribe Logs (/tlr)">
           <p className="text-text-muted mb-3">Send your tribe log events to a Discord channel in real time.</p>
           <div className="space-y-1">
-            <RuleItem text="Go to your Discord server settings." />
-            <RuleItem text="Select Integrations → Webhooks → New Webhook." />
-            <RuleItem text="Name your webhook and select the channel you want messages to go to." />
+            <RuleItem text="Make a Discord server, or use one you already have." />
+            <RuleItem text="Make a channel for tribe logs (click the top-left dropdown in Discord to create one)." />
+            <RuleItem text="On that channel, click the settings wheel → Integrations → Webhooks → New Webhook." />
+            <RuleItem text="Choose the channel you want it to post to and name the webhook." />
             <RuleItem text="Click Copy Webhook URL." />
-            <RuleItem text="In-game, open chat and type: /tlr <webhook URL> (paste the URL directly)." warning />
+            <RuleItem text="Go in-game and type /tlr PASTEHERE (replace PASTEHERE with the webhook URL you copied)." warning />
           </div>
         </ContentSection>
 
