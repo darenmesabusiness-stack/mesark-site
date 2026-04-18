@@ -138,4 +138,10 @@ export const clusters: Cluster[] = [
       { map: "MESA City", ip: "141.98.157.253:7799" },
     ],
   },
+  {
+    name: "MESA Arena (Golem Event / Rifle13)",
+    servers: [
+      { map: "MESA Arena", ip: "185.172.175.43:27022" },
+    ],
+  },
 ];

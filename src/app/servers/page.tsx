@@ -40,6 +40,42 @@ export default function ServersPage() {
         <WipeCountdown />
 
         <ServerList clusters={clusters} />
+
+        {/* MESA Arena info */}
+        <div className="rounded-xl border border-border bg-bg-card/50 overflow-hidden px-6 py-5 space-y-2">
+          <h3 className="font-bold text-lg">MESA Arena / Golem Event</h3>
+          <p className="text-sm text-text-muted">
+            Separate PvP playground event server (also known as Rifle13&apos;s Arena). Not part of the main clusters.
+          </p>
+          <div className="flex flex-wrap gap-3 mt-2">
+            <a href="https://discord.gg/njRSCXjhSk" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-accent hover:bg-accent-secondary text-white rounded-lg transition-all">
+              Arena Discord
+            </a>
+            <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3310464269" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-blue/80 hover:bg-blue text-white rounded-lg transition-all">
+              Mod Pack
+            </a>
+          </div>
+        </div>
+
+        {/* Pre-Aquatica guide */}
+        <div className="rounded-xl border border-border bg-bg-card/50 overflow-hidden">
+          <div className="px-6 py-4">
+            <h3 className="font-bold text-lg mb-1">Can&apos;t Find MESA Servers?</h3>
+            <p className="text-sm text-text-muted">You need to switch to the pre-Aquatica branch in Steam. Watch this guide:</p>
+          </div>
+          <div className="aspect-video w-full">
+            <iframe
+              src="https://www.youtube.com/embed/yBGv_G-gG4Y"
+              title="How to Switch to Pre-Aquatica Branch"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+              className="w-full h-full border-0"
+            />
+          </div>
+        </div>
       </div>
     </>
   );
