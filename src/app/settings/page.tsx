@@ -284,6 +284,28 @@ export default function SettingsPage() {
           </p>
         </ContentSection>
 
+        {/* ── Dino Delays ── */}
+        <ContentSection title="Dino Riding Delays">
+          <p className="text-text-muted text-sm mb-3">
+            MESA uses <strong className="text-text-primary">riding delays</strong>, not tame delays. You can tame immediately but cannot ride until the timer expires.
+            <strong className="text-accent"> 100x has NO delays.</strong>
+          </p>
+          <h4 className="font-semibold text-text-primary mb-2">24-Hour Riding Delays (all clusters except 100x)</h4>
+          <div className="space-y-1">
+            <RuleItem text="Stegosaurus" />
+            <RuleItem text="Andrewsarchus" />
+            <RuleItem text="Managarmr" />
+            <RuleItem text="Desmodus" />
+            <RuleItem text="Carcharodontosaurus" />
+          </div>
+          <h4 className="font-semibold text-text-primary mt-4 mb-2">Longer Delays</h4>
+          <div className="space-y-1">
+            <RuleItem text="Titans — 3-day delay (cannot tame)" warning />
+            <RuleItem text="Noglins — delayed (cannot tame immediately)" warning />
+            <RuleItem text="Stryders — delayed (cannot tame immediately)" warning />
+          </div>
+        </ContentSection>
+
         {/* ── Disabled Engrams ── */}
         <ContentSection title="Disabled Engrams">
           <p className="text-text-muted text-sm">
