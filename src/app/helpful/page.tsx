@@ -1,38 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection } from "@/components/ContentSection";
-import { CopyBlock } from "@/components/CopyBlock";
+import { IniSection } from "./IniSection";
 
 export const metadata: Metadata = {
   title: "Helpful — MESA ARK",
   description: "Helpful guides, recommended INI settings, and tips for MESA ARK PvP servers.",
 };
-
-const RECOMMENDED_INI = `[/Script/ShooterGame.ShooterGameUserSettings]
-MasterAudioVolume=1.000000
-MusicAudioVolume=0.000000
-SFXAudioVolume=1.000000
-CameraShakeScale=0.000000
-bFirstPersonRiding=False
-bThirdPersonPlayer=True
-FOVMultiplier=1.200000
-bShowStatusNotificationMessages=True
-TrueSkyQuality=0.000000
-bDisableBloom=True
-bDisableLightShafts=True
-
-[/Script/Engine.RendererSettings]
-r.DepthOfField.MaxSize=0
-r.BloomQuality=0
-r.LightShaftQuality=0
-r.LensFlareQuality=0
-r.ShadowQuality=0
-r.Shadow.CSM.MaxCascades=0
-sg.GroundClutterQuality=0
-r.MotionBlurQuality=0
-r.AmbientOcclusionLevels=0
-r.MaterialQualityLevel=0
-r.MaxAnisotropy=0`;
 
 export default function HelpfulPage() {
   return (
@@ -43,47 +18,62 @@ export default function HelpfulPage() {
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
-        {/* ── INI Settings ── */}
-        <ContentSection title="Recommended INI Settings" defaultOpen={true}>
-          <p className="text-text-primary font-medium mb-2">
-            INI files are allowed on MESA. Use these recommended PvP settings for better performance and visibility.
+        {/* ── INI Setup ── */}
+        <ContentSection title="PvP INI Settings (BaseDeviceProfiles)" defaultOpen={true}>
+          <p className="text-text-primary font-medium mb-3">
+            INI files are <strong>allowed</strong> on MESA. These go in the <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">BaseDeviceProfiles.ini</code> file
+            inside your ARK Engine config folder. Pick the preset that matches your preference.
           </p>
 
-          <CopyBlock content={RECOMMENDED_INI} />
-
-          <div className="mt-4 space-y-3">
-            <p className="text-text-primary font-semibold">How to set up your INI:</p>
-            <div className="space-y-2">
+          {/* Steps */}
+          <div className="p-4 rounded-lg border border-blue/20 bg-blue/5 mb-4">
+            <p className="text-text-primary font-semibold mb-3">How to install:</p>
+            <div className="space-y-2.5">
               <div className="flex gap-3 items-start">
                 <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
-                <span>Open Steam &rarr; right-click <strong>ARK</strong> &rarr; <strong>Manage</strong> &rarr; <strong>Browse Local Files</strong></span>
+                <span>
+                  Open Steam &rarr; right-click <strong>ARK</strong> &rarr; <strong>Manage</strong> &rarr; <strong>Browse Local Files</strong>
+                </span>
               </div>
               <div className="flex gap-3 items-start">
                 <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
-                <span>Navigate to <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">ShooterGame\Saved\Config\WindowsNoEditor\</code></span>
+                <span>
+                  Navigate to <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">Engine &rarr; Config</code>
+                </span>
               </div>
               <div className="flex gap-3 items-start">
                 <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
-                <span>Open <strong>GameUserSettings.ini</strong> with Notepad</span>
+                <span>
+                  Find <strong>BaseDeviceProfiles.ini</strong> (see image below)
+                </span>
               </div>
               <div className="flex gap-3 items-start">
                 <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">4</span>
-                <span>Paste the settings above (replace or add to existing sections)</span>
-              </div>
-              <div className="flex gap-3 items-start">
-                <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">5</span>
-                <span>Save the file &rarr; right-click it &rarr; <strong>Properties</strong> &rarr; check <strong>Read-only</strong></span>
-              </div>
-              <div className="flex gap-3 items-start">
-                <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">6</span>
-                <span>Launch ARK &mdash; your settings are applied</span>
+                <span>
+                  Open it with Notepad &rarr; <strong>delete everything</strong> inside &rarr; paste your chosen INI &rarr; save
+                </span>
               </div>
             </div>
 
-            <div className="mt-3 p-3 rounded-lg border border-border bg-bg-card/30 text-xs">
-              <strong className="text-text-primary">Why read-only?</strong> ARK resets your INI every time you change settings in the menu. Setting read-only prevents this.
+            <div className="mt-3 text-xs text-text-muted">
+              The path is relative to wherever Steam installed ARK. If you use a different drive, adjust accordingly &mdash;
+              the folder structure is always <code className="bg-bg-card px-1 py-0.5 rounded text-text-primary">...\ARK\Engine\Config\</code>
             </div>
           </div>
+
+          {/* Screenshot */}
+          <div className="rounded-lg overflow-hidden border border-border mb-5">
+            <Image
+              src="/ini/basedeviceprofiles.png"
+              alt="BaseDeviceProfiles.ini location in ARK Engine Config folder"
+              width={1456}
+              height={816}
+              className="w-full h-auto"
+            />
+          </div>
+
+          {/* INI Presets */}
+          <IniSection />
         </ContentSection>
 
         {/* ── CCC Coordinates ── */}
@@ -119,7 +109,7 @@ export default function HelpfulPage() {
             </div>
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
-              <span>If you have a custom URL, go to <a href="https://steamid.io" target="_blank" className="text-blue hover:underline">steamid.io</a> and paste your profile link to get the 17-digit number</span>
+              <span>If you have a custom URL, go to <a href="https://steamid.io" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">steamid.io</a> and paste your profile link to get the 17-digit number</span>
             </div>
           </div>
         </ContentSection>
