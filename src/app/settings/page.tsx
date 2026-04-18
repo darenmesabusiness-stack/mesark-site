@@ -82,6 +82,11 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* ── Server Info ── */}
+        <div className="pt-6">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-text-muted mb-4">Server Info & Guides</h2>
+        </div>
+
         {/* ── Wipe Schedule ── */}
         <ContentSection title="Wipe Times" defaultOpen={true}>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -97,11 +102,6 @@ export default function SettingsPage() {
             <RuleItem text="Hall of Fame submissions must be completed within 48 hours of wipe." />
           </div>
         </ContentSection>
-
-        {/* ── Server Info ── */}
-        <div className="pt-6">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-text-muted mb-4">Server Info & Guides</h2>
-        </div>
 
         <ContentSection title="General Changes & QOL">
           <h4 className="font-semibold text-text-primary mb-2">Environmental</h4>
