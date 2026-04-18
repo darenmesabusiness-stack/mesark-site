@@ -147,6 +147,38 @@ export default function HelpfulPage() {
           </div>
         </ContentSection>
 
+        {/* ── Mod Mismatch ── */}
+        <ContentSection title="Mod Mismatch Fix">
+          <p className="text-text-primary font-medium mb-2">
+            Getting a &quot;Mod Mismatch&quot; or &quot;Mod Version Mismatch&quot; error? Your mods are out of date.
+          </p>
+          <div className="space-y-2.5 mb-3">
+            <div className="flex gap-3 items-start">
+              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
+              <span>Open the <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3282623549" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">MESA Mod Pack</a> on Steam Workshop</span>
+            </div>
+            <div className="flex gap-3 items-start">
+              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
+              <span>Click <strong>Unsubscribe From All</strong> to remove old versions</span>
+            </div>
+            <div className="flex gap-3 items-start">
+              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+              <span>Click <strong>Subscribe to All</strong> to redownload the latest versions</span>
+            </div>
+            <div className="flex gap-3 items-start">
+              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">4</span>
+              <span>Wait for Steam to finish downloading all mods</span>
+            </div>
+            <div className="flex gap-3 items-start">
+              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">5</span>
+              <span>Restart ARK and try joining again</span>
+            </div>
+          </div>
+          <div className="p-3 rounded-lg border border-border bg-bg-card/30 text-xs">
+            <strong className="text-text-primary">Still not working?</strong> Close Steam completely, reopen it, and let the mods finish updating. Sometimes Steam doesn&apos;t download workshop updates until you restart it.
+          </div>
+        </ContentSection>
+
         {/* ── Troubleshooting ── */}
         <ContentSection title="Troubleshooting &mdash; Crashes & Performance">
           <p className="font-semibold text-text-primary mb-2">Verify Game Files (fixes most issues):</p>

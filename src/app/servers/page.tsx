@@ -36,6 +36,18 @@ export default function ServersPage() {
           </div>
         </div>
 
+        {/* Mod Pack */}
+        <div className="rounded-xl border border-border bg-bg-card/50 px-6 py-5 space-y-3">
+          <h3 className="font-bold text-lg">MESA Mod Pack</h3>
+          <p className="text-sm text-text-muted">
+            Subscribe to the MESA mod collection on Steam. Required to join any MESA server.
+          </p>
+          <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3282623549" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-blue/80 hover:bg-blue text-white rounded-lg transition-all">
+            Subscribe on Steam Workshop
+          </a>
+        </div>
+
         {/* Wipe countdown */}
         <WipeCountdown />
 
