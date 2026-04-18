@@ -53,28 +53,6 @@ export default function ServersPage() {
 
         <ServerList clusters={clusters} />
 
-        {/* MESA Arena info */}
-        <div className="rounded-xl border border-border bg-bg-card/50 overflow-hidden px-6 py-5 space-y-3">
-          <h3 className="font-bold text-lg">MESA Arena / Golem Event</h3>
-          <p className="text-sm text-text-muted">
-            Separate PvP playground event server (also known as Rifle13&apos;s Arena). Not part of the main clusters.
-          </p>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-text-muted">IP:</span>
-            <code className="bg-white/5 border border-border rounded px-3 py-1 text-sm font-mono text-accent select-all">185.172.175.43:27022</code>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a href="https://discord.gg/njRSCXjhSk" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-accent hover:bg-accent-secondary text-white rounded-lg transition-all">
-              Arena Discord
-            </a>
-            <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3310464269" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-blue/80 hover:bg-blue text-white rounded-lg transition-all">
-              Mod Pack
-            </a>
-          </div>
-        </div>
-
         {/* Pre-Aquatica guide */}
         <div className="rounded-xl border border-border bg-bg-card/50 overflow-hidden">
           <div className="px-6 py-4">

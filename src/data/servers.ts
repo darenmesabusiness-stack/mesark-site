@@ -3,37 +3,18 @@ export interface Server {
   ip: string;
 }
 
+export interface ClusterLink {
+  label: string;
+  url: string;
+}
+
 export interface Cluster {
   name: string;
   servers: Server[];
+  links?: ClusterLink[];
 }
 
 export const clusters: Cluster[] = [
-  {
-    name: "4 Man",
-    servers: [
-      { map: "Aberration", ip: "141.98.157.224:7777" },
-      { map: "Crystal Isles", ip: "141.98.157.224:7779" },
-      { map: "Extinction", ip: "141.98.157.224:7781" },
-      { map: "Fjordur", ip: "141.98.157.224:7783" },
-      { map: "Fjordur 2", ip: "141.98.157.224:7785" },
-      { map: "Ragnarok", ip: "141.98.157.230:7777" },
-      { map: "The Center", ip: "141.98.157.230:7779" },
-      { map: "The Center 2", ip: "141.98.157.230:7781" },
-      { map: "The Center 3", ip: "141.98.157.230:7783" },
-      { map: "Genesis 1", ip: "141.98.157.230:7785" },
-      { map: "Genesis 2", ip: "141.98.157.67:7777" },
-      { map: "Lost Island", ip: "141.98.157.67:7779" },
-      { map: "Scorched Earth", ip: "141.98.157.67:7781" },
-      { map: "The Island", ip: "141.98.157.67:7783" },
-      { map: "The Island 2", ip: "141.98.157.67:7785" },
-      { map: "Valguero", ip: "141.98.157.67:7787" },
-      { map: "Trading Outpost", ip: "141.98.157.67:7789" },
-      { map: "MESA City", ip: "141.98.157.67:7791" },
-      { map: "No Build Aberration", ip: "141.98.157.67:7793" },
-      { map: "No Build Scorched Earth", ip: "141.98.157.67:7795" },
-    ],
-  },
   {
     name: "3/6 Man",
     servers: [
@@ -132,6 +113,16 @@ export const clusters: Cluster[] = [
       { map: "Rare Dinos Map", ip: "141.98.157.253:7795" },
       { map: "Trade Map", ip: "141.98.157.253:7797" },
       { map: "MESA City", ip: "141.98.157.253:7799" },
+    ],
+  },
+  {
+    name: "Golem Event",
+    servers: [
+      { map: "MESA Arena", ip: "185.172.175.43:27022" },
+    ],
+    links: [
+      { label: "Arena Discord", url: "https://discord.gg/njRSCXjhSk" },
+      { label: "Mod Pack", url: "https://steamcommunity.com/sharedfiles/filedetails/?id=3310464269" },
     ],
   },
 ];

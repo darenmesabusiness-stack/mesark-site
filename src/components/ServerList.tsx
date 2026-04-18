@@ -75,6 +75,21 @@ export function ServerList({ clusters }: { clusters: Cluster[] }) {
                 <CopyIP key={server.ip} ip={server.ip} label={server.map} />
               ))}
             </div>
+            {cluster.links && cluster.links.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-border/50">
+                {cluster.links.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-blue/20 text-blue border border-blue/30 rounded-lg hover:bg-blue/30 transition-all"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </ContentSection>
         ))
       )}
