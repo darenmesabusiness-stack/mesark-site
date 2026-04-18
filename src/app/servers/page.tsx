@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { ServerList } from "@/components/ServerList";
 import { WipeCountdown } from "@/components/WipeCountdown";
+import { ContentSection } from "@/components/ContentSection";
 import { clusters } from "@/data/servers";
 
 export const metadata: Metadata = {
@@ -19,12 +20,9 @@ export default function ServersPage() {
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
         {/* How to connect */}
-        <div className="rounded-xl border border-border bg-bg-card/50 overflow-hidden">
-          <div className="px-6 py-4">
-            <h3 className="font-bold text-lg mb-1">How to Connect</h3>
-            <p className="text-sm text-text-muted">Copy a server IP below, then follow this quick guide to join.</p>
-          </div>
-          <div className="aspect-video w-full">
+        <ContentSection title="How to Connect">
+          <p>Copy a server IP below, then follow this quick guide to join.</p>
+          <div className="aspect-video w-full rounded-lg overflow-hidden">
             <iframe
               src="https://www.youtube.com/embed/ZPXEAtJMTrc"
               title="How to Connect to MESA Servers"
@@ -34,7 +32,7 @@ export default function ServersPage() {
               className="w-full h-full border-0"
             />
           </div>
-        </div>
+        </ContentSection>
 
         {/* Mod Pack */}
         <div className="rounded-xl border border-border bg-bg-card/50 px-6 py-5 space-y-3">
@@ -54,12 +52,9 @@ export default function ServersPage() {
         <ServerList clusters={clusters} />
 
         {/* Pre-Aquatica guide */}
-        <div className="rounded-xl border border-border bg-bg-card/50 overflow-hidden">
-          <div className="px-6 py-4">
-            <h3 className="font-bold text-lg mb-1">Can&apos;t Find MESA Servers?</h3>
-            <p className="text-sm text-text-muted">You need to switch to the pre-Aquatica branch in Steam. Watch this guide:</p>
-          </div>
-          <div className="aspect-video w-full">
+        <ContentSection title="Can't Find MESA Servers?">
+          <p>You need to switch to the pre-Aquatica branch in Steam. Watch this guide:</p>
+          <div className="aspect-video w-full rounded-lg overflow-hidden">
             <iframe
               src="https://www.youtube.com/embed/yBGv_G-gG4Y"
               title="How to Switch to Pre-Aquatica Branch"
@@ -69,7 +64,7 @@ export default function ServersPage() {
               className="w-full h-full border-0"
             />
           </div>
-        </div>
+        </ContentSection>
       </div>
     </>
   );
