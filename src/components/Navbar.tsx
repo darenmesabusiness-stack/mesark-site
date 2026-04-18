@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/servers", label: "Servers" },
   { href: "/rules", label: "Rules" },
   { href: "/settings", label: "Settings" },
+  { href: "/helpful", label: "Helpful" },
   { href: "/compete", label: "Compete" },
   { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
   { href: "https://store.mesark.net", label: "Store", external: true },
