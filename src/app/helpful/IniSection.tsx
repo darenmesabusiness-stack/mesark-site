@@ -6,6 +6,7 @@ const PRESETS = [
   { key: "soft", label: "Soft", desc: "Balanced — good visuals with PvP tweaks", file: "/ini/soft.ini" },
   { key: "hard", label: "Hard", desc: "Competitive — stripped effects, max visibility", file: "/ini/hard.ini" },
   { key: "hardest", label: "Hardest", desc: "Maximum FPS — minimal rendering, bare-bones visuals", file: "/ini/hardest.ini" },
+  { key: "stalker", label: "Stalker", desc: "Bloodstalker INI — shows enemies with red outlines for better PvP visibility", file: "/ini/stalker.ini" },
 ];
 
 export function IniSection() {
