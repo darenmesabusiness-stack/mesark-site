@@ -306,6 +306,25 @@ export default function SettingsPage() {
           </div>
         </ContentSection>
 
+        {/* ── Tribe Cycling ── */}
+        <ContentSection title="Tribe Cycling / HOF Limits">
+          <p className="text-text-muted text-sm mb-3">
+            There is <strong className="text-text-primary">no tribe kick cooldown</strong> on MESA. You can kick and invite immediately.
+            Cycle limits below <strong className="text-accent">only apply if competing for Hall of Fame</strong>. If you are NOT playing for HOF, cycle as much as you want.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            <InfoCard title="Solo" value="No cycling" accent />
+            <InfoCard title="Duo" value="3 cycles" accent />
+            <InfoCard title="3 Man" value="5 cycles" accent />
+            <InfoCard title="6 Man" value="8 total IDs" accent />
+            <InfoCard title="100x" value="Unlimited" />
+          </div>
+          <div className="mt-3">
+            <RuleItem text="&quot;Cycles&quot; = total unique Steam IDs that have been in your tribe during the wipe." />
+            <RuleItem text="Not competing for HOF? No restrictions — cycle freely on all clusters." />
+          </div>
+        </ContentSection>
+
         {/* ── Disabled Engrams ── */}
         <ContentSection title="Disabled Engrams">
           <p className="text-text-muted text-sm">
