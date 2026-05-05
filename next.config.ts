@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
       destination: "http://82.153.70.41:8050/transcript/:id",
     },
   ],
+  redirects: async () => [
+    {
+      source: "/store",
+      destination: "https://mesark.tip4serv.com/",
+      permanent: true,
+    },
+  ],
   headers: async () => [
     {
       source: "/t/:id",
