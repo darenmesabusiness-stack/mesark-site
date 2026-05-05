@@ -40,7 +40,7 @@ export default function StorePage() {
             All purchases directly support server maintenance and development.
           </p>
           <a
-            href="https://store.mesark.net"
+            href="https://mesark.tip4serv.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-secondary text-white font-bold rounded-lg transition-all glow-red text-sm tracking-wide"

@@ -11,7 +11,7 @@ export function Footer() {
             <div className="space-y-2">
               <Link href="/servers" className="block text-sm text-text-muted hover:text-accent transition">Server IPs</Link>
               <Link href="/settings" className="block text-sm text-text-muted hover:text-accent transition">Settings & Wipe</Link>
-              <Link href="https://store.mesark.net" className="block text-sm text-text-muted hover:text-accent transition">Store</Link>
+              <Link href="https://mesark.tip4serv.com/" className="block text-sm text-text-muted hover:text-accent transition">Store</Link>
             </div>
           </div>
           <div>

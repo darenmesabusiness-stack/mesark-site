@@ -30,7 +30,7 @@ export function CTA() {
             VIEW SERVERS
           </Link>
           <Link
-            href="https://store.mesark.net"
+            href="https://mesark.tip4serv.com/"
             target="_blank"
             className="px-10 py-4 bg-white/5 hover:bg-white/10 border border-border text-text-primary font-semibold rounded-lg transition-all text-sm tracking-wide"
           >

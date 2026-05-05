@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { href: "/helpful", label: "Helpful" },
   { href: "/compete", label: "Compete" },
   { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
-  { href: "https://store.mesark.net", label: "Store", external: true },
+  { href: "https://mesark.tip4serv.com/", label: "Store", external: true },
 ];
 
 export function Navbar() {

@@ -58,7 +58,7 @@ export function Hero() {
             JOIN DISCORD
           </Link>
           <Link
-            href="https://store.mesark.net"
+            href="https://mesark.tip4serv.com/"
             target="_blank"
             className="px-8 py-3.5 bg-blue/10 hover:bg-blue/20 border border-blue/30 text-text-primary font-bold rounded-lg transition-all glow-blue text-sm tracking-wide"
           >
