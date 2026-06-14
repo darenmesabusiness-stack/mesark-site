@@ -35,14 +35,26 @@ export default function RulesPage() {
           <RuleItem text="No teaming — alliances, truces, or coordinated attacks with other tribes are forbidden." warning />
           <RuleItem text="Do not place structures on other players (caging mid-fight, foundation wiping, etc.)." />
           <RuleItem text="Max DPS dinos at OSD/Vein events is limited to your tribe member count." />
+          <RuleItem text="Using a Dino Leash on a Noglin so it teleports back when the dino it's attached to dies is not allowed." warning />
+          <RuleItem text="Stacking dinos is not allowed." />
+          <RuleItem text="Whistling neutral or aggressive to grief or exploit mechanics is not allowed." />
+          <RuleItem text="Illegal dino builds are not allowed." />
         </ContentSection>
 
         <ContentSection title="Raiding Rules">
-          <RuleItem text="Do not use /farm during active PvP or raiding." warning />
+          <RuleItem text="Using /farm on dinos during PvP is allowed. Using /farm specifically to block an entrance or choke is not allowed." />
           <RuleItem text="No mesh biting or mesh picking through walls/terrain." warning />
+          <RuleItem text="Damaging structures through the mesh — including with dinos — is not allowed." warning />
           <RuleItem text="No tunneling into bases — exception: motorboat tunneling is allowed." />
           <RuleItem text="No forcefield abuse to gain unfair advantages during raids." />
-          <RuleItem text="Maximum 5 dinos blocking an entrance during a raid." />
+          <RuleItem text="More than 3 forcefields in render at one time is not allowed. No FF spam." />
+          <RuleItem text="Invisible vacuum exploits are not allowed." />
+          <RuleItem text="Using Offline Raid Protection (ORP) to block an entrance is not allowed." />
+          <RuleItem text="Flexible cables or pipes placed at a choke point are not allowed." />
+          <RuleItem text="Maximum 3 dinos protecting an entrance or choke point to a cave (reduced from 5)." />
+          <RuleItem text="Any dino protecting an entrance or choke point must only be leveled in HP or DMG — no mixed builds, no exceptions." />
+          <RuleItem text="Mass soaking with 5 or more unridden dinos is not allowed." />
+          <RuleItem text="Raiding admin builds marked DNT (Do Not Touch) is not allowed." warning />
           <RuleItem text="No popcorning — intentionally dropping loot to deny raiders." warning />
           <RuleItem text="Do not deny tribe score through intentional actions (dying on purpose, etc.)." />
           <RuleItem text="Cycling (log rotating to refresh cooldowns) is only allowed during PvE." />
@@ -53,6 +65,7 @@ export default function RulesPage() {
           <RuleItem text="You must destroy the attacker's FOB first before engaging the defenders." />
           <RuleItem text="If your counter raid fails, there is a 1-hour cooldown before you can attempt again." />
           <RuleItem text="Only one tribe may counter raid at a time — no stacking counters." />
+          <RuleItem text="Countering a raid that is already being countered is not allowed — one counter per raid." warning />
         </ContentSection>
 
         <ContentSection title="Caging Rules">
@@ -60,6 +73,7 @@ export default function RulesPage() {
           <RuleItem text="Caged players must be freed after the raid is over." />
           <RuleItem text="No cross-map caging (dragging caged players to other maps)." />
           <RuleItem text="If you cage a player, you must raid their main base within 30 minutes." warning />
+          <RuleItem text="Cycling banned or caged members — re-caging the same player across cycles to extend a ban or cage — is not allowed." warning />
         </ContentSection>
 
         <ContentSection title="Building Rules">
@@ -68,6 +82,17 @@ export default function RulesPage() {
           <RuleItem text="No Behemoth Gates inside caves." />
           <RuleItem text="Maximum 5 vaults blocking a cave entrance." />
           <RuleItem text="No meshed structures — anything clipped into terrain or mesh will be deleted." warning />
+          <RuleItem text="Trapdoors inside hatchframes are not allowed — only permitted on platform saddled dinos." />
+          <RuleItem text="Snapping foundations or other structures to trees (e.g. the big trees in the Redwoods) is not allowed." />
+          <RuleItem text="Snapping structures to the world border or cave ceiling is not allowed." />
+          <RuleItem text="Building in or under lava is not allowed." warning />
+          <RuleItem text="Vault-dropping pillars (placing pillars to leave a vault floating) is not allowed." />
+          <RuleItem text="Floating structures are not allowed. If a snap point breaks, all floating structures must be removed." />
+          <RuleItem text="Turrets stacked or overlapping with foundations are not allowed." warning />
+          <RuleItem text="Mesh-stacked, overlapping, or unbreakable turrets and structures are not allowed." warning />
+          <RuleItem text="Caging members inside a forcefield is not allowed." />
+          <RuleItem text="Using taxidermy or other structures to block an entrance visually or physically is not allowed." />
+          <RuleItem text="Building with pillars and fence supports is now allowed on all clusters (previously 100x-only)." />
         </ContentSection>
 
         {/* ── Punishments ── */}
