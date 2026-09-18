@@ -59,7 +59,7 @@ export function Navbar() {
               );
             })}
             <Link
-              href="https://discord.gg/ZXmpp6fzDe"
+              href="https://discord.gg/jkax9Nk46x"
               target="_blank"
               className="ml-2 px-4 py-2 text-sm font-semibold bg-accent hover:bg-accent-secondary text-white rounded-lg transition-all glow-red"
             >
@@ -112,7 +112,7 @@ export function Navbar() {
                 );
               })}
               <Link
-                href="https://discord.gg/ZXmpp6fzDe"
+                href="https://discord.gg/jkax9Nk46x"
                 target="_blank"
                 className="block px-3 py-2 text-sm font-semibold text-accent"
               >

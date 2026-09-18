@@ -51,7 +51,7 @@ export function Hero() {
             PLAY NOW
           </Link>
           <Link
-            href="https://discord.gg/ZXmpp6fzDe"
+            href="https://discord.gg/mesark"
             target="_blank"
             className="px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-border text-text-primary font-semibold rounded-lg transition-all text-sm tracking-wide"
           >

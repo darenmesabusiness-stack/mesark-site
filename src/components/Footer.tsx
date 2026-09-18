@@ -30,7 +30,7 @@ export function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-text-primary mb-3">Community</h4>
             <div className="space-y-2">
-              <Link href="https://discord.gg/ZXmpp6fzDe" className="block text-sm text-text-muted hover:text-accent transition">Support Discord</Link>
+              <Link href="https://discord.gg/jkax9Nk46x" className="block text-sm text-text-muted hover:text-accent transition">Support Discord</Link>
               <Link href="https://steamcommunity.com/sharedfiles/filedetails/?id=3282623549" className="block text-sm text-text-muted hover:text-accent transition">Steam Collection</Link>
             </div>
           </div>
