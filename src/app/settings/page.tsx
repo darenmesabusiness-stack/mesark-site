@@ -68,6 +68,9 @@ export default function SettingsPage() {
       <PageHeader
         title="Settings & Wipe Schedule"
         subtitle="Rates, configuration, commands, keybinds, mods, and wipe times for each cluster."
+        image="/art/threesix.jpg"
+        focus="object-[50%_30%]"
+        kicker="Server config"
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,30 +13,44 @@ const NAV_LINKS = [
   { href: "/helpful", label: "Helpful" },
   { href: "/compete", label: "Compete" },
   { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
-  { href: "https://mesark.tip4serv.com/", label: "Store", external: true },
 ];
 
+function subscribeScroll(cb: () => void) {
+  window.addEventListener("scroll", cb, { passive: true });
+  return () => window.removeEventListener("scroll", cb);
+}
+
 export function Navbar() {
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const scrolled = useSyncExternalStore(subscribeScroll, () => window.scrollY > 24, () => false);
+  // Menu state is keyed to the route it was opened on, so navigating closes it.
+  const [openOn, setOpenOn] = useState<string | null>(null);
+  const open = openOn === pathname;
+  const setOpen = (v: boolean) => setOpenOn(v ? pathname : null);
+
+  const solid = scrolled || open;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-primary/80 backdrop-blur-xl border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center group">
+    <nav
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        solid ? "border-b border-border bg-bg-primary/85 backdrop-blur-xl" : "border-b border-transparent bg-transparent"
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex h-16 items-center justify-between">
+          <Link href="/" className="group flex items-center gap-3" aria-label="MESA home">
             <Image
               src="/favicon.png"
-              alt="MESA"
-              width={36}
-              height={36}
-              className="rounded-lg group-hover:scale-105 transition-transform"
+              alt=""
+              width={34}
+              height={34}
+              className="transition-transform group-hover:scale-110 group-hover:-rotate-3"
             />
+            <span className="font-display text-2xl font-black tracking-wide">MESA</span>
           </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1">
+          {/* Desktop */}
+          <div className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => {
               const isActive = !link.external && pathname === link.href;
               return (
@@ -44,41 +58,40 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
-                  className={
-                    link.label === "Store"
-                      ? "px-4 py-2 text-sm font-semibold bg-blue/80 hover:bg-blue text-white rounded-lg transition-all glow-blue"
-                      : `px-3 py-2 text-sm rounded-lg transition-all ${
-                          isActive
-                            ? "text-text-primary bg-white/5"
-                            : "text-text-muted hover:text-text-primary hover:bg-white/5"
-                        }`
-                  }
+                  className={`relative px-3 py-2 font-display text-lg font-bold uppercase tracking-wider transition ${
+                    isActive ? "text-text-primary" : "text-text-primary/60 hover:text-text-primary"
+                  }`}
                 >
                   {link.label}
+                  {isActive && <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-[1px] h-[2px] bg-accent" />}
                 </Link>
               );
             })}
             <Link
+              href="https://mesark.tip4serv.com/"
+              target="_blank"
+              className="clip-corner-sm ml-3 border border-blue/50 bg-blue/10 px-4 py-1.5 font-display text-lg font-extrabold uppercase tracking-wider text-text-primary transition hover:bg-blue/25"
+            >
+              Store
+            </Link>
+            <Link
               href="https://discord.gg/jkax9Nk46x"
               target="_blank"
-              className="ml-2 px-4 py-2 text-sm font-semibold bg-accent hover:bg-accent-secondary text-white rounded-lg transition-all glow-red"
+              className="clip-corner-sm ml-2 bg-accent px-4 py-1.5 font-display text-lg font-extrabold uppercase tracking-wider text-bg-primary transition hover:bg-[#ff8c45]"
             >
               Support
             </Link>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 text-text-muted hover:text-text-primary"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="relative h-10 w-10 lg:hidden"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {open ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
+            <span className={`absolute left-2 right-2 top-[14px] h-[2px] bg-text-primary transition ${open ? "translate-y-[5px] rotate-45" : ""}`} />
+            <span className={`absolute left-2 right-2 top-[24px] h-[2px] bg-text-primary transition ${open ? "-translate-y-[5px] -rotate-45" : ""}`} />
           </button>
         </div>
       </div>
@@ -90,34 +103,48 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-border bg-bg-secondary/95 backdrop-blur-xl"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-border bg-bg-primary/95 backdrop-blur-xl lg:hidden"
           >
-            <div className="px-4 py-3 space-y-1">
-              {NAV_LINKS.map((link) => {
+            <div className="px-4 py-4">
+              {NAV_LINKS.map((link, i) => {
                 const isActive = !link.external && pathname === link.href;
                 return (
-                  <Link
+                  <motion.div
                     key={link.href}
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    onClick={() => setOpen(false)}
-                    className={`block px-3 py-2 text-sm rounded-lg ${
-                      isActive
-                        ? "text-text-primary bg-white/5"
-                        : "text-text-muted hover:text-text-primary hover:bg-white/5"
-                    }`}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.03 * i }}
                   >
-                    {link.label}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      className={`flex items-center justify-between border-b border-border/60 py-3 font-display text-3xl font-black uppercase ${
+                        isActive ? "text-accent" : "text-text-primary"
+                      }`}
+                    >
+                      {link.label}
+                      <span className="text-base text-text-muted">{link.external ? "↗" : "→"}</span>
+                    </Link>
+                  </motion.div>
                 );
               })}
-              <Link
-                href="https://discord.gg/jkax9Nk46x"
-                target="_blank"
-                className="block px-3 py-2 text-sm font-semibold text-accent"
-              >
-                Support Discord
-              </Link>
+              <div className="mt-5 grid grid-cols-2 gap-2">
+                <Link
+                  href="https://mesark.tip4serv.com/"
+                  target="_blank"
+                  className="clip-corner-sm border border-blue/50 bg-blue/10 py-3 text-center font-display text-xl font-extrabold uppercase tracking-wider"
+                >
+                  Store
+                </Link>
+                <Link
+                  href="https://discord.gg/jkax9Nk46x"
+                  target="_blank"
+                  className="clip-corner-sm bg-accent py-3 text-center font-display text-xl font-extrabold uppercase tracking-wider text-bg-primary"
+                >
+                  Support
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

@@ -12,17 +12,25 @@ export function CopyIP({ ip, label }: { ip: string; label: string }) {
   };
 
   return (
-    <div
+    <button
+      type="button"
       onClick={handleCopy}
-      className="flex items-center justify-between px-3 py-2 rounded-lg border border-border/50 bg-bg-card/30 hover:border-accent/30 cursor-pointer transition group"
+      aria-label={`Copy ${label} IP ${ip}`}
+      className={`group flex w-full items-center justify-between gap-3 border px-3 py-2.5 text-left transition ${
+        copied ? "border-emerald-500/50 bg-emerald-500/10" : "border-border/70 bg-bg-primary/40 hover:border-accent/50 hover:bg-accent/[0.05]"
+      }`}
     >
-      <span className="text-text-primary text-sm font-medium">{label}</span>
-      <div className="flex items-center gap-2">
-        <code className="text-[10px] sm:text-xs text-text-muted font-mono">{ip}</code>
-        <span className={`text-xs font-semibold transition ${copied ? "text-green-400" : "text-accent group-hover:text-accent/80"}`}>
-          {copied ? "Copied!" : "Copy IP"}
+      <span className="text-sm font-medium text-text-primary">{label}</span>
+      <span className="flex items-center gap-3">
+        <code className="font-mono text-[11px] text-text-muted sm:text-xs">{ip}</code>
+        <span
+          className={`w-14 text-right font-mono text-[10px] font-semibold uppercase tracking-widest transition ${
+            copied ? "text-emerald-400" : "text-accent"
+          }`}
+        >
+          {copied ? "Copied" : "Copy"}
         </span>
-      </div>
-    </div>
+      </span>
+    </button>
   );
 }

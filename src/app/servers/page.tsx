@@ -16,6 +16,9 @@ export default function ServersPage() {
       <PageHeader
         title="Server List"
         subtitle="Click any server to copy its IP."
+        image="/art/rex.jpg"
+        focus="object-[75%_40%]"
+        kicker="Join the fight"
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
