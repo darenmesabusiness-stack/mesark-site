@@ -1,57 +1,67 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { useId, useState } from "react";
 
+/**
+ * Collapsible section. Children are ALWAYS rendered into the HTML (collapsed with
+ * CSS grid rows + `inert`), so search engines and the Discord bot's scraper see
+ * every rule — previously closed sections were missing from the page source.
+ */
 export function ContentSection({ title, children, defaultOpen = false }: {
   title: string;
   children: React.ReactNode;
   defaultOpen?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
+  const id = useId();
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="border border-border rounded-xl bg-bg-card/50 overflow-hidden"
+      className={`clip-corner-sm border bg-bg-card/60 transition-colors ${open ? "border-accent/30" : "border-border hover:border-white/15"}`}
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition"
+        aria-expanded={open}
+        aria-controls={id}
+        className="group flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
       >
-        <h3 className="font-bold text-lg">{title}</h3>
-        <svg
-          className={`w-5 h-5 text-text-muted transition-transform ${open ? "rotate-180" : ""}`}
-          fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        <h2 className="font-display text-2xl font-extrabold tracking-wide sm:text-3xl">{title}</h2>
+        <span
+          className={`flex h-8 w-8 shrink-0 items-center justify-center border transition ${
+            open ? "rotate-45 border-accent bg-accent text-bg-primary" : "border-border text-text-muted group-hover:border-accent/50 group-hover:text-accent"
+          }`}
+          aria-hidden
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+            <path strokeLinecap="round" d="M12 5v14M5 12h14" />
+          </svg>
+        </span>
       </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="px-6 pb-6 text-sm text-text-muted leading-relaxed space-y-3">
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      <div
+        id={id}
+        inert={!open}
+        className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+      >
+        <div className="overflow-hidden">
+          <div className={`space-y-3 px-5 pb-6 text-sm leading-relaxed text-text-muted transition-opacity duration-300 sm:px-6 ${open ? "opacity-100" : "opacity-0"}`}>
+            {children}
+          </div>
+        </div>
+      </div>
+    </motion.section>
   );
 }
 
 export function RuleItem({ text, warning = false }: { text: string; warning?: boolean }) {
   return (
-    <div className={`flex gap-3 items-start py-1 ${warning ? "text-accent" : ""}`}>
-      <span className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${warning ? "bg-accent" : "bg-text-muted/40"}`} />
+    <div className={`flex items-start gap-3 py-1 ${warning ? "text-text-primary" : ""}`}>
+      <span
+        className={`mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45 ${warning ? "bg-accent shadow-[0_0_8px_var(--accent)]" : "bg-text-muted/40"}`}
+      />
       <span>{text}</span>
     </div>
   );
@@ -59,9 +69,9 @@ export function RuleItem({ text, warning = false }: { text: string; warning?: bo
 
 export function InfoCard({ title, value, accent = false }: { title: string; value: string; accent?: boolean }) {
   return (
-    <div className="p-4 rounded-lg border border-border bg-bg-card/30">
-      <div className="text-xs text-text-muted uppercase tracking-wider mb-1">{title}</div>
-      <div className={`font-bold ${accent ? "text-accent" : "text-text-primary"}`}>{value}</div>
+    <div className="clip-corner-sm border border-border bg-bg-primary/50 p-4">
+      <div className="hud-label !text-[10px] mb-1">{title}</div>
+      <div className={`font-display text-2xl font-extrabold ${accent ? "text-accent" : "text-text-primary"}`}>{value}</div>
     </div>
   );
 }
