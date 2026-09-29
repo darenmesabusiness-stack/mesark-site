@@ -1,40 +1,80 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { wipeSchedules, getNextWipe } from "@/data/wipes";
+import { EmberField } from "@/components/fx/EmberField";
+import { useNow } from "@/lib/useNow";
+
+const pad = (n: number) => n.toString().padStart(2, "0");
+
+function useSoonestWipe() {
+  const now = useNow();
+  if (!now) return null;
+  const next = wipeSchedules
+    .map((s) => ({ cluster: s.cluster, at: getNextWipe(s, now) }))
+    .sort((a, b) => a.at.getTime() - b.at.getTime())[0];
+  const sec = Math.max(0, Math.floor((next.at.getTime() - now.getTime()) / 1000));
+  return {
+    cluster: next.cluster,
+    d: Math.floor(sec / 86400),
+    h: Math.floor((sec % 86400) / 3600),
+    m: Math.floor((sec % 3600) / 60),
+    s: sec % 60,
+  };
+}
 
 export function CTA() {
+  const w = useSoonestWipe();
+
   return (
-    <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-blue/5 via-transparent to-transparent" />
-      <div className="absolute bottom-0 left-1/3 w-[400px] h-[300px] bg-accent/8 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 right-1/3 w-[400px] h-[300px] bg-blue/6 rounded-full blur-[120px]" />
+    <section className="relative overflow-hidden py-28 sm:py-40">
+      <Image src="/art/ashfield.jpg" alt="" fill sizes="100vw" className="object-cover object-bottom" />
+      <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/40 to-bg-primary" />
+      <EmberField density={40} />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative z-10 max-w-3xl mx-auto px-4 text-center"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 mx-auto max-w-5xl px-4 text-center"
       >
-        <h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-6">
-          READY TO <span className="text-accent glow-text">DOMINATE</span>?
-        </h2>
-        <p className="text-text-muted mb-10 max-w-lg mx-auto">
-          Join thousands of players competing on MESA. Find your server, build your base, raid your enemies.
+        <p className="hud-label flex items-center justify-center gap-2">
+          <span className="live-dot h-1.5 w-1.5 rounded-full bg-accent" />
+          {w ? `${w.cluster} wipes in` : "Next wipe in"}
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="font-display mt-4 text-[clamp(3.5rem,13vw,10rem)] font-black tabular-nums" suppressHydrationWarning>
+          {w ? (
+            <>
+              {w.d > 0 && <span className="ember-text">{w.d}d </span>}
+              {pad(w.h)}
+              <span className="text-accent">:</span>
+              {pad(w.m)}
+              <span className="text-accent">:</span>
+              {pad(w.s)}
+            </>
+          ) : (
+            <span className="opacity-30">--:--:--</span>
+          )}
+        </div>
+        <p className="mx-auto mt-6 max-w-xl text-lg text-text-primary/75">
+          Fresh map, fresh tribes, same rules for everyone. Be online when it drops.
+        </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/servers"
-            className="px-10 py-4 bg-accent hover:bg-accent-secondary text-white font-bold rounded-lg transition-all glow-red text-sm tracking-widest"
+            className="clip-corner inline-flex items-center justify-center gap-3 bg-accent px-10 py-4 font-display text-xl font-extrabold tracking-wider text-bg-primary transition hover:bg-[#ff8c45]"
           >
-            VIEW SERVERS
+            Get server IPs →
           </Link>
           <Link
             href="https://mesark.tip4serv.com/"
             target="_blank"
-            className="px-10 py-4 bg-white/5 hover:bg-white/10 border border-border text-text-primary font-semibold rounded-lg transition-all text-sm tracking-wide"
+            className="clip-corner inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-10 py-4 font-display text-xl font-extrabold tracking-wider transition hover:border-blue/60 hover:bg-blue/10"
           >
-            VISIT STORE
+            Visit store
           </Link>
         </div>
       </motion.div>
