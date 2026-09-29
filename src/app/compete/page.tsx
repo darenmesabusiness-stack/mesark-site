@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
+import { hofTiers } from "@/data/hof";
 
 export const metadata: Metadata = {
   title: "Compete — MESA ARK",
@@ -13,6 +14,9 @@ export default function CompetePage() {
       <PageHeader
         title="Compete"
         subtitle="Win wipes, climb the tiers, earn real rewards."
+        image="/art/hall.jpg"
+        focus="object-[30%_40%]"
+        kicker="Hall of Fame"
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
@@ -21,11 +25,11 @@ export default function CompetePage() {
           href="https://leaderboards.mesark.net"
           target="_blank"
           rel="noopener noreferrer"
-          className="block rounded-xl border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-all p-6 group"
+          className="clip-corner block border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-all p-6 group"
         >
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold text-text-primary group-hover:text-accent transition-colors">
+              <h2 className="font-display text-3xl font-black text-text-primary group-hover:text-accent transition-colors">
                 Live Leaderboards
               </h2>
               <p className="text-sm text-text-muted mt-1">
@@ -50,41 +54,13 @@ export default function CompetePage() {
                 </tr>
               </thead>
               <tbody className="text-text-primary">
-                <tr className="border-b border-border/50">
-                  <td className="py-2 pr-4 font-semibold">Silver</td>
-                  <td className="py-2 pr-4">1 win</td>
-                  <td className="py-2 text-accent">$25 store credit</td>
-                </tr>
-                <tr className="border-b border-border/50">
-                  <td className="py-2 pr-4 font-semibold text-yellow-500">Gold</td>
-                  <td className="py-2 pr-4">3 wins</td>
-                  <td className="py-2 text-accent">$50 store credit</td>
-                </tr>
-                <tr className="border-b border-border/50">
-                  <td className="py-2 pr-4 font-semibold text-cyan-400">Platinum</td>
-                  <td className="py-2 pr-4">6 wins</td>
-                  <td className="py-2 text-accent">$75 store credit</td>
-                </tr>
-                <tr className="border-b border-border/50">
-                  <td className="py-2 pr-4 font-semibold text-emerald-400">Emerald</td>
-                  <td className="py-2 pr-4">9 wins</td>
-                  <td className="py-2 text-accent">$100 store credit</td>
-                </tr>
-                <tr className="border-b border-border/50">
-                  <td className="py-2 pr-4 font-semibold text-blue-400">Diamond</td>
-                  <td className="py-2 pr-4">12 wins</td>
-                  <td className="py-2 text-accent">$50 PayPal + $150 store credit</td>
-                </tr>
-                <tr className="border-b border-border/50">
-                  <td className="py-2 pr-4 font-semibold text-red-400">Champion</td>
-                  <td className="py-2 pr-4">15 wins</td>
-                  <td className="py-2 text-accent">$100 PayPal + $250 store credit</td>
-                </tr>
-                <tr>
-                  <td className="py-2 pr-4 font-semibold text-purple-400">Prestige</td>
-                  <td className="py-2 pr-4">18 wins</td>
-                  <td className="py-2 text-accent">$200 PayPal + $500 store credit</td>
-                </tr>
+                {hofTiers.map((t, i) => (
+                  <tr key={t.name} className={i < hofTiers.length - 1 ? "border-b border-border/50" : ""}>
+                    <td className={`py-2.5 pr-4 font-display text-xl font-extrabold ${t.color}`}>{t.name}</td>
+                    <td className="py-2.5 pr-4 font-mono text-xs">{t.wins} win{t.wins > 1 ? "s" : ""}</td>
+                    <td className="py-2.5 text-accent">{t.reward}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

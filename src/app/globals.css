@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #080b12;
-  --bg-secondary: #0d1117;
-  --bg-card: #141b27;
-  --border: #1e2a3a;
-  --text-primary: #e4e8f0;
-  --text-muted: #7d8da3;
+  --bg-primary: #07080b;
+  --bg-secondary: #0c0e13;
+  --bg-card: #12151c;
+  --border: #1f2430;
+  --text-primary: #efe8de;
+  --text-muted: #8d8c8f;
   --accent: #e87b35;
-  --accent-glow: rgba(232, 123, 53, 0.3);
+  --accent-glow: rgba(232, 123, 53, 0.32);
   --accent-secondary: #c4622a;
-  --blue: #2d7aef;
-  --blue-glow: rgba(45, 122, 239, 0.3);
+  /* Teal rim light from the MESA logo. Kept under the `blue` name so every
+     existing `text-blue` / `bg-blue/20` class re-themes without content edits. */
+  --blue: #3cb9c4;
+  --blue-glow: rgba(60, 185, 196, 0.28);
 }
 
 @theme inline {
@@ -25,44 +27,97 @@
   --color-accent-glow: var(--accent-glow);
   --color-accent-secondary: var(--accent-secondary);
   --color-blue: var(--blue);
+  --color-teal: var(--blue);
   --color-blue-glow: var(--blue-glow);
+
+  --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-barlow), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2a2a3a #0a0a0f;
+  scrollbar-color: #2a2d36 #07080b;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
 }
 
 ::selection {
   background: var(--accent);
-  color: white;
+  color: #07080b;
 }
 
-/* Glow effects */
+/* ── Type ─────────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.86;
+}
+
+.hud-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px var(--text-primary);
+  color: transparent;
+}
+
+.ember-text {
+  background: linear-gradient(180deg, #ffb47a 0%, var(--accent) 45%, #a8481a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Glows (legacy names kept for inner pages) ────────── */
 .glow-red {
-  box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(232, 123, 53, 0.1);
+  box-shadow: 0 0 24px var(--accent-glow), 0 0 64px rgba(232, 123, 53, 0.12);
 }
 
 .glow-blue {
-  box-shadow: 0 0 20px var(--blue-glow), 0 0 60px rgba(45, 122, 239, 0.1);
+  box-shadow: 0 0 20px var(--blue-glow), 0 0 60px rgba(60, 185, 196, 0.1);
 }
 
 .glow-text {
-  text-shadow: 0 0 20px var(--accent-glow);
+  text-shadow: 0 0 24px var(--accent-glow);
 }
 
-.gradient-border {
-  border-image: linear-gradient(135deg, var(--accent), transparent 60%) 1;
+/* ── Texture ──────────────────────────────────────────── */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 1.2s steps(6) infinite;
 }
 
-/* Noise texture overlay */
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -5%); }
+  60% { transform: translate(-6%, -2%); }
+  80% { transform: translate(5%, 4%); }
+  100% { transform: translate(0, 0); }
+}
+
 .noise::before {
   content: '';
   position: absolute;
@@ -72,7 +127,26 @@ body {
   z-index: 0;
 }
 
-/* Animated gradient line */
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(7, 8, 11, 0.85) 100%);
+}
+
+/* Diagonal ember hairline used as a section divider */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 20%, rgba(232, 123, 53, 0.2) 80%, transparent);
+}
+
+/* Clipped corner — the "HUD plate" shape used on buttons and cards */
+.clip-corner {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+.clip-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+/* ── Motion ───────────────────────────────────────────── */
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -84,53 +158,40 @@ body {
   animation: gradient-shift 3s ease-in-out infinite;
 }
 
-/* MESA title glow */
-@keyframes mesa-pulse {
-  0%, 100% {
-    text-shadow:
-      0 0 20px rgba(45, 122, 239, 0.4),
-      0 0 40px rgba(45, 122, 239, 0.2),
-      0 0 80px rgba(45, 122, 239, 0.1),
-      0 0 20px rgba(232, 123, 53, 0.3),
-      0 0 60px rgba(232, 123, 53, 0.1);
-    filter: brightness(1);
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.live-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes ken-burns {
+  from { transform: scale(1.04); }
+  to { transform: scale(1.14) translate(-1.5%, -1%); }
+}
+
+.ken-burns {
+  animation: ken-burns 24s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .grain,
+  .animate-marquee,
+  .live-dot,
+  .ken-burns,
+  .animated-gradient {
+    animation: none;
   }
-  50% {
-    text-shadow:
-      0 0 30px rgba(45, 122, 239, 0.6),
-      0 0 60px rgba(45, 122, 239, 0.3),
-      0 0 100px rgba(45, 122, 239, 0.15),
-      0 0 30px rgba(232, 123, 53, 0.5),
-      0 0 80px rgba(232, 123, 53, 0.15);
-    filter: brightness(1.1);
-  }
 }
-
-.mesa-glow {
-  animation: mesa-pulse 3s ease-in-out infinite;
-}
-
-/* Morphing gradient blobs */
-@keyframes blob-1 {
-  0%, 100% { top: -10%; left: -5%; transform: scale(1); }
-  25% { top: 10%; left: 30%; transform: scale(1.1); }
-  50% { top: 40%; left: 60%; transform: scale(0.9); }
-  75% { top: 20%; left: 10%; transform: scale(1.05); }
-}
-
-@keyframes blob-2 {
-  0%, 100% { top: 60%; right: -10%; transform: scale(1); }
-  25% { top: 30%; right: 20%; transform: scale(1.15); }
-  50% { top: 10%; right: 50%; transform: scale(0.85); }
-  75% { top: 50%; right: 30%; transform: scale(1.1); }
-}
-
-@keyframes blob-3 {
-  0%, 100% { bottom: -5%; left: 40%; transform: scale(1); }
-  33% { bottom: 30%; left: 10%; transform: scale(1.2); }
-  66% { bottom: 20%; left: 70%; transform: scale(0.9); }
-}
-
-.animate-blob-1 { animation: blob-1 25s ease-in-out infinite; }
-.animate-blob-2 { animation: blob-2 30s ease-in-out infinite; }
-.animate-blob-3 { animation: blob-3 20s ease-in-out infinite; }

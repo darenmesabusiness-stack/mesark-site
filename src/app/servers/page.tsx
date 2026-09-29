@@ -3,11 +3,11 @@ import { PageHeader } from "@/components/PageHeader";
 import { ServerList } from "@/components/ServerList";
 import { WipeCountdown } from "@/components/WipeCountdown";
 import { ContentSection } from "@/components/ContentSection";
-import { clusters } from "@/data/servers";
+import { clusters, serverTotal } from "@/data/servers";
 
 export const metadata: Metadata = {
   title: "Server List — MESA ARK",
-  description: "Browse 106+ ARK: Survival Evolved PvP servers across Solo, Duo, 3/6 Man, 4 Man, and 100x clusters. Copy any server IP to join.",
+  description: `Browse ${serverTotal} ARK: Survival Evolved PvP servers across Solo, Duo, 3/4 Man, and 100x clusters. Copy any server IP to join.`,
 };
 
 export default function ServersPage() {
@@ -16,6 +16,9 @@ export default function ServersPage() {
       <PageHeader
         title="Server List"
         subtitle="Click any server to copy its IP."
+        image="/art/rex.jpg"
+        focus="object-[75%_40%]"
+        kicker="Join the fight"
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">

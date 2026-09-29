@@ -1,105 +1,150 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { WipeCountdown } from "@/components/WipeCountdown";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { EmberField } from "@/components/fx/EmberField";
+import { useHydrated } from "@/lib/useNow";
+import { WipeTicker } from "@/components/home/WipeTicker";
+import { serverTotal } from "@/data/servers";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const reduce = useReducedMotion();
+  const hydrated = useHydrated();
+  const [playing, setPlaying] = useState(false);
+  // Client-only so iOS gets a real `muted` attribute; reduced-motion keeps the poster.
+  const showVideo = hydrated && !reduce;
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const mediaScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, [showVideo]);
+
   return (
-    <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden noise">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue/5 via-bg-primary to-bg-primary" />
-      <div className="absolute top-[-200px] left-1/3 w-[600px] h-[600px] bg-accent/8 rounded-full blur-[150px]" />
-      <div className="absolute top-[-100px] right-1/3 w-[500px] h-[500px] bg-blue/6 rounded-full blur-[150px]" />
+    <section ref={ref} className="relative flex h-[100svh] min-h-[640px] flex-col overflow-hidden">
+      {/* Media */}
+      <motion.div style={reduce ? undefined : { scale: mediaScale }} className="absolute inset-0 origin-center">
+        <Image
+          src="/art/siege.jpg"
+          alt=""
+          fill
+          preload
+          sizes="100vw"
+          quality={85}
+          className="object-cover object-[62%_50%]"
+        />
+        {showVideo && (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden
+            onPlaying={() => setPlaying(true)}
+            className={`absolute inset-0 h-full w-full object-cover object-[62%_50%] transition-opacity duration-1000 ${playing ? "opacity-100" : "opacity-0"}`}
+          >
+            <source src="/video/siege-720.mp4" type="video/mp4" media="(max-width: 767px)" />
+            <source src="/video/siege-1080.mp4" type="video/mp4" />
+          </video>
+        )}
+      </motion.div>
 
-      {/* Grid lines */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-        backgroundSize: "60px 60px",
-      }} />
+      {/* Legibility overlays */}
+      <div className="absolute inset-0 bg-gradient-to-r from-bg-primary/75 via-bg-primary/25 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-bg-primary/80 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-bg-primary via-bg-primary/50 to-transparent" />
+      <EmberField density={60} />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center pt-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+      {/* Copy */}
+      <motion.div
+        style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
+        className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-4 pb-10 sm:px-6 sm:pb-14"
+      >
+        <motion.p
+          initial={{ opacity: 0, x: -12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+          className="hud-label mb-5 flex items-center gap-3"
         >
-          {/* Title */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none mb-6">
-            <span className="text-blue">MESA</span>
-            <span className="text-accent">RK</span>
-          </h1>
+          <span className="h-px w-8 bg-accent" />
+          <span className="sm:hidden">Competitive ARK PvP</span>
+          <span className="hidden sm:inline">ARK: Survival Evolved — Competitive PvP Network</span>
+        </motion.p>
 
-          <p className="text-lg sm:text-xl text-text-muted max-w-2xl mx-auto mb-4">
-            The #1 competitive ARK: Survival Evolved PvP server network.
+        <h1 className="font-display font-black text-[clamp(4.25rem,14vw,11.5rem)]">
+          <span className="block overflow-hidden pb-[0.04em]">
+            <motion.span
+              initial={{ y: "105%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
+              className="block"
+            >
+              Every wipe
+            </motion.span>
+          </span>
+          <span className="block overflow-hidden pb-[0.06em]">
+            <motion.span
+              initial={{ y: "105%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}
+              className="block"
+            >
+              is a <span className="ember-text">war.</span>
+            </motion.span>
+          </span>
+        </h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}
+          className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+        >
+          <p className="max-w-xl text-base text-text-primary/75 sm:text-lg">
+            {serverTotal} servers across Solo, Duo, 3/4 Man and 100x. Weekly wipes, custom mods,
+            and real cash prizes for the tribes that finish on top.
           </p>
-          <p className="text-sm text-text-muted/60 max-w-xl mx-auto mb-10">
-            Solo &bull; Duo &bull; 3/6 Man &bull; 100x — Custom mods, active admins, competitive seasons.
-          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/servers"
+              className="clip-corner group inline-flex items-center justify-center gap-3 bg-accent px-8 py-4 font-display text-xl font-extrabold tracking-wider text-bg-primary transition hover:bg-[#ff8c45]"
+            >
+              Play now
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+            <Link
+              href="https://discord.gg/mesark"
+              target="_blank"
+              className="clip-corner inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-8 py-4 font-display text-xl font-extrabold tracking-wider backdrop-blur-sm transition hover:border-blue/60 hover:bg-blue/10"
+            >
+              Join Discord
+            </Link>
+          </div>
         </motion.div>
+      </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-        >
-          <Link
-            href="/servers"
-            className="px-8 py-3.5 bg-accent hover:bg-accent-secondary text-white font-bold rounded-lg transition-all glow-red text-sm tracking-wide"
-          >
-            PLAY NOW
-          </Link>
-          <Link
-            href="https://discord.gg/mesark"
-            target="_blank"
-            className="px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-border text-text-primary font-semibold rounded-lg transition-all text-sm tracking-wide"
-          >
-            JOIN DISCORD
-          </Link>
-          <Link
-            href="https://mesark.tip4serv.com/"
-            target="_blank"
-            className="px-8 py-3.5 bg-blue/10 hover:bg-blue/20 border border-blue/30 text-text-primary font-bold rounded-lg transition-all glow-blue text-sm tracking-wide"
-          >
-            STORE
-          </Link>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto"
-        >
-          {[
-            { value: "106+", label: "Servers" },
-            { value: "4", label: "Clusters" },
-            { value: "74K+", label: "Discord Members" },
-            { value: "24/7", label: "Admin Support" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl sm:text-3xl font-black text-text-primary">{stat.value}</div>
-              <div className="text-xs text-text-muted mt-1 uppercase tracking-wider">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Wipe countdown */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-10"
-        >
-          <p className="text-xs text-text-muted/50 uppercase tracking-wider mb-3">Next wipes</p>
-          <WipeCountdown compact />
-        </motion.div>
-      </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-bg-primary to-transparent" />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        className="relative z-10"
+      >
+        <WipeTicker />
+      </motion.div>
     </section>
   );
 }

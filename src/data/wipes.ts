@@ -11,8 +11,8 @@ export interface WipeSchedule {
 export const wipeSchedules: WipeSchedule[] = [
   { cluster: "Solo", dayOfWeek: 1, hour: 13, minute: 0 },      // Monday 1 PM EST
   { cluster: "100x", dayOfWeek: 3, hour: 13, minute: 0 },      // Wednesday 1 PM EST
-  { cluster: "Duo", dayOfWeek: 5, hour: 13, minute: 0 },       // Friday 1 PM EST
-  { cluster: "3/6 Man", dayOfWeek: 6, hour: 13, minute: 0 },   // Saturday 1 PM EST
+  { cluster: "3/4 Man", dayOfWeek: 5, hour: 13, minute: 0 },   // Friday 1 PM EST
+  { cluster: "Duo", dayOfWeek: 6, hour: 13, minute: 0 },       // Saturday 1 PM EST
 ];
 
 /**

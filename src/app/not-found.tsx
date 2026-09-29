@@ -1,28 +1,34 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="text-center">
-        <h1 className="text-6xl sm:text-8xl font-black tracking-tighter text-text-muted/30 mb-4">
-          404
+    <div className="relative flex min-h-[100svh] items-center overflow-hidden px-4">
+      <Image src="/art/ashfield.jpg" alt="" fill sizes="100vw" className="object-cover object-bottom opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/60 via-transparent to-bg-primary" />
+      <div className="relative z-10 mx-auto w-full max-w-4xl">
+        <p className="hud-label mb-4 flex items-center gap-3">
+          <span className="h-px w-8 bg-accent" />
+          Error 404
+        </p>
+        <h1 className="font-display text-[clamp(4rem,14vw,10rem)] font-black">
+          Wiped. <span className="ember-text">Nothing here.</span>
         </h1>
-        <p className="text-xl font-bold text-text-primary mb-2">Page not found</p>
-        <p className="text-sm text-text-muted mb-8">
+        <p className="mt-4 max-w-md text-lg text-text-primary/75">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <div className="flex items-center justify-center gap-4">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/"
-            className="px-6 py-3 bg-accent hover:bg-accent-secondary text-white font-bold rounded-lg transition-all text-sm"
+            className="clip-corner inline-flex items-center justify-center bg-accent px-8 py-3.5 font-display text-lg font-extrabold tracking-wider text-bg-primary transition hover:bg-[#ff8c45]"
           >
-            HOME
+            Home
           </Link>
           <Link
             href="/servers"
-            className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-border text-text-primary font-semibold rounded-lg transition-all text-sm"
+            className="clip-corner inline-flex items-center justify-center border border-white/20 bg-white/5 px-8 py-3.5 font-display text-lg font-extrabold tracking-wider transition hover:bg-white/10"
           >
-            SERVERS
+            Servers
           </Link>
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { wipeSchedules, getNextWipe } from "@/data/wipes";
+import { useNow } from "@/lib/useNow";
 
 interface TimeLeft {
   days: number;
@@ -10,8 +10,8 @@ interface TimeLeft {
   seconds: number;
 }
 
-function getTimeLeft(target: Date): TimeLeft {
-  const diff = Math.max(0, target.getTime() - Date.now());
+function getTimeLeft(target: Date, now: Date): TimeLeft {
+  const diff = Math.max(0, target.getTime() - now.getTime());
   return {
     days: Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -24,30 +24,25 @@ function pad(n: number): string {
   return n.toString().padStart(2, "0");
 }
 
-export function WipeCountdown({ compact = false }: { compact?: boolean }) {
-  const [now, setNow] = useState<Date | null>(null);
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  useEffect(() => {
-    setNow(new Date());
-    const interval = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(interval);
-  }, []);
+export function WipeCountdown({ compact = false }: { compact?: boolean }) {
+  const now = useNow();
 
   if (!now) return null;
+
+  const rows = wipeSchedules.map((s) => ({ s, next: getNextWipe(s, now) }));
+  const soonest = Math.min(...rows.map((r) => r.next.getTime()));
 
   if (compact) {
     return (
       <div className="flex flex-wrap justify-center gap-3">
-        {wipeSchedules.map((schedule) => {
-          const next = getNextWipe(schedule, now);
-          const tl = getTimeLeft(next);
+        {rows.map(({ s, next }) => {
+          const tl = getTimeLeft(next, now);
           return (
-            <div
-              key={schedule.cluster}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-bg-card/30 text-xs"
-            >
-              <span className="font-semibold text-text-primary">{schedule.cluster}</span>
-              <span className="text-accent font-mono">
+            <div key={s.cluster} className="flex items-center gap-2 border border-border bg-bg-card/40 px-3 py-1.5 text-xs">
+              <span className="font-semibold text-text-primary">{s.cluster}</span>
+              <span className="font-mono text-accent">
                 {tl.days > 0 ? `${tl.days}d ` : ""}{pad(tl.hours)}:{pad(tl.minutes)}:{pad(tl.seconds)}
               </span>
             </div>
@@ -58,25 +53,23 @@ export function WipeCountdown({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {wipeSchedules.map((schedule) => {
-        const next = getNextWipe(schedule, now);
-        const tl = getTimeLeft(next);
-        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      {rows.map(({ s, next }) => {
+        const tl = getTimeLeft(next, now);
+        const isNext = next.getTime() === soonest;
         return (
           <div
-            key={schedule.cluster}
-            className="p-4 rounded-xl border border-border bg-bg-card/50 text-center"
+            key={s.cluster}
+            className={`clip-corner-sm relative border p-4 ${isNext ? "border-accent/50 bg-accent/[0.07]" : "border-border bg-bg-card/60"}`}
           >
-            <div className="text-xs text-text-muted uppercase tracking-wider mb-1">
-              {schedule.cluster}
+            <div className="flex items-center justify-between">
+              <span className="font-display text-2xl font-extrabold">{s.cluster}</span>
+              {isNext && <span className="live-dot h-1.5 w-1.5 rounded-full bg-accent" />}
             </div>
-            <div className="text-lg sm:text-xl font-mono font-bold text-accent">
+            <div className={`mt-1 font-mono text-lg font-semibold tabular-nums sm:text-xl ${isNext ? "text-accent" : "text-text-primary/85"}`}>
               {tl.days > 0 ? `${tl.days}d ` : ""}{pad(tl.hours)}:{pad(tl.minutes)}:{pad(tl.seconds)}
             </div>
-            <div className="text-[10px] text-text-muted mt-1">
-              {dayNames[schedule.dayOfWeek]} @ 1:00 PM EST
-            </div>
+            <div className="hud-label !text-[10px] mt-1">{DAY_NAMES[s.dayOfWeek]} @ 1:00 PM EST</div>
           </div>
         );
       })}

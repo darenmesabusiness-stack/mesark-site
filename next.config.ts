@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    formats: ["image/avif", "image/webp"],
+    qualities: [75, 85],
+  },
   // Transcripts are served by the bot's dashboard on the VPS
   // (mesa_dashboard.py:/transcript/<id> on port 8050).
   // Route mesark.net/t/<id> → http://82.153.70.41:8050/transcript/<id>
@@ -19,6 +23,14 @@ const nextConfig: NextConfig = {
     },
   ],
   headers: async () => [
+    {
+      // Higgsfield-generated art + hero loops. Filenames are stable, so a
+      // week of edge cache with background revalidation is safe.
+      source: "/:dir(art|video)/:file*",
+      headers: [
+        { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
+      ],
+    },
     {
       source: "/t/:id",
       headers: [
