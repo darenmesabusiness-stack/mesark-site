@@ -319,7 +319,7 @@ export default function SettingsPage() {
             <InfoCard title="Solo" value="No cycling" accent />
             <InfoCard title="Duo" value="3 cycles" accent />
             <InfoCard title="3 Man" value="5 cycles" accent />
-            <InfoCard title="6 Man" value="8 total IDs" accent />
+            <InfoCard title="4 Man" value="6 cycles" accent />
             <InfoCard title="100x" value="Unlimited" />
           </div>
           <div className="mt-3">
