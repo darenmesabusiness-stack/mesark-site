@@ -30,9 +30,9 @@ export const clusterProfiles: ClusterProfile[] = [
     focus: "object-[50%_30%]",
   },
   {
-    key: "3/6 Man",
-    name: "3/6 Man",
-    tribe: "3–6 players",
+    key: "3/4 Man",
+    name: "3/4 Man",
+    tribe: "3–4 players",
     tagline: "Rotating tribe size. Competitive seasons with HOF rewards.",
     art: "/art/threesix.jpg",
     focus: "object-[40%_35%]",
@@ -40,7 +40,7 @@ export const clusterProfiles: ClusterProfile[] = [
   {
     key: "100x",
     name: "100x",
-    tribe: "2–6 players",
+    tribe: "2–4 players",
     tagline: "Fast-paced chaos. Instant taming, 100x rates.",
     art: "/art/hundredx.jpg",
     focus: "object-[45%_35%]",

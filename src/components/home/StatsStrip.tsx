@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { animate, useInView, useReducedMotion } from "framer-motion";
-import { clusters } from "@/data/servers";
+import { clusters, serverTotal } from "@/data/servers";
 
 const STATS = [
-  { to: 106, suffix: "+", label: "Servers" },
+  { to: serverTotal, suffix: "", label: "Servers" },
   { to: 4, suffix: "", label: "Clusters" },
   { to: 74, suffix: "K+", label: "Discord members" },
   { text: "24/7", label: "Admin support" },

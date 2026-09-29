@@ -7,6 +7,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { EmberField } from "@/components/fx/EmberField";
 import { useHydrated } from "@/lib/useNow";
 import { WipeTicker } from "@/components/home/WipeTicker";
+import { serverTotal } from "@/data/servers";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -114,7 +115,7 @@ export function Hero() {
           className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
         >
           <p className="max-w-xl text-base text-text-primary/75 sm:text-lg">
-            106+ servers across Solo, Duo, 3/6 Man and 100x. Weekly wipes, custom mods,
+            {serverTotal} servers across Solo, Duo, 3/4 Man and 100x. Weekly wipes, custom mods,
             and real cash prizes for the tribes that finish on top.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">

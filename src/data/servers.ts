@@ -16,7 +16,7 @@ export interface Cluster {
 
 export const clusters: Cluster[] = [
   {
-    name: "3/6 Man",
+    name: "3/4 Man",
     servers: [
       { map: "Aberration", ip: "141.98.157.231:27015" },
       { map: "Crystal Isles 1", ip: "141.98.157.231:27016" },
@@ -126,3 +126,6 @@ export const clusters: Cluster[] = [
     ],
   },
 ];
+
+/** Total listed servers, derived so marketing copy can never drift from the IP list. */
+export const serverTotal = clusters.reduce((sum, c) => sum + c.servers.length, 0);
