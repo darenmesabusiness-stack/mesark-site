@@ -171,9 +171,9 @@ export function fixText(s: string | null | undefined): string {
  * Matched after undoing l33t spellings, so "NlGG3R" style dodges still hit.
  */
 // Long stems match anywhere ("2 n...s 1 b"); short ones only as whole words, so
-// "FRANKKK", "Nazir" and "raccoon" stay. No "rapist" (therapist) or "pedo" (torpedo).
+// "FRANKKK", "Nazir", "raccoon", "Grape" and "Torpedo" stay.
 const STEMS = ["nigg", "niglet", "faggot", "fagot", "tranny", "retard", "hitler", "wetback", "beaner", "towelhead"];
-const WORDS = /^(nazi|kkk|gook|kike|chink|fag|spic|coon)s?$/;
+const WORDS = /^(nazi|kkk|gook|kike|chink|fag|spic|coon|rape|rapist|pedo|pedophile)s?$/;
 const LEET: Record<string, string> = { "0": "o", "1": "i", "3": "e", "4": "a", "5": "s", "7": "t", "@": "a", $: "s", "!": "i", "|": "i" };
 
 export function isBlockedName(name: string | null | undefined): boolean {
