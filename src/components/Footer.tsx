@@ -6,6 +6,7 @@ const COLUMNS = [
     title: "Play",
     links: [
       { href: "/servers", label: "Server IPs" },
+      { href: "/maps", label: "Cave Maps" },
       { href: "/settings", label: "Settings & Wipe" },
       { href: "/helpful", label: "Helpful Guides" },
       { href: "https://store.mesark.net/", label: "Store" },
