@@ -1,6 +1,6 @@
 "use client";
 
-import { wipeSchedules, getNextWipe } from "@/data/wipes";
+import { wipeSchedules, getNextWipe, shortCadence } from "@/data/wipes";
 import { useNow } from "@/lib/useNow";
 
 interface TimeLeft {
@@ -23,8 +23,6 @@ function getTimeLeft(target: Date, now: Date): TimeLeft {
 function pad(n: number): string {
   return n.toString().padStart(2, "0");
 }
-
-const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export function WipeCountdown({ compact = false }: { compact?: boolean }) {
   const now = useNow();
@@ -69,7 +67,7 @@ export function WipeCountdown({ compact = false }: { compact?: boolean }) {
             <div className={`mt-1 font-mono text-lg font-semibold tabular-nums sm:text-xl ${isNext ? "text-accent" : "text-text-primary/85"}`}>
               {tl.days > 0 ? `${tl.days}d ` : ""}{pad(tl.hours)}:{pad(tl.minutes)}:{pad(tl.seconds)}
             </div>
-            <div className="hud-label !text-[10px] mt-1">{DAY_NAMES[s.dayOfWeek]} @ 1:00 PM EST</div>
+            <div className="hud-label !text-[10px] mt-1">{shortCadence(s)} @ 1:00 PM EST</div>
           </div>
         );
       })}

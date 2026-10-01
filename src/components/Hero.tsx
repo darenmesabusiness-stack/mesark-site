@@ -115,7 +115,7 @@ export function Hero() {
           className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
         >
           <p className="max-w-xl text-base text-text-primary/75 sm:text-lg">
-            {serverTotal} servers across Solo, Duo, 3/4 Man and 100x. Weekly wipes, custom mods,
+            {serverTotal} servers across Solo, Duo, 3/4 Man and 100x. A fresh wipe every few days, custom mods,
             and real cash prizes for the tribes that finish on top.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">

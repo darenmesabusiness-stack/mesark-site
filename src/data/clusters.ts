@@ -54,8 +54,9 @@ export function serverCount(key: string): number {
   return serverClusters.find((c) => c.name === key)?.servers.length ?? 0;
 }
 
-/** Human wipe day for a cluster, e.g. "Every Monday". */
+/** Human wipe day for a cluster, e.g. "Every Monday" or "Every other Wednesday". */
 export function wipeDay(key: string): string {
   const s = wipeSchedules.find((w) => w.cluster === key);
-  return s ? `Every ${DAY_NAMES[s.dayOfWeek]}` : "";
+  if (!s) return "";
+  return `Every ${(s.everyWeeks ?? 1) === 2 ? "other " : ""}${DAY_NAMES[s.dayOfWeek]}`;
 }
