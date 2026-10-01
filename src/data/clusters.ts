@@ -42,7 +42,7 @@ export const clusterProfiles: ClusterProfile[] = [
     name: "100x",
     tribe: "2–4 players",
     tagline: "Fast-paced chaos. Instant taming, 100x rates.",
-    art: "/art/ark/hundredx.jpg",
+    art: "/art/ark/hundredx-king.jpg",
     focus: "object-[45%_35%]",
   },
 ];
