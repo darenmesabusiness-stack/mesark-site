@@ -25,6 +25,7 @@ const COLUMNS = [
     links: [
       { href: "/compete", label: "Hall of Fame" },
       { href: "/players", label: "Player Profiles" },
+      { href: "/account", label: "Your Account" },
       { href: "https://leaderboards.mesark.net", label: "Leaderboards" },
     ],
   },
