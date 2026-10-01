@@ -3,16 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { publishedMonths } from "@/lib/changelogStore";
+import { pageMeta } from "@/lib/seo";
 import { changeTotals, highlights } from "@/components/changelog/tags";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const changelog = await publishedMonths();
-  return {
-  title: "Change Log — Every MESA Update, Month by Month | MESA ARK",
-  description:
-    "Monthly change logs for MESA's ARK: Survival Evolved PvP servers: Dino of the Month, cave reworks, Solo/Duo/3-4 Man/100x balance and F2 Shop changes.",
-  openGraph: { images: [{ url: changelog[0].hero, width: 2400, height: 1350 }] },
-  };
+  const [latest] = await publishedMonths();
+  return pageMeta({
+    title: "Change Log",
+    description: "Every MESARK update, month by month.",
+    image: { url: latest.hero, width: 2400, height: 1350 },
+  });
 }
 
 export default async function ChangeLogIndex() {

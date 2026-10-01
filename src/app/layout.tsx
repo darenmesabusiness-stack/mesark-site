@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { SITE } from "@/lib/seo";
 import { Big_Shoulders, Barlow, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { serverTotal } from "@/data/servers";
 
 const display = Big_Shoulders({
   subsets: ["latin"],
@@ -32,22 +32,26 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mesark.net"),
-  title: "MESA — ARK PvP Servers",
-  description: "The #1 competitive ARK: Survival Evolved PvP server network. Solo, Duo, 3/4 Man, and 100x clusters. A fresh wipe every few days, real cash prizes.",
+  metadataBase: new URL(SITE.url),
+  title: { default: SITE.name, template: `%s | ${SITE.name}` },
+  description: SITE.description,
+  applicationName: SITE.name,
   icons: {
     icon: "/favicon.png",
   },
+  // The homepage's preview. Other pages set their own via pageMeta (src/lib/seo.ts); no site
+  // name here so the homepage preview doesn't read "MESARK / MESARK".
   openGraph: {
-    title: "MESA — Every wipe is a war.",
-    description: `The #1 competitive ARK PvP server network. ${serverTotal} servers, a fresh wipe every few days, Hall of Fame cash prizes.`,
-    url: "https://mesark.net",
-    siteName: "MESA ARK",
-    images: [{ url: "/og-ark.jpg", width: 1200, height: 630 }],
+    title: SITE.name,
+    description: SITE.description,
+    type: "website",
+    images: [SITE.cover],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og-ark.jpg"],
+    title: SITE.name,
+    description: SITE.description,
+    images: [SITE.cover.url],
   },
 };
 

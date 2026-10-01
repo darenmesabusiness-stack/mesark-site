@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { publishedMonths } from "@/lib/changelogStore";
 import { caveMaps } from "@/data/caves";
 import { ChangeLogBody } from "@/components/changelog/ChangeLogBody";
-import { TAGS, TAG_ORDER, changeTotals, highlights } from "@/components/changelog/tags";
+import { TAGS, TAG_ORDER, changeTotals } from "@/components/changelog/tags";
+import { pageMeta } from "@/lib/seo";
 
 // Months published later in the staff editor render on first visit, then stay cached.
 export const dynamicParams = true;
@@ -20,14 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!m) return {};
   const { total } = changeTotals(m);
   const dotm = m.dotm ? `Dino of the Month: ${m.dotm.dino}${m.dotm.bonus ? ` (${m.dotm.bonus} tamed resistance)` : ""}. ` : "";
-  const title = `${m.month} ${m.year} Change Log | MESA ARK`;
-  const description = `${dotm}${total} changes to MESA's ARK: Survival Evolved servers. ${highlights(m, 2).join(". ")}.`;
-  return {
-    title,
-    description,
-    openGraph: { title, description, images: [{ url: m.hero, width: 2400, height: 1350 }] },
-    twitter: { card: "summary_large_image", title, description, images: [m.hero] },
-  };
+  return pageMeta({
+    title: `${m.month} ${m.year} Change Log`,
+    description: `${dotm}${total} changes to MESARK.`,
+    image: { url: m.hero, width: 2400, height: 1350 },
+  });
 }
 
 export default async function ChangeLogMonthPage({ params }: { params: Promise<{ slug: string }> }) {

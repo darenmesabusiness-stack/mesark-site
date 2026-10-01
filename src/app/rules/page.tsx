@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, RuleItem, InfoCard } from "@/components/ContentSection";
 
-export const metadata: Metadata = {
-  title: "Rules & Punishments — MESA ARK",
-  description: "Server rules, punishment tiers, and unban policy for MESA ARK PvP servers. Read before you play.",
-};
+export const metadata = pageMeta({
+  title: "Rules",
+  description: "MESARK rules, punishments and how unbans work.",
+});
 
 export default function RulesPage() {
   return (

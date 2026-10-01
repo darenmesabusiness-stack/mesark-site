@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProfileHero } from "@/components/profiles/ProfileHero";
+import { pageMeta } from "@/lib/seo";
 import {
   CLUSTERS,
   clusterByKey,
@@ -27,14 +28,13 @@ type Params = { params: Promise<{ name: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const p = await playerFromParams(params);
-  if (!p) return { title: "Player not found | MESA ARK", robots: { index: false } };
+  if (!p) return { title: "Player not found", robots: { index: false } };
   const name = fixText(p.playerName);
   const t = playerTotals(p.clusters);
   const where = p.clusters.map((c) => clusterByKey(c.cluster)?.name ?? c.cluster).join(", ");
-  const title = `${name} — MESA ARK player profile`;
-  const description = `${num(t.kills)} kills, ${kd(t.kills, t.deaths)} K/D and ${hours(t.playTime)} hours on MESA ${where}. Best rank: #${t.best.killsRank} in kills on ${clusterByKey(t.best.cluster)?.name ?? t.best.cluster}.`;
-  // Player-chosen names: shareable, but kept out of search indexes.
-  return { title, description, robots: { index: false, follow: true }, openGraph: { title, description }, twitter: { card: "summary_large_image", title, description } };
+  const description = `${num(t.kills)} kills, ${kd(t.kills, t.deaths)} K/D and ${hours(t.playTime)} hours on MESARK ${where}.`;
+  // Player-chosen names: shareable, but kept out of search indexes. The preview image comes from opengraph-image.tsx.
+  return pageMeta({ title: name, description, image: null, noindex: true });
 }
 
 export default async function PlayerPage({ params }: Params) {

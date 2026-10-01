@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { ServerList } from "@/components/ServerList";
 import { WipeCountdown } from "@/components/WipeCountdown";
 import { ContentSection } from "@/components/ContentSection";
 import { clusters, serverTotal } from "@/data/servers";
 
-export const metadata: Metadata = {
-  title: "Server List — MESA ARK",
-  description: `Browse ${serverTotal} ARK: Survival Evolved PvP servers across Solo, Duo, 3/4 Man, and 100x clusters. Copy any server IP to join.`,
-};
+export const metadata = pageMeta({
+  title: "Server List",
+  description: "Every MESARK server IP for Solo, Duo, 3/4 Man and 100x.",
+});
 
 export default function ServersPage() {
   return (

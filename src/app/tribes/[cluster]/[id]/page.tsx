@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProfileHero } from "@/components/profiles/ProfileHero";
+import { pageMeta } from "@/lib/seo";
 import { fixText, hours, isBlockedName, kd, num, playerHref, tribeFromParams, tribeTotals } from "@/lib/leaderboard";
 
 // Rendered on first visit, then cached and refreshed every 5 min.
@@ -14,13 +15,12 @@ type Params = { params: Promise<{ cluster: string; id: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const r = await tribeFromParams(params);
-  if (!r) return { title: "Tribe not found | MESA ARK", robots: { index: false } };
+  if (!r) return { title: "Tribe not found", robots: { index: false } };
   const { cluster, tribe } = r;
   const t = tribeTotals(tribe.members);
   const name = fixText(tribe.tribeName);
-  const title = `${name} — MESA ARK ${cluster.name} tribe`;
-  const description = `#${tribe.scoreRank} of ${num(tribe.totalTribes)} tribes on MESA ${cluster.name} by tribe score. ${tribe.members.length} members, ${num(t.kills)} kills, ${kd(t.kills, t.deaths)} K/D.`;
-  return { title, description, robots: { index: false, follow: true }, openGraph: { title, description }, twitter: { card: "summary_large_image", title, description } };
+  const description = `#${tribe.scoreRank} of ${num(tribe.totalTribes)} tribes on MESARK ${cluster.name}. ${tribe.members.length} members, ${num(t.kills)} kills, ${kd(t.kills, t.deaths)} K/D.`;
+  return pageMeta({ title: `${name} (${cluster.name} tribe)`, description, image: null, noindex: true });
 }
 
 export default async function TribePage({ params }: Params) {
