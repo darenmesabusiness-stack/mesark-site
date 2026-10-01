@@ -30,7 +30,7 @@ export function CTA() {
 
   return (
     <section className="relative overflow-hidden py-28 sm:py-40">
-      <Image src="/art/ashfield.jpg" alt="" fill sizes="100vw" className="object-cover object-bottom" />
+      <Image src="/art/ark/ashfield.jpg" alt="" fill sizes="100vw" className="object-cover object-[70%_40%]" />
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/40 to-bg-primary" />
       <EmberField density={40} />
 

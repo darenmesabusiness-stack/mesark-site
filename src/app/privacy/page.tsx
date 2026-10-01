@@ -16,8 +16,8 @@ export default function PrivacyPage() {
       <PageHeader
         title="Privacy Policy"
         subtitle="What we collect, why we collect it, and how to get it removed. Plain words, no tricks."
-        image="/art/ashfield.jpg"
-        focus="object-bottom"
+        image="/art/ark/ashfield.jpg"
+        focus="object-[70%_40%]"
         kicker={`Last updated ${UPDATED}`}
       />
 

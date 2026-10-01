@@ -18,7 +18,7 @@ export const clusterProfiles: ClusterProfile[] = [
     name: "Solo",
     tribe: "1 player",
     tagline: "1-man tribes. Pure skill, no teammates to rely on.",
-    art: "/art/solo.jpg",
+    art: "/art/ark/solo.jpg",
     focus: "object-[40%_30%]",
   },
   {
@@ -26,7 +26,7 @@ export const clusterProfiles: ClusterProfile[] = [
     name: "Duo",
     tribe: "2 players",
     tagline: "2-man tribes. Tight coordination, high stakes.",
-    art: "/art/duo.jpg",
+    art: "/art/ark/duo.jpg",
     focus: "object-[50%_30%]",
   },
   {
@@ -34,7 +34,7 @@ export const clusterProfiles: ClusterProfile[] = [
     name: "3/4 Man",
     tribe: "3–4 players",
     tagline: "Rotating tribe size. Competitive seasons with HOF rewards.",
-    art: "/art/threesix.jpg",
+    art: "/art/ark/threesix.jpg",
     focus: "object-[40%_35%]",
   },
   {
@@ -42,7 +42,7 @@ export const clusterProfiles: ClusterProfile[] = [
     name: "100x",
     tribe: "2–4 players",
     tagline: "Fast-paced chaos. Instant taming, 100x rates.",
-    art: "/art/hundredx.jpg",
+    art: "/art/ark/hundredx.jpg",
     focus: "object-[45%_35%]",
   },
 ];

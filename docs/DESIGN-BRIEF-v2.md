@@ -34,19 +34,22 @@ the Discord bot's knowledge base.
 - **HUD/data:** JetBrains Mono for IPs, countdowns, micro-labels (`// NEXT WIPE`).
 - **Texture:** film grain overlay, vignettes, ember particle field, 1px ember hairlines.
 
-## Imagery (Higgsfield-generated, project "MESA ARK — mesark.net v2")
-Grade across all assets: near-black shadows, ember-orange firelight key, teal rim light,
-volumetric smoke, drifting embers. Generated with GPT Image 2.5, upscaled (ByteDance
-upscaler), hero loops animated with Seedance 2.5 using start = end frame for a
-seamless cinemagraph.
+## Imagery (Blender renders of real ARK assets, October 2026)
+Every scene image is rendered in Blender from models, animations and textures exported from
+ARK: Survival Evolved (UE Viewer), using the shared "MESA look": the Dragon-arena ash field,
+burned trees and cliff rocks, ember backlight, teal rim, light fog, floating embers, 50 mm
+lens and one color grade. One subject per image. Sources, settings and the render scripts
+live in `Mesa Images/_Tools/ark-render` (look.json, slots.json, render_set.py). No AI art
+and no video loops on this site; the store keeps generated art for anything sold.
 
-| Asset | Where |
-|---|---|
-| `siege` (21:9, video loop + poster) | Home hero |
-| `rex` (21:9, video loop + poster) | Servers header / "Why MESA" feature tile |
-| `solo`, `duo`, `threesix`, `hundredx` (4:5) | Cluster cards |
-| `hall` (16:9) | Hall of Fame section, Compete header |
-| `ashfield` (16:9, very dark) | Final CTA, Rules/Settings/Helpful headers |
+| Asset | Subject | Where |
+|---|---|---|
+| `siege` (21:9) | Giganotosaurus roaring | Home hero, link preview (`og-ark.jpg`) |
+| `rex` (21:9) | Rex roaring | Servers header / "Why MESA" feature tile |
+| `solo`, `duo`, `threesix` (4:5) | 1 / 2 / 4 flak-armored survivors | Cluster cards (and Helpful / Settings headers) |
+| `hundredx` (4:5) | Raptor | 100x cluster card |
+| `hall` (16:9) | Dragon, framed left | Hall of Fame section, Compete header |
+| `ashfield` (16:9) | Brontosaurus, framed right | Final CTA, Rules / Privacy headers, 404 |
 
 ## Home page narrative
 1. **Hero:** full-bleed siege loop → "EVERY WIPE IS A WAR." → Play Now / Join Discord →

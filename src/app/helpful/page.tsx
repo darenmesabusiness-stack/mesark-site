@@ -15,7 +15,7 @@ export default function HelpfulPage() {
       <PageHeader
         title="Helpful Guides"
         subtitle="Tips, settings, and guides to get the most out of MESA."
-        image="/art/solo.jpg"
+        image="/art/ark/solo.jpg"
         focus="object-[50%_25%]"
         kicker="Guides"
       />
