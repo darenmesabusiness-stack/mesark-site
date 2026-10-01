@@ -137,7 +137,8 @@ export async function deleteAccount(steamId: string) {
 export async function currentUser(): Promise<User | null> {
   try {
     return await userForToken((await cookies()).get(SESSION_COOKIE)?.value);
-  } catch {
+  } catch (e) {
+    console.error("session lookup failed", e);
     return null;
   }
 }
