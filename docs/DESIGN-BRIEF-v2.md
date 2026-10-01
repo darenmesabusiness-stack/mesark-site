@@ -47,7 +47,7 @@ and no video loops on this site; the store keeps generated art for anything sold
 | `siege` (21:9) | Giganotosaurus roaring | Home hero, link preview (`og-ark.jpg`) |
 | `rex` (21:9) | Rex roaring | Servers header / "Why MESA" feature tile |
 | `solo`, `duo`, `threesix` (4:5) | 1 / 2 / 4 flak-armored survivors | Cluster cards (and Helpful / Settings headers) |
-| `hundredx` (4:5) | Raptor | 100x cluster card |
+| `hundredx-king` (4:5) | King Titan (Extinction boss), roaring | 100x cluster card (also on the store) |
 | `hall` (16:9) | Dragon, framed left | Hall of Fame section, Compete header |
 | `ashfield` (16:9) | Brontosaurus, framed right | Final CTA, Rules / Privacy headers, 404 |
 
