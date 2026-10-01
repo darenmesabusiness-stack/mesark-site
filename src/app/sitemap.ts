@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
-import { changelog } from "@/data/changelog";
+import { publishedMonths } from "@/lib/changelogStore";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const changelog = await publishedMonths();
   const baseUrl = "https://mesark.net";
 
   return [

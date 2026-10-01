@@ -2,18 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
-import { changelog } from "@/data/changelog";
+import { publishedMonths } from "@/lib/changelogStore";
 import { changeTotals, highlights } from "@/components/changelog/tags";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const changelog = await publishedMonths();
+  return {
   title: "Change Log — Every MESA Update, Month by Month | MESA ARK",
   description:
     "Monthly change logs for MESA's ARK: Survival Evolved PvP servers: Dino of the Month, cave reworks, Solo/Duo/3-4 Man/100x balance and F2 Shop changes.",
   openGraph: { images: [{ url: changelog[0].hero, width: 2400, height: 1350 }] },
-};
+  };
+}
 
-export default function ChangeLogIndex() {
-  const [latest, ...older] = changelog;
+export default async function ChangeLogIndex() {
+  const [latest, ...older] = await publishedMonths();
   const lt = changeTotals(latest);
 
   return (
