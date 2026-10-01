@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { dbConfigured } from "@/lib/db";
-import { isStaff } from "@/lib/staff";
+import { canClaimOwner, isStaff } from "@/lib/staff";
 
 export const metadata = pageMeta({
   title: "Your Account",
@@ -27,6 +27,7 @@ export default async function AccountPage({
   const sp = await searchParams;
   const enabled = dbConfigured();
   const user = enabled ? await currentUser() : null;
+  const claim = user && !isStaff(user) ? await canClaimOwner(user).catch(() => false) : false;
   const notice = sp.error ? ERRORS[sp.error] : sp.deleted ? "Your account and sign-ins are deleted." : null;
 
   return (
@@ -81,6 +82,14 @@ export default async function AccountPage({
             </div>
           </div>
           {sp.welcome && <p className="mt-6 text-text-primary/80">You&apos;re signed in. Welcome to MESA.</p>}
+          {claim && (
+            <Link
+              href="/staff"
+              className="clip-corner-sm mt-6 inline-flex bg-accent px-5 py-2.5 font-display text-xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]"
+            >
+              Set up staff access →
+            </Link>
+          )}
           {isStaff(user) && (
             <Link
               href="/staff"

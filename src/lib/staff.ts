@@ -4,8 +4,8 @@
  *   staff   "Admin": works tickets
  *   lead    "Lead Admin": runs things day to day: change log, caves, stats, adds/removes admins
  *   owner   everything, including finance and choosing leads
- * The first owner is claimed once, by the only account on the site, so no IDs or secrets
- * live in this public repo.
+ * The first owner is claimed once, by the oldest account on the site (the owner signed in first
+ * when sign-in went live), so no IDs or secrets live in this public repo.
  */
 import { query } from "@/lib/db";
 import type { User } from "@/lib/auth";
@@ -31,12 +31,14 @@ export const isOwner = (u: User | null): u is User => rank(u) >= RANK.owner;
 export const assignableRoles = (actor: User): Role[] =>
   isOwner(actor) ? [...ROLES] : isLead(actor) ? ["player", "staff"] : [];
 
-/** True while nobody is owner yet and this user is the only account. */
+/** True while nobody is owner yet and this user is the oldest account. */
 export async function canClaimOwner(u: User) {
-  const [r] = await query<{ users: number; owners: number }>(
-    `select count(*)::int as users, (count(*) filter (where role = 'owner'))::int as owners from users`,
+  const [r] = await query<{ owners: number; first: string | null }>(
+    `select (count(*) filter (where role = 'owner'))::int as owners,
+            (select steam_id from users order by created_at, steam_id limit 1) as first
+       from users`,
   );
-  return r.owners === 0 && r.users === 1 && u.role !== "owner";
+  return r.owners === 0 && r.first === u.steam_id;
 }
 
 /** Makes `u` owner if the claim conditions still hold (checked atomically in SQL). */
@@ -44,7 +46,7 @@ export async function claimOwner(u: User) {
   const rows = await query(
     `update users set role = 'owner'
       where steam_id = $1
-        and (select count(*) from users) = 1
+        and steam_id = (select steam_id from users order by created_at, steam_id limit 1)
         and not exists (select 1 from users where role = 'owner')
       returning steam_id`,
     [u.steam_id],
