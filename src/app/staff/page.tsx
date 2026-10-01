@@ -10,7 +10,7 @@ const MODULES: { title: string; text: string; status: Status; href?: string; acc
   { title: "Ticket queue", text: "Website and Discord tickets in one list, sorted by priority, with the player's details.", status: "Planned", access: "staff" },
   { title: "Player lookup", text: "Bans, purchases, servers and tribes for any player, next to their ticket.", status: "Planned", access: "staff" },
   { title: "Team", text: "Who has staff access. Add or remove admins; the owner also picks lead admins.", status: "Live", href: "/staff/team", access: "lead" },
-  { title: "Change log editor", text: "Write the monthly change log here; it publishes to /changelog and posts to Discord.", status: "Next", access: "lead" },
+  { title: "Change log editor", text: "Paste the month's Discord post and publish it to /changelog.", status: "Live", href: "/staff/changelog", access: "lead" },
   { title: "Cave editor", text: "Drop a pin on the map, add notes and the walkthrough clip.", status: "Next", access: "lead" },
   { title: "Support stats", text: "Ticket volume, reply times and the AI helper's results. Replaces the old dashboard.", status: "Planned", access: "lead" },
   { title: "Finance", text: "Store revenue and payouts.", status: "Planned", access: "owner" },

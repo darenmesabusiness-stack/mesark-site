@@ -46,6 +46,16 @@ const SCHEMA = [
   `create index if not exists sessions_steam_id on sessions (steam_id)`,
   // Roles v2: the first-week "admin" (full access) is now "owner"; nothing writes "admin" any more.
   `update users set role = 'owner' where role = 'admin'`,
+  // Change log months written in the staff editor; published rows override the built-in months.
+  `create table if not exists changelog_months (
+     slug          text primary key,
+     raw           text not null default '',
+     data          jsonb not null,
+     published     boolean not null default false,
+     published_at  timestamptz,
+     updated_at    timestamptz not null default now(),
+     updated_by    text
+   )`,
 ];
 
 /** Run a query, creating the schema first if this instance hasn't yet. */

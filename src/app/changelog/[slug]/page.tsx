@@ -2,20 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { changelog } from "@/data/changelog";
+import { publishedMonths } from "@/lib/changelogStore";
 import { caveMaps } from "@/data/caves";
 import { ChangeLogBody } from "@/components/changelog/ChangeLogBody";
 import { TAGS, TAG_ORDER, changeTotals, highlights } from "@/components/changelog/tags";
 
-export const dynamicParams = false;
+// Months published later in the staff editor render on first visit, then stay cached.
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return changelog.map((m) => ({ slug: m.slug }));
+export async function generateStaticParams() {
+  return (await publishedMonths()).map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const m = changelog.find((x) => x.slug === slug);
+  const m = (await publishedMonths()).find((x) => x.slug === slug);
   if (!m) return {};
   const { total } = changeTotals(m);
   const dotm = m.dotm ? `Dino of the Month: ${m.dotm.dino}${m.dotm.bonus ? ` (${m.dotm.bonus} tamed resistance)` : ""}. ` : "";
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ChangeLogMonthPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const changelog = await publishedMonths();
   const i = changelog.findIndex((x) => x.slug === slug);
   if (i < 0) notFound();
   const m = changelog[i];

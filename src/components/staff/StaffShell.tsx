@@ -4,6 +4,7 @@ import { ROLE_LABEL, canClaimOwner, isLead } from "@/lib/staff";
 
 const NAV = [
   { href: "/staff", label: "Overview", lead: false },
+  { href: "/staff/changelog", label: "Change log", lead: true },
   { href: "/staff/team", label: "Team", lead: true },
 ];
 
