@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, RuleItem } from "@/components/ContentSection";
 import { IniSection } from "./IniSection";
 
-export const metadata: Metadata = {
-  title: "Helpful — MESA ARK",
-  description: "Helpful guides, recommended INI settings, and tips for MESA ARK PvP servers.",
-};
+export const metadata = pageMeta({
+  title: "Helpful Guides",
+  description: "Guides, INI settings and tips for playing on MESARK.",
+});
 
 export default function HelpfulPage() {
   return (

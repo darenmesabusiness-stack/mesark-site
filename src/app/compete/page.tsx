@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
 import { hofTiers } from "@/data/hof";
 
-export const metadata: Metadata = {
-  title: "Compete — MESA ARK",
-  description: "Hall of Fame tier system, cash prizes up to $700, and competitive season rewards on MESA ARK PvP servers.",
-};
+export const metadata = pageMeta({
+  title: "Compete",
+  description: "MESARK Hall of Fame tiers and cash prizes.",
+});
 
 export default function CompetePage() {
   return (

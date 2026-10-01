@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { dbConfigured } from "@/lib/db";
 import { isStaff } from "@/lib/staff";
 
-export const metadata: Metadata = {
-  title: "Your account | MESA ARK",
-  description: "Sign in through Steam to claim your MESA profile, open tickets and get replies on Discord.",
-  robots: { index: false, follow: false },
-};
+export const metadata = pageMeta({
+  title: "Your Account",
+  description: "Sign in to MESARK with Steam.",
+  noindex: true,
+});
 
 const ERRORS: Record<string, string> = {
   off: "Sign-in isn't switched on yet. Check back soon.",

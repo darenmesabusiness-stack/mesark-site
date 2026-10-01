@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { CaveMaps } from "@/components/maps/CaveMaps";
 import { caveMaps, caveTotal } from "@/data/caves";
 
-export const metadata: Metadata = {
-  title: "ARK Cave Maps — Every Cave With GPS & Video | MESA ARK",
-  description: `Interactive ARK: Survival Evolved cave maps for ${caveMaps.length} maps: ${caveTotal} caves pinned at their exact GPS, each with a video walkthrough, chokes, flyer rules and structure damage notes.`,
-};
+export const metadata = pageMeta({
+  title: "Cave Maps",
+  description: "Every MESARK cave pinned at its in-game GPS, with a walkthrough clip.",
+});
 
 export default function MapsPage() {
   return (

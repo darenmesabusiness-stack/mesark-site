@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, RuleItem } from "@/components/ContentSection";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — MESA ARK",
-  description: "What MESA ARK collects on its website, Discord and game servers, why, who it is shared with, and how to ask for it to be deleted.",
-};
+export const metadata = pageMeta({
+  title: "Privacy Policy",
+  description: "What MESARK collects, why, and how to have it deleted.",
+});
 
 const UPDATED = "1 October 2026";
 const SUPPORT = "https://discord.gg/jkax9Nk46x";

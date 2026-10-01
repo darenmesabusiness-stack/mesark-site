@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PageHeader } from "@/components/PageHeader";
@@ -15,11 +15,10 @@ import {
   type TribeRow,
 } from "@/lib/leaderboard";
 
-export const metadata: Metadata = {
-  title: "Player & Tribe Profiles | MESA ARK",
-  description:
-    "Look up any survivor or tribe on MESA's ARK: Survival Evolved servers: kills, K/D, ranks per cluster and tribe rosters, with a share link that turns into a stat card in Discord.",
-};
+export const metadata = pageMeta({
+  title: "Player & Tribe Profiles",
+  description: "Look up any MESARK player or tribe.",
+});
 
 /** Leaderboard names arrive as stored in the game DB; the server names some clusters differently. */
 const clusterName = (display: string) =>

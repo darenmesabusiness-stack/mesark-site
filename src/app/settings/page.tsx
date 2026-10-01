@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
 
-export const metadata: Metadata = {
-  title: "Settings & Wipe Schedule — MESA ARK",
-  description: "Server rates, commands, keybinds, mods, dino changes, and wipe schedule for every MESA ARK cluster.",
-};
+export const metadata = pageMeta({
+  title: "Settings & Wipe Schedule",
+  description: "Rates, mods, commands and wipe times for every MESARK cluster.",
+});
 
 function CommandRow({ cmd, desc }: { cmd: string; desc: string }) {
   return (
