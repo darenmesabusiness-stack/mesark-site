@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { changelog } from "@/data/changelog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://mesark.net";
@@ -22,6 +23,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/changelog`,
+      lastModified: new Date(changelog[0].posted),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    ...changelog.map((m) => ({
+      url: `${baseUrl}/changelog/${m.slug}`,
+      lastModified: new Date(m.posted),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     {
       url: `${baseUrl}/rules`,
       lastModified: new Date(),
