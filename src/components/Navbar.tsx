@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const NAV_LINKS = [
   { href: "/servers", label: "Servers" },
   { href: "/maps", label: "Maps" },
+  { href: "/changelog", label: "Changelog" },
   { href: "/rules", label: "Rules" },
   { href: "/settings", label: "Settings" },
   { href: "/helpful", label: "Helpful" },
@@ -53,7 +54,7 @@ export function Navbar() {
           {/* Desktop */}
           <div className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => {
-              const isActive = !link.external && pathname === link.href;
+              const isActive = !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`));
               return (
                 <Link
                   key={link.href}
@@ -109,7 +110,7 @@ export function Navbar() {
           >
             <div className="px-4 py-4">
               {NAV_LINKS.map((link, i) => {
-                const isActive = !link.external && pathname === link.href;
+                const isActive = !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`));
                 return (
                   <motion.div
                     key={link.href}

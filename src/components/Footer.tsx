@@ -7,6 +7,7 @@ const COLUMNS = [
     links: [
       { href: "/servers", label: "Server IPs" },
       { href: "/maps", label: "Cave Maps" },
+      { href: "/changelog", label: "Change Log" },
       { href: "/settings", label: "Settings & Wipe" },
       { href: "/helpful", label: "Helpful Guides" },
       { href: "https://store.mesark.net/", label: "Store" },
