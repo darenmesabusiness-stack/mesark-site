@@ -56,6 +56,16 @@ const SCHEMA = [
      updated_at    timestamptz not null default now(),
      updated_by    text
    )`,
+  // Caves added or edited in the staff cave editor; they override the built-in caves (caves.ts).
+  `create table if not exists cave_edits (
+     map         text not null,
+     cave_id     text not null,
+     data        jsonb not null,
+     hidden      boolean not null default false,
+     updated_at  timestamptz not null default now(),
+     updated_by  text,
+     primary key (map, cave_id)
+   )`,
 ];
 
 /** Run a query, creating the schema first if this instance hasn't yet. */
