@@ -12,7 +12,7 @@ export function ClusterCards() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading kicker="Four clusters" lead="Pick your" accent="war.">
-            Every cluster wipes weekly at 1:00 PM EST. Same mods, same rules, different pressure.
+            Solo, Duo and 3/4 Man wipe weekly, 100x every other week — all at 1:00 PM EST. Same mods, same rules, different pressure.
           </SectionHeading>
           <Link href="/settings" className="hud-label !text-text-primary hover:!text-accent transition shrink-0">
             Compare rates →

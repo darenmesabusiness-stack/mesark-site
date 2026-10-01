@@ -34,13 +34,13 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mesark.net"),
   title: "MESA — ARK PvP Servers",
-  description: "The #1 competitive ARK: Survival Evolved PvP server network. Solo, Duo, 3/4 Man, and 100x clusters. Weekly wipes, real cash prizes.",
+  description: "The #1 competitive ARK: Survival Evolved PvP server network. Solo, Duo, 3/4 Man, and 100x clusters. A fresh wipe every few days, real cash prizes.",
   icons: {
     icon: "/favicon.png",
   },
   openGraph: {
     title: "MESA — Every wipe is a war.",
-    description: `The #1 competitive ARK PvP server network. ${serverTotal} servers, weekly wipes, Hall of Fame cash prizes.`,
+    description: `The #1 competitive ARK PvP server network. ${serverTotal} servers, a fresh wipe every few days, Hall of Fame cash prizes.`,
     url: "https://mesark.net",
     siteName: "MESA ARK",
     images: [{ url: "/og-v2.jpg", width: 1200, height: 630 }],

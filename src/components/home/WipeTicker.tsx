@@ -1,9 +1,7 @@
 "use client";
 
-import { wipeSchedules, getNextWipe } from "@/data/wipes";
+import { wipeSchedules, getNextWipe, shortCadence } from "@/data/wipes";
 import { useNow } from "@/lib/useNow";
-
-const DAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function parts(ms: number) {
   const s = Math.max(0, Math.floor(ms / 1000));
@@ -46,7 +44,7 @@ export function WipeTicker() {
                   Next up
                 </span>
               ) : (
-                <span className="hud-label hidden !text-[10px] sm:inline">{DAY[s.dayOfWeek]} 1PM EST</span>
+                <span className="hud-label hidden !text-[10px] sm:inline">{shortCadence(s)} 1PM EST</span>
               )}
             </div>
             <div

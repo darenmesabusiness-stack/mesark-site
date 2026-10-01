@@ -43,7 +43,7 @@ export function Footer() {
               <span className="font-display text-3xl font-black">MESA</span>
             </div>
             <p className="mt-4 max-w-sm text-sm text-text-muted">
-              Competitive ARK: Survival Evolved PvP. Weekly wipes, custom mods, real rewards.
+              Competitive ARK: Survival Evolved PvP. Fresh wipes every few days, custom mods, real rewards.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">

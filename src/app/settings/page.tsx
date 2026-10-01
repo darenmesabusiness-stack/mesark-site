@@ -79,7 +79,7 @@ export default function SettingsPage() {
           <h2 className="text-sm font-semibold uppercase tracking-widest text-accent mb-4">Cluster Settings</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <ClusterCard name="3/4 Man" wipe="Friday" rates={{ xp: "35x", harvest: "15x", tame: "Instant", breed: "50x", stack: "3,000", dinos: "200", saddle: "Default", weapon: "400%" }} />
-            <ClusterCard name="100x" wipe="Wednesday" rates={{ xp: "100x", harvest: "100x", tame: "Instant", breed: "100x", stack: "25,000", dinos: "600", saddle: "125", weapon: "100x" }} />
+            <ClusterCard name="100x" wipe="every 2nd Wednesday" rates={{ xp: "100x", harvest: "100x", tame: "Instant", breed: "100x", stack: "25,000", dinos: "600", saddle: "125", weapon: "100x" }} />
             <ClusterCard name="Solo / Duo" wipe="Mon / Sat" rates={{ xp: "25x", harvest: "25x", tame: "Instant", breed: "50x", stack: "5,000", dinos: "600", saddle: "Default", weapon: "Default" }} />
           </div>
         </div>
@@ -95,12 +95,12 @@ export default function SettingsPage() {
             <InfoCard title="Solo" value="Monday" accent />
             <InfoCard title="3/4 Man" value="Friday" accent />
             <InfoCard title="Duo" value="Saturday" accent />
-            <InfoCard title="100x 2/4 Man" value="Wednesday" accent />
+            <InfoCard title="100x 2/4 Man" value="Every other Wed" accent />
             <InfoCard title="All Clusters" value="1:00 PM EST" />
           </div>
           <div className="mt-4 space-y-1">
             <RuleItem text="3/4 Man rotates between 3 Man and 4 Man every Friday." />
-            <RuleItem text="100x rotates between 2 Man and 4 Man every Wednesday." />
+            <RuleItem text="100x wipes every other Wednesday (every 2 weeks) and rotates between 2 Man and 4 Man each wipe." />
             <RuleItem text="Hall of Fame submissions must be completed within 48 hours of wipe." />
           </div>
         </ContentSection>
