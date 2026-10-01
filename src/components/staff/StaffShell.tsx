@@ -66,7 +66,7 @@ export async function StaffGate({ user, error }: { user: User | null; error?: st
       ) : claim ? (
         <>
           <p className="mt-4 text-lg text-text-primary/75">
-            Nobody runs the staff section yet, and yours is the only account on mesark.net. Claim owner access to run it.
+            Nobody runs the staff section yet, and yours is the first account on mesark.net. Claim owner access to run it.
           </p>
           <form action="/api/staff/claim" method="post" className="mt-8">
             <button type="submit" className="clip-corner-sm bg-accent px-6 py-3 font-display text-2xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]">

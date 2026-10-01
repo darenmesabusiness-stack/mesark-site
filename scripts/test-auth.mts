@@ -93,11 +93,14 @@ assert.equal((await query("select 1 from sessions")).length, 0, "sessions delete
 await upsertUser("76561198000000010", "Owner", null);
 const owner = (await userForToken(await createSession("76561198000000010")))!;
 assert.equal(await canClaimOwner(owner), true);
+await query("update users set created_at = now() - interval '1 day' where steam_id = '76561198000000010'");
 await upsertUser("76561198000000011", "Second", null);
-assert.equal(await canClaimOwner(owner), false, "no claim once a second account exists");
-assert.equal(await claimOwner(owner), false);
-await query("delete from users where steam_id = '76561198000000011'");
+const second = (await userForToken(await createSession("76561198000000011")))!;
+assert.equal(await canClaimOwner(second), false, "a later account can't claim");
+assert.equal(await claimOwner(second), false);
+assert.equal(await canClaimOwner(owner), true, "the first account still can, even with others signed in");
 assert.equal(await claimOwner(owner), true);
+await query("delete from users where steam_id = '76561198000000011'");
 const boss = (await userForToken(await createSession("76561198000000010")))!;
 assert.equal(boss.role, "owner");
 assert.equal(await claimOwner(boss), false, "claim works only once");
