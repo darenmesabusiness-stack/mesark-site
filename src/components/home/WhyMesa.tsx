@@ -11,7 +11,6 @@ import {
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
 import { SectionHeading } from "@/components/home/SectionHeading";
-import { LoopVideo } from "@/components/fx/LoopVideo";
 
 const TILES: { title: string; desc: string; icon: ComponentType<SVGProps<SVGSVGElement>>; span: string }[] = [
   { title: "Anti-Cheat", desc: "Multi-layer detection: behavioral analysis, mesh protection, HWID tracking.", icon: EyeIcon, span: "lg:col-span-2" },
@@ -44,13 +43,12 @@ export function WhyMesa() {
             className="clip-corner group relative min-h-[340px] overflow-hidden bg-bg-card lg:col-span-6 lg:min-h-[420px]"
           >
             <Image
-              src="/art/rex.jpg"
-              alt="Armored tyrannosaurus overlooking a besieged fortress"
+              src="/art/ark/rex.jpg"
+              alt="Tyrannosaurus roaring in a volcanic ash field"
               fill
               sizes="(max-width: 1280px) 100vw, 1280px"
               className="object-cover object-[70%_40%] transition duration-1000 group-hover:scale-[1.04]"
             />
-            <LoopVideo src="/video/rex-720.mp4" className="object-[70%_40%]" />
             <div className="absolute inset-0 bg-gradient-to-r from-bg-card via-bg-card/70 to-transparent" />
             <div className="relative flex h-full max-w-lg flex-col justify-end p-6 sm:p-10">
               <p className="hud-label !text-accent">Custom mods</p>

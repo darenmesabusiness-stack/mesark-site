@@ -13,7 +13,7 @@ export function HallOfFame() {
     <section className="relative overflow-hidden py-24 sm:py-32">
       <div className="absolute inset-0">
         <Image
-          src="/art/hall.jpg"
+          src="/art/ark/hall.jpg"
           alt=""
           fill
           sizes="100vw"

@@ -43,11 +43,11 @@ export const metadata: Metadata = {
     description: `The #1 competitive ARK PvP server network. ${serverTotal} servers, a fresh wipe every few days, Hall of Fame cash prizes.`,
     url: "https://mesark.net",
     siteName: "MESA ARK",
-    images: [{ url: "/og-v2.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/og-ark.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og-v2.jpg"],
+    images: ["/og-ark.jpg"],
   },
 };
 

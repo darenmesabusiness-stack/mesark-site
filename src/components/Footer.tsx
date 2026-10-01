@@ -13,7 +13,10 @@ const COLUMNS = [
   },
   {
     title: "Rules",
-    links: [{ href: "/rules", label: "Rules & Punishments" }],
+    links: [
+      { href: "/rules", label: "Rules & Punishments" },
+      { href: "/privacy", label: "Privacy Policy" },
+    ],
   },
   {
     title: "Compete",

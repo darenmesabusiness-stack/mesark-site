@@ -14,7 +14,7 @@ export default function CompetePage() {
       <PageHeader
         title="Compete"
         subtitle="Win wipes, climb the tiers, earn real rewards."
-        image="/art/hall.jpg"
+        image="/art/ark/hall.jpg"
         focus="object-[30%_40%]"
         kicker="Hall of Fame"
       />

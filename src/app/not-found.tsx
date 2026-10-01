@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="relative flex min-h-[100svh] items-center overflow-hidden px-4">
-      <Image src="/art/ashfield.jpg" alt="" fill sizes="100vw" className="object-cover object-bottom opacity-70" />
+      <Image src="/art/ark/ashfield.jpg" alt="" fill sizes="100vw" className="object-cover object-[70%_40%] opacity-70" />
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/60 via-transparent to-bg-primary" />
       <div className="relative z-10 mx-auto w-full max-w-4xl">
         <p className="hud-label mb-4 flex items-center gap-3">

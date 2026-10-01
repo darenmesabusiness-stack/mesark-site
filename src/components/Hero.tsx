@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { EmberField } from "@/components/fx/EmberField";
-import { useHydrated } from "@/lib/useNow";
 import { WipeTicker } from "@/components/home/WipeTicker";
 import { serverTotal } from "@/data/servers";
 
@@ -13,54 +12,26 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
-  const hydrated = useHydrated();
-  const [playing, setPlaying] = useState(false);
-  // Client-only so iOS gets a real `muted` attribute; reduced-motion keeps the poster.
-  const showVideo = hydrated && !reduce;
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const mediaScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    v.play().catch(() => {});
-  }, [showVideo]);
-
   return (
     <section ref={ref} className="relative flex h-[100svh] min-h-[640px] flex-col overflow-hidden">
       {/* Media */}
       <motion.div style={reduce ? undefined : { scale: mediaScale }} className="absolute inset-0 origin-center">
         <Image
-          src="/art/siege.jpg"
+          src="/art/ark/siege.jpg"
           alt=""
           fill
           preload
           sizes="100vw"
           quality={85}
-          className="object-cover object-[62%_50%]"
+          className="object-cover object-[70%_50%] md:object-[52%_50%]"
         />
-        {showVideo && (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-hidden
-            onPlaying={() => setPlaying(true)}
-            className={`absolute inset-0 h-full w-full object-cover object-[62%_50%] transition-opacity duration-1000 ${playing ? "opacity-100" : "opacity-0"}`}
-          >
-            <source src="/video/siege-720.mp4" type="video/mp4" media="(max-width: 767px)" />
-            <source src="/video/siege-1080.mp4" type="video/mp4" />
-          </video>
-        )}
       </motion.div>
 
       {/* Legibility overlays */}

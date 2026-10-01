@@ -13,8 +13,8 @@ export default function RulesPage() {
       <PageHeader
         title="Rules & Punishments"
         subtitle="Breaking rules results in bans. Ignorance is not an excuse. Read them."
-        image="/art/ashfield.jpg"
-        focus="object-bottom"
+        image="/art/ark/ashfield.jpg"
+        focus="object-[70%_40%]"
         kicker="Read before you play"
       />
 
