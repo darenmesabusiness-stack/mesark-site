@@ -1,25 +1,35 @@
 /**
- * Staff roles on mesark.net, stored on users.role:
+ * Staff roles on mesark.net, stored on users.role (MESA calls its staff admins):
  *   player  everyone who signs in
- *   staff   shown as "Admin": works tickets (MESA calls its staff admins)
- *   owner   changes everything: editors, team, finance
+ *   staff   "Admin": works tickets
+ *   lead    "Lead Admin": runs things day to day: change log, caves, stats, adds/removes admins
+ *   owner   everything, including finance and choosing leads
  * The first owner is claimed once, by the only account on the site, so no IDs or secrets
- * live in this public repo. Owners manage roles on /staff/team.
+ * live in this public repo.
  */
 import { query } from "@/lib/db";
 import type { User } from "@/lib/auth";
 
-export const ROLES = ["player", "staff", "owner"] as const;
+export const ROLES = ["player", "staff", "lead", "owner"] as const;
 export type Role = (typeof ROLES)[number];
-export const ROLE_LABEL: Record<Role, string> = { player: "Player", staff: "Admin", owner: "Owner" };
+export const ROLE_LABEL: Record<Role, string> = { player: "Player", staff: "Admin", lead: "Lead Admin", owner: "Owner" };
 export const ROLE_HELP: Record<Role, string> = {
   player: "No staff access",
   staff: "Works tickets",
-  owner: "Changes everything",
+  lead: "Runs content and the admin team",
+  owner: "Everything, incl. finance",
 };
+const RANK: Record<Role, number> = { player: 0, staff: 1, lead: 2, owner: 3 };
+const rank = (u: User | null) => (u ? (RANK[u.role as Role] ?? 0) : 0);
 
-export const isStaff = (u: User | null): u is User => !!u && (u.role === "staff" || u.role === "owner");
-export const isOwner = (u: User | null): u is User => !!u && u.role === "owner";
+export const isStaff = (u: User | null): u is User => rank(u) >= RANK.staff;
+/** Lead admins and owners: editors, stats, the Team page. */
+export const isLead = (u: User | null): u is User => rank(u) >= RANK.lead;
+export const isOwner = (u: User | null): u is User => rank(u) >= RANK.owner;
+
+/** Roles this person may hand out (and change away from) on the Team page. */
+export const assignableRoles = (actor: User): Role[] =>
+  isOwner(actor) ? [...ROLES] : isLead(actor) ? ["player", "staff"] : [];
 
 /** True while nobody is owner yet and this user is the only account. */
 export async function canClaimOwner(u: User) {
@@ -54,18 +64,28 @@ export interface TeamRow {
 export const listAccounts = () =>
   query<TeamRow>(
     `select steam_id, persona, avatar, role, created_at, last_login from users
-      order by case role when 'owner' then 0 when 'staff' then 1 else 2 end, last_login desc
+      order by case role when 'owner' then 0 when 'lead' then 1 when 'staff' then 2 else 3 end, last_login desc
       limit 500`,
   );
 
-/** Changes a role. Owners only; the last owner can't step down. */
+/**
+ * Changes a role. Owners can set any role (the last owner can't step down). Lead admins
+ * can only move people between Player and Admin.
+ */
 export async function setRole(actor: User, steamId: string, role: Role): Promise<string | null> {
-  if (!isOwner(actor)) return "Only owners can change roles.";
   if (!ROLES.includes(role)) return "Unknown role.";
-  if (steamId === actor.steam_id && role !== "owner") {
+  const allowed = assignableRoles(actor);
+  if (!allowed.length) return "Only owners and lead admins can change roles.";
+
+  const [target] = await query<{ role: Role }>(`select role from users where steam_id = $1`, [steamId]);
+  if (!target) return "That account doesn't exist.";
+  if (!allowed.includes(role) || !allowed.includes(target.role)) {
+    return "Lead admins can add and remove admins. Only the owner can change lead admins and owners.";
+  }
+  if (steamId === actor.steam_id && target.role === "owner" && role !== "owner") {
     const [r] = await query<{ owners: number }>(`select count(*)::int as owners from users where role = 'owner'`);
     if (r.owners <= 1) return "You're the only owner. Make someone else owner first.";
   }
-  const rows = await query(`update users set role = $2 where steam_id = $1 returning steam_id`, [steamId, role]);
-  return rows.length ? null : "That account doesn't exist.";
+  await query(`update users set role = $2 where steam_id = $1`, [steamId, role]);
+  return null;
 }
