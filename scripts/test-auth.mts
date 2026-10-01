@@ -103,12 +103,24 @@ assert.equal(boss.role, "owner");
 assert.equal(await claimOwner(boss), false, "claim works only once");
 await upsertUser("76561198000000012", "Mod", null);
 const mod = (await userForToken(await createSession("76561198000000012")))!;
-assert.equal(await setRole(mod, "76561198000000012", "owner"), "Only owners can change roles.");
+assert.equal(await setRole(mod, "76561198000000012", "owner"), "Only owners and lead admins can change roles.");
 assert.equal(await setRole(boss, "76561198000000012", "staff"), null);
 assert.equal(await setRole(boss, "76561198000000012", "admin" as never), "Unknown role.");
 assert.match(String(await setRole(boss, "76561198000000010", "player")), /only owner/);
 assert.equal(await setRole(boss, "76561198000000099", "staff"), "That account doesn't exist.");
 assert.equal((await userForToken(await createSession("76561198000000012")))!.role, "staff");
+
+// Lead admins move people between Player and Admin only.
+await upsertUser("76561198000000013", "Lead", null);
+assert.equal(await setRole(boss, "76561198000000013", "lead"), null);
+const lead = (await userForToken(await createSession("76561198000000013")))!;
+assert.equal(lead.role, "lead");
+await upsertUser("76561198000000014", "Newbie", null);
+assert.equal(await setRole(lead, "76561198000000014", "staff"), null, "lead adds an admin");
+assert.equal(await setRole(lead, "76561198000000014", "player"), null, "lead removes an admin");
+assert.match(String(await setRole(lead, "76561198000000014", "lead")), /Only the owner/);
+assert.match(String(await setRole(lead, "76561198000000010", "player")), /Only the owner/, "lead can't touch the owner");
+assert.match(String(await setRole(lead, "76561198000000013", "player")), /Only the owner/, "lead can't change own role");
 
 // Legacy "admin" rows become "owner" when the schema runs.
 await query("update users set role = 'admin' where steam_id = '76561198000000010'");

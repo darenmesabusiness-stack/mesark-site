@@ -1,5 +1,5 @@
 import { currentUser } from "@/lib/auth";
-import { ROLES, ROLE_HELP, ROLE_LABEL, isOwner, listAccounts } from "@/lib/staff";
+import { ROLE_HELP, ROLE_LABEL, assignableRoles, isLead, listAccounts } from "@/lib/staff";
 import { StaffGate, StaffShell } from "@/components/staff/StaffShell";
 
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
@@ -7,7 +7,8 @@ const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { month: "sho
 export default async function TeamPage({ searchParams }: { searchParams: Promise<{ q?: string; error?: string; saved?: string }> }) {
   const user = await currentUser();
   const sp = await searchParams;
-  if (!isOwner(user)) return <StaffGate user={user} error={user ? "The Team page is for owners." : undefined} />;
+  if (!isLead(user)) return <StaffGate user={user} error={user ? "The Team page is for the owner and lead admins." : undefined} />;
+  const assignable = assignableRoles(user);
 
   const q = (sp.q ?? "").trim().toLowerCase();
   const all = await listAccounts();
@@ -17,8 +18,8 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
   return (
     <StaffShell user={user} active="/staff/team" title="Team" kicker={`${staff} on the team · ${all.length} accounts`}>
       <p className="max-w-2xl text-text-muted">
-        Anyone who signs in on mesark.net shows up here. Admins work tickets; owners can change everything. Steam IDs on
-        this page are for staff only.
+        Anyone who signs in on mesark.net shows up here. Admins work tickets. Lead admins also run the change log, caves
+        and the admin team. The owner can do everything. Steam IDs on this page are for staff only.
       </p>
       {sp.error && <p className="mt-6 border-l-2 border-accent bg-bg-card/80 px-4 py-3 text-sm">{sp.error}</p>}
       {sp.saved && <p className="mt-6 border-l-2 border-teal bg-bg-card/80 px-4 py-3 text-sm">Role saved.</p>}
@@ -65,6 +66,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                 <td className="px-3 py-3 font-mono text-xs">{fmt(r.created_at)}</td>
                 <td className="px-3 py-3 font-mono text-xs">{fmt(r.last_login)}</td>
                 <td className="px-4 py-3">
+                  {assignable.includes(r.role) ? (
                   <form action="/api/staff/role" method="post" className="flex items-center gap-2">
                     <input type="hidden" name="steam_id" value={r.steam_id} />
                     <label htmlFor={`role-${r.steam_id}`} className="sr-only">Role for {r.persona ?? r.steam_id}</label>
@@ -74,7 +76,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                       defaultValue={r.role}
                       className="border border-border bg-bg-primary px-2 py-1 text-sm focus:border-accent/50 focus:outline-none"
                     >
-                      {ROLES.map((role) => (
+                      {assignable.map((role) => (
                         <option key={role} value={role}>
                           {ROLE_LABEL[role]} · {ROLE_HELP[role]}
                         </option>
@@ -84,6 +86,9 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                       Save
                     </button>
                   </form>
+                  ) : (
+                    <span className="font-mono text-xs uppercase tracking-wider text-accent">{ROLE_LABEL[r.role]}</span>
+                  )}
                 </td>
               </tr>
             ))}

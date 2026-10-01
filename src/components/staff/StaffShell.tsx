@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { User } from "@/lib/auth";
-import { ROLE_LABEL, canClaimOwner, isOwner } from "@/lib/staff";
+import { ROLE_LABEL, canClaimOwner, isLead } from "@/lib/staff";
 
 const NAV = [
-  { href: "/staff", label: "Overview", owner: false },
-  { href: "/staff/team", label: "Team", owner: true },
+  { href: "/staff", label: "Overview", lead: false },
+  { href: "/staff/team", label: "Team", lead: true },
 ];
 
 /** Frame for every /staff page: who's signed in, section nav, then the page. */
@@ -21,7 +21,7 @@ export function StaffShell({ user, active, title, kicker, children }: { user: Us
         </p>
       </div>
       <nav className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" aria-label="Staff sections">
-        {NAV.filter((n) => !n.owner || isOwner(user)).map((n) => (
+        {NAV.filter((n) => !n.lead || isLead(user)).map((n) => (
           <Link
             key={n.href}
             href={n.href}
@@ -54,7 +54,7 @@ export async function StaffGate({ user, error }: { user: User | null; error?: st
       {error && <p className="mt-6 border-l-2 border-accent bg-bg-card/80 px-4 py-3 text-sm">{error}</p>}
       {!user ? (
         <>
-          <p className="mt-4 text-lg text-text-primary/75">Sign in with the Steam account the owner gave staff access to.</p>
+          <p className="mt-4 text-lg text-text-primary/75">Sign in with the Steam account that was given staff access.</p>
           <a
             href="/api/auth/steam"
             className="clip-corner-sm mt-8 inline-flex bg-accent px-6 py-3 font-display text-2xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]"
@@ -75,7 +75,7 @@ export async function StaffGate({ user, error }: { user: User | null; error?: st
         </>
       ) : (
         <p className="mt-4 text-lg text-text-primary/75">
-          You&apos;re signed in as {user.persona ?? "a player"}, which doesn&apos;t have staff access. Ask the owner to add you on the Team page.
+          You&apos;re signed in as {user.persona ?? "a player"}, which doesn&apos;t have staff access. Ask the owner or a lead admin to add you on the Team page.
         </p>
       )}
     </div>
