@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   redirects: async () => [
     {
       source: "/store",
-      destination: "https://mesark.tip4serv.com/",
+      destination: "https://store.mesark.net/",
       permanent: true,
     },
   ],
