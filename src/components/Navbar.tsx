@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -16,6 +17,38 @@ const NAV_LINKS = [
   { href: "/compete", label: "Compete" },
   { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
 ];
+
+type Me = { enabled: boolean; user: { persona: string | null; avatar: string | null } | null };
+
+/** Sign-in state for the nav, fetched after load so every page can stay static. */
+function useMe() {
+  const [me, setMe] = useState<Me | null>(null);
+  useEffect(() => {
+    let live = true;
+    fetch("/api/me", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => live && setMe(d))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
+  return me;
+}
+
+function AccountButton({ me }: { me: Me }) {
+  const label = me.user ? `Your account (${me.user.persona ?? "signed in"})` : "Sign in through Steam";
+  return (
+    <Link href="/account" aria-label={label} title={label} className="ml-3 flex h-9 w-9 items-center justify-center text-text-primary/70 transition hover:text-accent">
+      {me.user?.avatar ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={me.user.avatar} alt="" width={30} height={30} className="h-[30px] w-[30px] border border-border" />
+      ) : (
+        <UserCircleIcon className="h-7 w-7" />
+      )}
+    </Link>
+  );
+}
 
 function subscribeScroll(cb: () => void) {
   window.addEventListener("scroll", cb, { passive: true });
@@ -31,6 +64,7 @@ export function Navbar() {
   const setOpen = (v: boolean) => setOpenOn(v ? pathname : null);
 
   const solid = scrolled || open;
+  const me = useMe();
 
   return (
     <nav
@@ -69,10 +103,11 @@ export function Navbar() {
                 </Link>
               );
             })}
+            {me?.enabled && <AccountButton me={me} />}
             <Link
               href="https://store.mesark.net/"
               target="_blank"
-              className="clip-corner-sm ml-3 border border-blue/50 bg-blue/10 px-4 py-1.5 font-display text-lg font-extrabold uppercase tracking-wider text-text-primary transition hover:bg-blue/25"
+              className="clip-corner-sm ml-2 border border-blue/50 bg-blue/10 px-4 py-1.5 font-display text-lg font-extrabold uppercase tracking-wider text-text-primary transition hover:bg-blue/25"
             >
               Store
             </Link>
@@ -131,6 +166,12 @@ export function Navbar() {
                   </motion.div>
                 );
               })}
+              {me?.enabled && (
+                <Link href="/account" className="flex items-center justify-between border-b border-border/60 py-3 font-display text-3xl font-black uppercase text-text-primary">
+                  {me.user ? "Your account" : "Sign in"}
+                  <span className="text-base text-text-muted">→</span>
+                </Link>
+              )}
               <div className="mt-5 grid grid-cols-2 gap-2">
                 <Link
                   href="https://store.mesark.net/"

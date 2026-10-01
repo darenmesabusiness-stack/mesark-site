@@ -31,7 +31,10 @@ export default function PrivacyPage() {
         </ContentSection>
 
         <ContentSection title="This website" defaultOpen>
-          <RuleItem text="No accounts, no sign-up forms and no advertising or tracking cookies." />
+          <RuleItem text="Signing in is optional. If you sign in through Steam, you log in on Steam's own site and Steam confirms your Steam ID to us. We store that ID with your public Steam name and avatar, when you joined and when you last signed in. Your password only ever goes to Steam." />
+          <RuleItem text="Signing in sets one cookie that keeps you signed in for up to 30 days. We use no advertising or tracking cookies." />
+          <RuleItem text="Your Steam ID is never shown publicly. You can sign out or delete your account on the Account page at any time." />
+          <RuleItem text="Player and tribe profile pages show the same public stats as the leaderboards. They are not listed in search engines." />
           <RuleItem text="We use Vercel Web Analytics to count page views. It does not use cookies; it records the page, referrer, country, browser and device type, and counts visitors without identifying them." />
           <RuleItem text="Our host (Vercel) keeps standard server logs, such as IP address and request time, to run and protect the site." />
           <RuleItem text="Pages embed YouTube videos. YouTube may set its own cookies when you play one; that is covered by Google's privacy policy." />
@@ -68,7 +71,7 @@ export default function PrivacyPage() {
 
         <ContentSection title="Who we share it with" defaultOpen>
           <p>We do not sell your data. We only share it with services that run MESA for us:</p>
-          <RuleItem text="Vercel (website hosting and analytics)." />
+          <RuleItem text="Vercel (website hosting and analytics) and Neon (the database behind website accounts)." />
           <RuleItem text="Our game server and bot hosting providers." />
           <RuleItem text="Discord (the platform our community and bot run on)." />
           <RuleItem text="Anthropic (AI processing for the support bot)." />
@@ -79,6 +82,7 @@ export default function PrivacyPage() {
         <ContentSection title="How long we keep it" defaultOpen>
           <RuleItem text="Ban and enforcement records are kept for as long as the ban applies." />
           <RuleItem text="Purchase records are kept as long as we need them for support, disputes and our accounts." />
+          <RuleItem text="Website accounts are kept until you delete them; sign-ins expire after 30 days." />
           <RuleItem text="Bot and server databases are backed up daily; backups are kept for 30 days." />
           <RuleItem text="Everything else is kept only as long as it is useful for running MESA, and deleted on request where we can." />
         </ContentSection>
