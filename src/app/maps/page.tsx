@@ -1,14 +1,16 @@
 import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { CaveMaps } from "@/components/maps/CaveMaps";
-import { caveMaps, caveTotal } from "@/data/caves";
+import { publishedCaveMaps } from "@/lib/caveStore";
 
 export const metadata = pageMeta({
   title: "Cave Maps",
   description: "Every MESARK cave pinned at its in-game GPS, with a walkthrough clip.",
 });
 
-export default function MapsPage() {
+export default async function MapsPage() {
+  const caveMaps = await publishedCaveMaps();
+  const caveTotal = caveMaps.reduce((n, m) => n + m.caves.length, 0);
   return (
     <>
       <PageHeader

@@ -296,9 +296,9 @@ function CardGrid({ map, selected, onSelect }: { map: CaveMap; selected: string 
             c.id === selected ? "border-accent" : "border-border hover:border-accent/50"
           }`}
         >
-          {c.poster ? (
+          {c.poster || (c.video && isGif(c.video)) ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={c.poster} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+            <img src={c.poster ?? c.video} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
           ) : (
             <div className="absolute inset-0 bg-bg-card" />
           )}
@@ -313,6 +313,8 @@ function CardGrid({ map, selected, onSelect }: { map: CaveMap; selected: string 
   );
 }
 
+const isGif = (url: string) => /\.gif($|\?)/i.test(url);
+
 function CaveDetail({ cave, n, mapName, onBack }: { cave: Cave; n: number; mapName: string; onBack: () => void }) {
   const [copied, setCopied] = useState<string | null>(null);
   const copy = async (text: string, what: string) => {
@@ -322,7 +324,10 @@ function CaveDetail({ cave, n, mapName, onBack }: { cave: Cave; n: number; mapNa
   };
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-      {cave.video ? (
+      {cave.video && isGif(cave.video) ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={cave.video} src={cave.video} alt="" className="aspect-video w-full shrink-0 bg-bg-primary object-cover" />
+      ) : cave.video ? (
         <video
           key={cave.video}
           src={cave.video}
