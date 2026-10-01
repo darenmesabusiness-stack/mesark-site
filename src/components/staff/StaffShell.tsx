@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { User } from "@/lib/auth";
-import { canClaimOwner, isAdmin } from "@/lib/staff";
+import { ROLE_LABEL, canClaimOwner, isOwner } from "@/lib/staff";
 
 const NAV = [
-  { href: "/staff", label: "Overview", admin: false },
-  { href: "/staff/team", label: "Team", admin: true },
+  { href: "/staff", label: "Overview", owner: false },
+  { href: "/staff/team", label: "Team", owner: true },
 ];
 
 /** Frame for every /staff page: who's signed in, section nav, then the page. */
@@ -17,11 +17,11 @@ export function StaffShell({ user, active, title, kicker, children }: { user: Us
           MESA staff
         </p>
         <p className="font-mono text-xs text-text-muted">
-          {user.persona ?? "Signed in"} · <span className="uppercase text-accent">{user.role}</span>
+          {user.persona ?? "Signed in"} · <span className="uppercase text-accent">{ROLE_LABEL[user.role]}</span>
         </p>
       </div>
       <nav className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" aria-label="Staff sections">
-        {NAV.filter((n) => !n.admin || isAdmin(user)).map((n) => (
+        {NAV.filter((n) => !n.owner || isOwner(user)).map((n) => (
           <Link
             key={n.href}
             href={n.href}
@@ -54,7 +54,7 @@ export async function StaffGate({ user, error }: { user: User | null; error?: st
       {error && <p className="mt-6 border-l-2 border-accent bg-bg-card/80 px-4 py-3 text-sm">{error}</p>}
       {!user ? (
         <>
-          <p className="mt-4 text-lg text-text-primary/75">Sign in with the Steam account an admin gave staff access to.</p>
+          <p className="mt-4 text-lg text-text-primary/75">Sign in with the Steam account the owner gave staff access to.</p>
           <a
             href="/api/auth/steam"
             className="clip-corner-sm mt-8 inline-flex bg-accent px-6 py-3 font-display text-2xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]"
@@ -65,7 +65,7 @@ export async function StaffGate({ user, error }: { user: User | null; error?: st
       ) : claim ? (
         <>
           <p className="mt-4 text-lg text-text-primary/75">
-            Nobody runs the staff section yet, and yours is the only account on mesark.net. Claim owner access to become the first admin.
+            Nobody runs the staff section yet, and yours is the only account on mesark.net. Claim owner access to run it.
           </p>
           <form action="/api/staff/claim" method="post" className="mt-8">
             <button type="submit" className="clip-corner-sm bg-accent px-6 py-3 font-display text-2xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]">
@@ -75,7 +75,7 @@ export async function StaffGate({ user, error }: { user: User | null; error?: st
         </>
       ) : (
         <p className="mt-4 text-lg text-text-primary/75">
-          You&apos;re signed in as {user.persona ?? "a player"}, which doesn&apos;t have staff access. Ask an admin to add you on the Team page.
+          You&apos;re signed in as {user.persona ?? "a player"}, which doesn&apos;t have staff access. Ask the owner to add you on the Team page.
         </p>
       )}
     </div>

@@ -98,16 +98,21 @@ assert.equal(await canClaimOwner(owner), false, "no claim once a second account 
 assert.equal(await claimOwner(owner), false);
 await query("delete from users where steam_id = '76561198000000011'");
 assert.equal(await claimOwner(owner), true);
-const admin = (await userForToken(await createSession("76561198000000010")))!;
-assert.equal(admin.role, "admin");
-assert.equal(await claimOwner(admin), false, "claim works only once");
+const boss = (await userForToken(await createSession("76561198000000010")))!;
+assert.equal(boss.role, "owner");
+assert.equal(await claimOwner(boss), false, "claim works only once");
 await upsertUser("76561198000000012", "Mod", null);
 const mod = (await userForToken(await createSession("76561198000000012")))!;
-assert.equal(await setRole(mod, "76561198000000012", "admin"), "Only admins can change roles.");
-assert.equal(await setRole(admin, "76561198000000012", "staff"), null);
-assert.equal(await setRole(admin, "76561198000000012", "owner" as never), "Unknown role.");
-assert.match(String(await setRole(admin, "76561198000000010", "player")), /only admin/);
-assert.equal(await setRole(admin, "76561198000000099", "staff"), "That account doesn't exist.");
+assert.equal(await setRole(mod, "76561198000000012", "owner"), "Only owners can change roles.");
+assert.equal(await setRole(boss, "76561198000000012", "staff"), null);
+assert.equal(await setRole(boss, "76561198000000012", "admin" as never), "Unknown role.");
+assert.match(String(await setRole(boss, "76561198000000010", "player")), /only owner/);
+assert.equal(await setRole(boss, "76561198000000099", "staff"), "That account doesn't exist.");
 assert.equal((await userForToken(await createSession("76561198000000012")))!.role, "staff");
+
+// Legacy "admin" rows become "owner" when the schema runs.
+await query("update users set role = 'admin' where steam_id = '76561198000000010'");
+useDriver(async (text, params = []) => (await pg.query(text, params as unknown[])).rows as never); // re-run schema
+assert.equal((await query<{ role: string }>("select role from users where steam_id = '76561198000000010'"))[0].role, "owner");
 
 console.log("auth + staff tests passed");

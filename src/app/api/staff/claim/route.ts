@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { currentUser } from "@/lib/auth";
 import { claimOwner } from "@/lib/staff";
 
-/** One-time setup: the only account on the site becomes the first admin. */
+/** One-time setup: the only account on the site becomes the owner. */
 export async function POST(request: NextRequest) {
   const origin = request.nextUrl.origin;
   const user = await currentUser();

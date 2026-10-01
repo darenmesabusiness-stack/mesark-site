@@ -20,7 +20,7 @@ export interface User {
   persona: string | null;
   avatar: string | null;
   discord_id: string | null;
-  role: "player" | "staff" | "admin";
+  role: "player" | "staff" | "owner";
   created_at: string;
 }
 
