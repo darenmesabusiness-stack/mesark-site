@@ -44,6 +44,8 @@ const SCHEMA = [
      expires_at  timestamptz not null
    )`,
   `create index if not exists sessions_steam_id on sessions (steam_id)`,
+  // Roles v2: the first-week "admin" (full access) is now "owner"; nothing writes "admin" any more.
+  `update users set role = 'owner' where role = 'admin'`,
 ];
 
 /** Run a query, creating the schema first if this instance hasn't yet. */

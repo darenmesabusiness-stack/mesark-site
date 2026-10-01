@@ -1,5 +1,5 @@
 import { currentUser } from "@/lib/auth";
-import { ROLES, isAdmin, listAccounts } from "@/lib/staff";
+import { ROLES, ROLE_HELP, ROLE_LABEL, isOwner, listAccounts } from "@/lib/staff";
 import { StaffGate, StaffShell } from "@/components/staff/StaffShell";
 
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
@@ -7,7 +7,7 @@ const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { month: "sho
 export default async function TeamPage({ searchParams }: { searchParams: Promise<{ q?: string; error?: string; saved?: string }> }) {
   const user = await currentUser();
   const sp = await searchParams;
-  if (!isAdmin(user)) return <StaffGate user={user} error={user ? "The Team page is for admins." : undefined} />;
+  if (!isOwner(user)) return <StaffGate user={user} error={user ? "The Team page is for owners." : undefined} />;
 
   const q = (sp.q ?? "").trim().toLowerCase();
   const all = await listAccounts();
@@ -15,10 +15,10 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
   const staff = all.filter((r) => r.role !== "player").length;
 
   return (
-    <StaffShell user={user} active="/staff/team" title="Team" kicker={`${staff} staff · ${all.length} accounts`}>
+    <StaffShell user={user} active="/staff/team" title="Team" kicker={`${staff} on the team · ${all.length} accounts`}>
       <p className="max-w-2xl text-text-muted">
-        Anyone who signs in on mesark.net shows up here. Find their account and give them a role. Steam IDs on this page are
-        for staff only.
+        Anyone who signs in on mesark.net shows up here. Admins work tickets; owners can change everything. Steam IDs on
+        this page are for staff only.
       </p>
       {sp.error && <p className="mt-6 border-l-2 border-accent bg-bg-card/80 px-4 py-3 text-sm">{sp.error}</p>}
       {sp.saved && <p className="mt-6 border-l-2 border-teal bg-bg-card/80 px-4 py-3 text-sm">Role saved.</p>}
@@ -76,7 +76,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                     >
                       {ROLES.map((role) => (
                         <option key={role} value={role}>
-                          {role}
+                          {ROLE_LABEL[role]} · {ROLE_HELP[role]}
                         </option>
                       ))}
                     </select>
