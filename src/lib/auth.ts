@@ -135,8 +135,11 @@ export async function deleteAccount(steamId: string) {
 
 /** The signed-in user for this request (server components, route handlers). */
 export async function currentUser(): Promise<User | null> {
+  // cookies() stays outside the try: Next.js signals "this page is dynamic" by throwing from it.
+  const token = (await cookies()).get(SESSION_COOKIE)?.value;
+  if (!token) return null;
   try {
-    return await userForToken((await cookies()).get(SESSION_COOKIE)?.value);
+    return await userForToken(token);
   } catch (e) {
     console.error("session lookup failed", e);
     return null;

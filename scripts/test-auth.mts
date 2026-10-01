@@ -15,6 +15,7 @@ import {
   userForToken,
   verifySteamReply,
 } from "../src/lib/auth";
+import { canClaimOwner, claimOwner, setRole } from "../src/lib/staff";
 
 const pg = new PGlite();
 useDriver(async (text, params = []) => (await pg.query(text, params as unknown[])).rows as never);
@@ -88,4 +89,25 @@ assert.equal(await userForToken(t3), null);
 assert.equal((await query("select 1 from users")).length, 0, "account deleted");
 assert.equal((await query("select 1 from sessions")).length, 0, "sessions deleted with the account");
 
-console.log("auth tests passed");
+// Staff roles: the only account can claim owner once; admins manage roles.
+await upsertUser("76561198000000010", "Owner", null);
+const owner = (await userForToken(await createSession("76561198000000010")))!;
+assert.equal(await canClaimOwner(owner), true);
+await upsertUser("76561198000000011", "Second", null);
+assert.equal(await canClaimOwner(owner), false, "no claim once a second account exists");
+assert.equal(await claimOwner(owner), false);
+await query("delete from users where steam_id = '76561198000000011'");
+assert.equal(await claimOwner(owner), true);
+const admin = (await userForToken(await createSession("76561198000000010")))!;
+assert.equal(admin.role, "admin");
+assert.equal(await claimOwner(admin), false, "claim works only once");
+await upsertUser("76561198000000012", "Mod", null);
+const mod = (await userForToken(await createSession("76561198000000012")))!;
+assert.equal(await setRole(mod, "76561198000000012", "admin"), "Only admins can change roles.");
+assert.equal(await setRole(admin, "76561198000000012", "staff"), null);
+assert.equal(await setRole(admin, "76561198000000012", "owner" as never), "Unknown role.");
+assert.match(String(await setRole(admin, "76561198000000010", "player")), /only admin/);
+assert.equal(await setRole(admin, "76561198000000099", "staff"), "That account doesn't exist.");
+assert.equal((await userForToken(await createSession("76561198000000012")))!.role, "staff");
+
+console.log("auth + staff tests passed");

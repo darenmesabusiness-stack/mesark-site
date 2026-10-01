@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { dbConfigured } from "@/lib/db";
+import { isStaff } from "@/lib/staff";
 
 export const metadata: Metadata = {
   title: "Your account | MESA ARK",
@@ -80,6 +81,14 @@ export default async function AccountPage({
             </div>
           </div>
           {sp.welcome && <p className="mt-6 text-text-primary/80">You&apos;re signed in. Welcome to MESA.</p>}
+          {isStaff(user) && (
+            <Link
+              href="/staff"
+              className="clip-corner-sm mt-6 inline-flex bg-accent px-5 py-2.5 font-display text-xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]"
+            >
+              Staff section →
+            </Link>
+          )}
 
           <section className="mt-10 grid gap-px border border-border bg-border sm:grid-cols-3">
             {[
