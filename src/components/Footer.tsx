@@ -8,7 +8,7 @@ const COLUMNS = [
       { href: "/servers", label: "Server IPs" },
       { href: "/settings", label: "Settings & Wipe" },
       { href: "/helpful", label: "Helpful Guides" },
-      { href: "https://mesark.tip4serv.com/", label: "Store" },
+      { href: "https://store.mesark.net/", label: "Store" },
     ],
   },
   {

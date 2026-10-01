@@ -70,7 +70,7 @@ export function CTA() {
             Get server IPs →
           </Link>
           <Link
-            href="https://mesark.tip4serv.com/"
+            href="https://store.mesark.net/"
             target="_blank"
             className="clip-corner inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-10 py-4 font-display text-xl font-extrabold tracking-wider transition hover:border-blue/60 hover:bg-blue/10"
           >

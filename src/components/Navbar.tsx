@@ -68,7 +68,7 @@ export function Navbar() {
               );
             })}
             <Link
-              href="https://mesark.tip4serv.com/"
+              href="https://store.mesark.net/"
               target="_blank"
               className="clip-corner-sm ml-3 border border-blue/50 bg-blue/10 px-4 py-1.5 font-display text-lg font-extrabold uppercase tracking-wider text-text-primary transition hover:bg-blue/25"
             >
@@ -131,7 +131,7 @@ export function Navbar() {
               })}
               <div className="mt-5 grid grid-cols-2 gap-2">
                 <Link
-                  href="https://mesark.tip4serv.com/"
+                  href="https://store.mesark.net/"
                   target="_blank"
                   className="clip-corner-sm border border-blue/50 bg-blue/10 py-3 text-center font-display text-xl font-extrabold uppercase tracking-wider"
                 >
