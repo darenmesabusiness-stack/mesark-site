@@ -99,6 +99,30 @@ export type SupportData = {
   generated: number;
 };
 
+export type QueueTicket = {
+  channel_id: string;
+  guild_id: string;
+  name: string;
+  player: string;
+  cluster: string;
+  type: string;
+  rank: string | null;
+  opened: number;
+  waiting_since: number | null;
+  claimed_by: string | null;
+  overdue: boolean;
+  pinged: number;
+  escalated: boolean;
+  legacy: boolean;
+};
+
+export type TicketQueueData = {
+  ready: boolean;
+  generated: number;
+  sections: Partial<Record<"emergency" | "rank" | "staff" | "player" | "empty" | "hold", QueueTicket[]>>;
+  tiers: Partial<Record<"emergency" | "rank" | "normal", { tickets: number; answered: number; p50_mins: number | null; p90_mins: number | null }>>;
+};
+
 export type PlayerRecord = {
   steam_id: string;
   names: { name: string; steam_name: string | null; tribe: string | null; cluster: string | null; server: string | null; last_seen: number }[];

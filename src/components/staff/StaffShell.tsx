@@ -4,6 +4,7 @@ import { ROLE_LABEL, canClaimOwner, isLead, isOwner } from "@/lib/staff";
 
 const NAV: { href: string; label: string; access: "staff" | "lead" | "owner" }[] = [
   { href: "/staff", label: "Overview", access: "staff" },
+  { href: "/staff/tickets", label: "Tickets", access: "staff" },
   { href: "/staff/players", label: "Players", access: "staff" },
   { href: "/staff/support", label: "Support", access: "lead" },
   { href: "/staff/changelog", label: "Change log", access: "lead" },

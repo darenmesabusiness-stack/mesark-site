@@ -7,7 +7,7 @@ type Status = "Live" | "Next" | "Planned";
 // Who sees what: admins work tickets; lead admins also run content and the team; owners see everything.
 type Access = "staff" | "lead" | "owner";
 const MODULES: { title: string; text: string; status: Status; href?: string; access: Access }[] = [
-  { title: "Ticket queue", text: "Website and Discord tickets in one list, sorted by priority, with the player's details.", status: "Planned", access: "staff" },
+  { title: "Ticket queue", text: "Every open Discord ticket by priority: emergencies, rank holders, then longest waiting.", status: "Live", href: "/staff/tickets", access: "staff" },
   { title: "Player lookup", text: "Bans on every cluster, names, tribes and possible alts for any player.", status: "Live", href: "/staff/players", access: "staff" },
   { title: "Team", text: "Who has staff access. Add or remove admins; the owner also picks lead admins.", status: "Live", href: "/staff/team", access: "lead" },
   { title: "Change log editor", text: "Paste the month's Discord post and publish it to /changelog.", status: "Live", href: "/staff/changelog", access: "lead" },
