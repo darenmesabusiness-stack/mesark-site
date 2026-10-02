@@ -1,12 +1,15 @@
 import Link from "next/link";
 import type { User } from "@/lib/auth";
-import { ROLE_LABEL, canClaimOwner, isLead } from "@/lib/staff";
+import { ROLE_LABEL, canClaimOwner, isLead, isOwner } from "@/lib/staff";
 
-const NAV = [
-  { href: "/staff", label: "Overview", lead: false },
-  { href: "/staff/changelog", label: "Change log", lead: true },
-  { href: "/staff/caves", label: "Caves", lead: true },
-  { href: "/staff/team", label: "Team", lead: true },
+const NAV: { href: string; label: string; access: "staff" | "lead" | "owner" }[] = [
+  { href: "/staff", label: "Overview", access: "staff" },
+  { href: "/staff/players", label: "Players", access: "staff" },
+  { href: "/staff/support", label: "Support", access: "lead" },
+  { href: "/staff/changelog", label: "Change log", access: "lead" },
+  { href: "/staff/caves", label: "Caves", access: "lead" },
+  { href: "/staff/team", label: "Team", access: "lead" },
+  { href: "/staff/finance", label: "Finance", access: "owner" },
 ];
 
 /** Frame for every /staff page: who's signed in, section nav, then the page. */
@@ -23,7 +26,7 @@ export function StaffShell({ user, active, title, kicker, children }: { user: Us
         </p>
       </div>
       <nav className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" aria-label="Staff sections">
-        {NAV.filter((n) => !n.lead || isLead(user)).map((n) => (
+        {NAV.filter((n) => n.access === "staff" || (n.access === "lead" ? isLead(user) : isOwner(user))).map((n) => (
           <Link
             key={n.href}
             href={n.href}

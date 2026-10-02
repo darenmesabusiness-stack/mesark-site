@@ -5,14 +5,13 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 85],
   },
-  // Transcripts are served by the bot's dashboard on the VPS
-  // (mesa_dashboard.py:/transcript/<id> on port 8050).
-  // Route mesark.net/t/<id> → http://82.153.70.41:8050/transcript/<id>
-  // so the HTML loads in-browser with a clean URL under the main domain.
+  // Transcripts are served by the bot (mesa_dashboard.py /transcript/<id>) behind
+  // nginx at https://bot.mesark.net/t/<id>. Route mesark.net/t/<id> there so the HTML
+  // loads in-browser with a clean URL under the main domain, over HTTPS end to end.
   rewrites: async () => [
     {
       source: "/t/:id",
-      destination: "http://82.153.70.41:8050/transcript/:id",
+      destination: "https://bot.mesark.net/t/:id",
     },
   ],
   redirects: async () => [

@@ -8,12 +8,12 @@ type Status = "Live" | "Next" | "Planned";
 type Access = "staff" | "lead" | "owner";
 const MODULES: { title: string; text: string; status: Status; href?: string; access: Access }[] = [
   { title: "Ticket queue", text: "Website and Discord tickets in one list, sorted by priority, with the player's details.", status: "Planned", access: "staff" },
-  { title: "Player lookup", text: "Bans, purchases, servers and tribes for any player, next to their ticket.", status: "Planned", access: "staff" },
+  { title: "Player lookup", text: "Bans on every cluster, names, tribes and possible alts for any player.", status: "Live", href: "/staff/players", access: "staff" },
   { title: "Team", text: "Who has staff access. Add or remove admins; the owner also picks lead admins.", status: "Live", href: "/staff/team", access: "lead" },
   { title: "Change log editor", text: "Paste the month's Discord post and publish it to /changelog.", status: "Live", href: "/staff/changelog", access: "lead" },
   { title: "Cave editor", text: "Drop a pin on the map, add notes and the walkthrough clip.", status: "Live", href: "/staff/caves", access: "lead" },
-  { title: "Support stats", text: "Ticket volume, reply times and the AI helper's results. Replaces the old dashboard.", status: "Planned", access: "lead" },
-  { title: "Finance", text: "Store revenue and payouts.", status: "Planned", access: "owner" },
+  { title: "Support stats", text: "Ticket volume, reply times, busiest hours, open tickets and admin effort.", status: "Live", href: "/staff/support", access: "lead" },
+  { title: "Finance", text: "Store revenue, top products and spenders, admin pay.", status: "Live", href: "/staff/finance", access: "owner" },
 ];
 
 const STATUS: Record<Status, string> = {
