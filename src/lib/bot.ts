@@ -38,6 +38,40 @@ export async function botGet<T>(path: string, user: User): Promise<BotResult<T>>
   }
 }
 
+/** POST to the bridge as the signed-in user (Discord linking). */
+export async function botPost<T>(path: string, user: User, body: unknown = {}): Promise<BotResult<T>> {
+  let token: string;
+  try {
+    token = await getVercelOidcToken();
+  } catch {
+    return { ok: false, error: "This copy of the site can't talk to the bot. Only mesark.net can." };
+  }
+  try {
+    const res = await fetch(`${BOT_API}${path}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "X-Mesa-Role": user.role,
+        "X-Mesa-Actor": user.steam_id,
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+      signal: AbortSignal.timeout(15_000),
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) {
+      if ((res.status === 400 || res.status === 429) && data?.error) return { ok: false, error: data.error };
+      console.error("bot bridge", path, res.status, data);
+      return { ok: false, error: "The bot couldn't answer. Try again in a minute." };
+    }
+    return { ok: true, data: data as T };
+  } catch (e) {
+    console.error("bot bridge unreachable", path, e);
+    return { ok: false, error: "Can't reach the bot right now. Try again in a minute." };
+  }
+}
+
 export type SupportData = {
   days: number;
   totals: {

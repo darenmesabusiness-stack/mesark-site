@@ -4,6 +4,7 @@ import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { dbConfigured } from "@/lib/db";
 import { canClaimOwner, isStaff } from "@/lib/staff";
+import { DiscordLink } from "@/components/account/DiscordLink";
 
 export const metadata = pageMeta({
   title: "Your Account",
@@ -99,10 +100,16 @@ export default async function AccountPage({
             </Link>
           )}
 
-          <section className="mt-10 grid gap-px border border-border bg-border sm:grid-cols-3">
+          <section className="mt-10 border border-border bg-bg-card/60 p-5 sm:p-6">
+            <p className="hud-label !text-[10px]">Discord</p>
+            <h2 className="font-display mt-1 text-3xl font-black">Link your Discord</h2>
+            <p className="mt-1 mb-5 text-sm text-text-muted">So staff know who you are in tickets, and ticket replies from the website can reach you on Discord.</p>
+            <DiscordLink linkedName={user.discord_name ?? (user.discord_id ? "your Discord" : null)} />
+          </section>
+
+          <section className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
             {[
               ["Claim your profile", "Link your in-game stats to this account."],
-              ["Link Discord", "Send the bot a one-time code so ticket replies reach you."],
               ["Tickets", "Open and follow support tickets here."],
             ].map(([title, text]) => (
               <div key={title} className="bg-bg-card p-5">

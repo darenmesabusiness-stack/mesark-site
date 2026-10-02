@@ -20,6 +20,7 @@ export interface User {
   persona: string | null;
   avatar: string | null;
   discord_id: string | null;
+  discord_name: string | null;
   role: "player" | "staff" | "lead" | "owner";
   created_at: string;
 }
@@ -116,7 +117,7 @@ export async function createSession(steamId: string) {
 export async function userForToken(token: string | undefined): Promise<User | null> {
   if (!token) return null;
   const rows = await query<User>(
-    `select u.steam_id, u.persona, u.avatar, u.discord_id, u.role, u.created_at
+    `select u.steam_id, u.persona, u.avatar, u.discord_id, u.discord_name, u.role, u.created_at
        from sessions s join users u on u.steam_id = s.steam_id
       where s.id_hash = $1 and s.expires_at > now()`,
     [await sha256(token)],

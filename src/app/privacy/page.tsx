@@ -55,7 +55,7 @@ export default function PrivacyPage() {
           <RuleItem text="Our Discord bot answers questions and handles support tickets. It stores ticket transcripts and the questions you ask it." />
           <RuleItem text="It reads messages in our public community channels to spot common questions, measure how the community feels about updates and write weekly reports for staff. Messages are stored with your Discord user ID." />
           <RuleItem text="Message text is sent to Anthropic (the Claude AI model) to write answers and classify topics and sentiment. Anthropic processes it for us and does not use it to train its models." warning />
-          <RuleItem text="If you link your Discord to your Steam ID, we keep that link so staff can help you faster." />
+          <RuleItem text="If you link your Discord to your Steam ID (the /link command), we keep your Discord user ID and username with your account so staff can help you faster. Unlink any time on the Account page; deleting your account removes the link too." />
           <RuleItem text="The bot may send you a direct message, for example about a ticket or to welcome you back after time away." />
         </ContentSection>
 
