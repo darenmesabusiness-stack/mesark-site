@@ -4,6 +4,7 @@ const KIND = {
   loot: { label: "Vault", tone: "text-amber-300 border-amber-300/40" },
   sighting: { label: "Rare dino", tone: "text-teal border-teal/40" },
   raid: { label: "Raid", tone: "text-accent border-accent/50" },
+  boss: { label: "Boss down", tone: "text-rose-300 border-rose-300/40" },
 } as const;
 
 function where(map: string, lat: number | null, lon: number | null) {
@@ -18,7 +19,7 @@ export function EventFeed({ items, now }: { items: FeedItem[]; now: number }) {
       <div className="border border-border bg-bg-card/60 px-5 py-8 text-center">
         <p className="font-display text-3xl font-black">Quiet right now</p>
         <p className="mx-auto mt-2 max-w-md text-sm text-text-muted">
-          Vault spawns, rare dinos and raids show up here as they happen. Raids appear an hour after they end, so nothing in progress gets
+          Vault spawns, rare dinos, boss kills and raids show up here as they happen. Raids appear an hour after they end, so nothing in progress gets
           given away.
         </p>
       </div>
@@ -32,7 +33,12 @@ export function EventFeed({ items, now }: { items: FeedItem[]; now: number }) {
           <li key={i} className="flex flex-wrap items-center gap-x-4 gap-y-1 bg-bg-card/40 px-4 py-3">
             <span className={`w-24 shrink-0 border px-2 py-0.5 text-center font-mono text-[10px] uppercase tracking-wider ${k.tone}`}>{k.label}</span>
             <p className="min-w-0 flex-1 text-sm">
-              {e.kind === "raid" ? (
+              {e.kind === "boss" ? (
+                <>
+                  <strong className="font-semibold">{e.tribe ?? "A tribe"}</strong> killed the <strong className="font-semibold">{e.boss}</strong> on{" "}
+                  {prettyMap(e.map)}
+                </>
+              ) : e.kind === "raid" ? (
                 <>
                   <strong className="font-semibold">{e.attacker ?? "A tribe"}</strong> destroyed{" "}
                   <strong className="font-mono text-accent">{e.structures}</strong> structures of{" "}
