@@ -57,6 +57,7 @@ const SCHEMA = [
      updated_by    text
    )`,
   // Caves added or edited in the staff cave editor; they override the built-in caves (caves.ts).
+  `alter table users add column if not exists discord_name text`,
   `create table if not exists cave_edits (
      map         text not null,
      cave_id     text not null,
