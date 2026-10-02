@@ -13,6 +13,7 @@ const MODULES: { title: string; text: string; status: Status; href?: string; acc
   { title: "Change log editor", text: "Paste the month's Discord post and publish it to /changelog.", status: "Live", href: "/staff/changelog", access: "lead" },
   { title: "Cave editor", text: "Drop a pin on the map, add notes and the walkthrough clip.", status: "Live", href: "/staff/caves", access: "lead" },
   { title: "Support stats", text: "Ticket volume, reply times, busiest hours, open tickets and admin effort.", status: "Live", href: "/staff/support", access: "lead" },
+  { title: "Discord growth", text: "Members joining and leaving each Discord, invites used and who stays.", status: "Live", href: "/staff/discord", access: "lead" },
   { title: "Finance", text: "Store revenue, top products and spenders, admin pay.", status: "Live", href: "/staff/finance", access: "owner" },
 ];
 

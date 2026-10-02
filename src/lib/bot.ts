@@ -215,3 +215,17 @@ export function periodFrom(v: string | undefined): number {
   const n = Number(v);
   return (PERIODS as readonly number[]).includes(n) ? n : 30;
 }
+
+export type MembersDay = { day: string; joins: number; leaves: number; net: number; members: number | null };
+export type MembersServer = {
+  name: string;
+  joins: number;
+  leaves: number;
+  net: number;
+  members: number | null;
+  retention_7d: number | null;
+  new_account_pct: number | null;
+  top_invites: { code: string; joins: number }[];
+  daily: MembersDay[];
+};
+export type MembersData = { days: number; tracking_since: number | null; servers: Record<string, MembersServer> };
