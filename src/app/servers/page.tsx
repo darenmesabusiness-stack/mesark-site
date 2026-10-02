@@ -4,13 +4,20 @@ import { ServerList } from "@/components/ServerList";
 import { WipeCountdown } from "@/components/WipeCountdown";
 import { ContentSection } from "@/components/ContentSection";
 import { clusters, serverTotal } from "@/data/servers";
+import { LivePopulation } from "@/components/LivePopulation";
+import { getPopulation, liveCounts } from "@/lib/population";
+
+// Live player counts refresh every minute (incremental static regeneration).
+export const revalidate = 60;
 
 export const metadata = pageMeta({
   title: "Server List",
   description: "Every MESARK server IP for Solo, Duo, 3/4 Man and 100x.",
 });
 
-export default function ServersPage() {
+export default async function ServersPage() {
+  const pop = await getPopulation().catch(() => null);
+  const live = liveCounts(pop, clusters);
   return (
     <>
       <PageHeader
@@ -22,6 +29,8 @@ export default function ServersPage() {
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
+        <LivePopulation pop={pop} />
+
         {/* How to connect */}
         <ContentSection title="How to Connect">
           <p>Copy a server IP below, then follow this quick guide to join.</p>
@@ -52,7 +61,7 @@ export default function ServersPage() {
         {/* Wipe countdown */}
         <WipeCountdown />
 
-        <ServerList clusters={clusters} />
+        <ServerList clusters={clusters} live={live} />
 
         {/* Pre-Aquatica guide */}
         <ContentSection title="Can't Find MESA Servers?">

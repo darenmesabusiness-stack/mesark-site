@@ -4,8 +4,9 @@ import { useState, useMemo } from "react";
 import { ContentSection } from "@/components/ContentSection";
 import { CopyIP } from "@/components/CopyIP";
 import type { Cluster } from "@/data/servers";
+import type { LiveCounts } from "@/lib/population";
 
-export function ServerList({ clusters }: { clusters: Cluster[] }) {
+export function ServerList({ clusters, live }: { clusters: Cluster[]; live?: LiveCounts | null }) {
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
@@ -67,12 +68,14 @@ export function ServerList({ clusters }: { clusters: Cluster[] }) {
         filtered.map((cluster, i) => (
           <ContentSection
             key={cluster.name}
-            title={`${cluster.name}${query ? ` (${cluster.servers.length})` : ""}`}
+            title={`${cluster.name}${query ? ` (${cluster.servers.length})` : ""}${
+              live?.clusters[cluster.name] !== undefined ? ` · ${live.clusters[cluster.name]} online` : ""
+            }`}
             defaultOpen={query ? true : i === 0}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {cluster.servers.map((server) => (
-                <CopyIP key={server.ip} ip={server.ip} label={server.map} />
+                <CopyIP key={server.ip} ip={server.ip} label={server.map} players={live?.servers[`${cluster.name}|${server.map}`]} />
               ))}
             </div>
             {cluster.links && cluster.links.length > 0 && (
