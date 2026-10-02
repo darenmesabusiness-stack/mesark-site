@@ -1,7 +1,5 @@
 import type { PopulationData } from "@/lib/bot";
-
-const ORDER = ["MESA Solos", "MESA Duos", "MESA 3 MAN", "MESA 4 MAN", "MESA 100x"];
-const LABEL: Record<string, string> = { "MESA Solos": "Solo", "MESA Duos": "Duo", "MESA 3 MAN": "3 Man", "MESA 4 MAN": "4 Man", "MESA 100x": "100x" };
+import { CLUSTER_GROUPS } from "@/components/LivePopulation";
 
 /** Network players per hour, last 24 h (stacked total of every cluster's average). */
 export function PopHistory({ pop }: { pop: PopulationData }) {
@@ -20,7 +18,12 @@ export function PopHistory({ pop }: { pop: PopulationData }) {
   const step = w / (vals.length - 1);
   const pts = vals.map((v, i) => `${(i * step).toFixed(1)},${(h - (v / max) * (h - 8)).toFixed(1)}`);
   const fmt = (ts: number) => new Date(ts * 1000).toLocaleTimeString("en-US", { hour: "numeric", timeZone: "America/New_York" });
-  const clusters = ORDER.filter((c) => pop.history[c]?.length);
+  // Peak per player-facing cluster: sum the group's hourly averages, then take the highest hour.
+  const peaks = CLUSTER_GROUPS.map((g) => {
+    const perHour = new Map<number, number>();
+    for (const c of g.clusters) for (const p of pop.history[c] ?? []) perHour.set(p.hour, (perHour.get(p.hour) ?? 0) + p.avg);
+    return { name: g.name, peak: perHour.size ? Math.max(...perHour.values()) : null };
+  }).filter((g) => g.peak !== null);
   return (
     <figure className="border border-border bg-bg-card/60 p-4">
       <div className="flex items-start gap-3">
@@ -38,17 +41,13 @@ export function PopHistory({ pop }: { pop: PopulationData }) {
         <span>Players online, hourly average</span>
         <span>{fmt(hours[hours.length - 1])} ET</span>
       </figcaption>
-      {clusters.length > 0 && (
+      {peaks.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-border/60 pt-3 text-xs text-text-muted">
-          {clusters.map((c) => {
-            const series = pop.history[c]!;
-            const peak = Math.max(...series.map((p) => p.avg));
-            return (
-              <li key={c}>
-                {LABEL[c]} peak <span className="font-mono text-text-primary">{Math.round(peak)}</span>
-              </li>
-            );
-          })}
+          {peaks.map((g) => (
+            <li key={g.name}>
+              {g.name} peak <span className="font-mono text-text-primary">{Math.round(g.peak!)}</span>
+            </li>
+          ))}
         </ul>
       )}
     </figure>
