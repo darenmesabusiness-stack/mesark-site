@@ -1,0 +1,56 @@
+import type { PopulationData } from "@/lib/bot";
+
+const ORDER = ["MESA Solos", "MESA Duos", "MESA 3 MAN", "MESA 4 MAN", "MESA 100x"];
+const LABEL: Record<string, string> = { "MESA Solos": "Solo", "MESA Duos": "Duo", "MESA 3 MAN": "3 Man", "MESA 4 MAN": "4 Man", "MESA 100x": "100x" };
+
+/** Network players per hour, last 24 h (stacked total of every cluster's average). */
+export function PopHistory({ pop }: { pop: PopulationData }) {
+  const byHour = new Map<number, number>();
+  for (const series of Object.values(pop.history)) {
+    for (const p of series) byHour.set(p.hour, (byHour.get(p.hour) ?? 0) + p.avg);
+  }
+  const hours = [...byHour.keys()].sort((a, b) => a - b).slice(-24);
+  if (hours.length < 2) {
+    return <p className="text-sm text-text-muted">Population history starts building now. Check back in a few hours.</p>;
+  }
+  const vals = hours.map((h) => byHour.get(h) ?? 0);
+  const max = Math.max(...vals, 1);
+  const w = 600;
+  const h = 120;
+  const step = w / (vals.length - 1);
+  const pts = vals.map((v, i) => `${(i * step).toFixed(1)},${(h - (v / max) * (h - 8)).toFixed(1)}`);
+  const fmt = (ts: number) => new Date(ts * 1000).toLocaleTimeString("en-US", { hour: "numeric", timeZone: "America/New_York" });
+  const clusters = ORDER.filter((c) => pop.history[c]?.length);
+  return (
+    <figure className="border border-border bg-bg-card/60 p-4">
+      <div className="flex items-start gap-3">
+        <div className="flex flex-col justify-between text-right font-mono text-[10px] text-text-muted" style={{ height: h }}>
+          <span>{Math.round(max)}</span>
+          <span>0</span>
+        </div>
+        <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="w-full min-w-0" style={{ height: h }} role="img" aria-label="Players online per hour, last 24 hours">
+          <polygon points={`0,${h} ${pts.join(" ")} ${w},${h}`} className="fill-accent/15" />
+          <polyline points={pts.join(" ")} fill="none" className="stroke-accent" strokeWidth={2} vectorEffect="non-scaling-stroke" />
+        </svg>
+      </div>
+      <figcaption className="mt-2 flex justify-between pl-8 font-mono text-[10px] text-text-muted">
+        <span>{fmt(hours[0])} ET</span>
+        <span>Players online, hourly average</span>
+        <span>{fmt(hours[hours.length - 1])} ET</span>
+      </figcaption>
+      {clusters.length > 0 && (
+        <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-border/60 pt-3 text-xs text-text-muted">
+          {clusters.map((c) => {
+            const series = pop.history[c]!;
+            const peak = Math.max(...series.map((p) => p.avg));
+            return (
+              <li key={c}>
+                {LABEL[c]} peak <span className="font-mono text-text-primary">{Math.round(peak)}</span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </figure>
+  );
+}
