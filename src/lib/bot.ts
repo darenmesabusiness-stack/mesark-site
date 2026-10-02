@@ -38,6 +38,38 @@ export async function botGet<T>(path: string, user: User): Promise<BotResult<T>>
   }
 }
 
+/** GET public data (no signed-in user), e.g. live population for the server list. */
+export async function botGetPublic<T>(path: string): Promise<BotResult<T>> {
+  let token: string;
+  try {
+    token = await getVercelOidcToken();
+  } catch {
+    return { ok: false, error: "no oidc" };
+  }
+  try {
+    const res = await fetch(`${BOT_API}${path}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+      signal: AbortSignal.timeout(8_000),
+    });
+    if (!res.ok) return { ok: false, error: `bot ${res.status}` };
+    return { ok: true, data: (await res.json()) as T };
+  } catch (e) {
+    console.error("bot bridge unreachable", path, e);
+    return { ok: false, error: "unreachable" };
+  }
+}
+
+export type PopulationData = {
+  fresh: boolean;
+  updated: number | null;
+  online: number;
+  peak_24h: number;
+  clusters: Record<string, { players: number; servers: number }>;
+  servers: { session: string; cluster: string; map: string; players: number }[];
+  history: Record<string, { hour: number; avg: number }[]>;
+};
+
 /** POST to the bridge as the signed-in user (Discord linking). */
 export async function botPost<T>(path: string, user: User, body: unknown = {}): Promise<BotResult<T>> {
   let token: string;
