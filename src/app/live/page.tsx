@@ -9,7 +9,7 @@ import { getFeed } from "@/lib/feed";
 
 export const metadata = pageMeta({
   title: "Live",
-  description: "Players online right now across MESA, plus vault spawns, rare dinos and raids as they happen.",
+  description: "Players online right now across MESA, plus vault spawns, rare dinos, boss kills and raids as they happen.",
 });
 
 // Refreshes every minute (the bot collects every 2 minutes).

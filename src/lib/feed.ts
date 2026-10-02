@@ -8,7 +8,8 @@ import { botGetPublic } from "@/lib/bot";
  */
 export type FeedItem =
   | { kind: "loot" | "sighting"; cluster: string; map: string; title: string; lat: number | null; lon: number | null; at: number }
-  | { kind: "raid"; cluster: string; map: string; at: number; attacker: string | null; victim: string | null; structures: number };
+  | { kind: "raid"; cluster: string; map: string; at: number; attacker: string | null; victim: string | null; structures: number }
+  | { kind: "boss"; cluster: string; map: string; at: number; tribe: string | null; boss: string };
 
 export type FeedData = { items: FeedItem[]; generated: number };
 
@@ -30,6 +31,7 @@ const MAP_NAMES: Record<string, string> = {
   Gen2: "Genesis 2",
   Genesis: "Genesis 1",
   MesaPrime: "MESA City",
+  BossMap: "Boss Map",
 };
 
 /** "TheIsland" / "Aberration_P" → "The Island" / "Aberration". */
