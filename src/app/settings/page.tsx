@@ -1,6 +1,11 @@
 import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
+import { LiveClusterCard } from "@/components/LiveClusterCard";
+import { getLiveSettings, updatedLabel, wipeLabel } from "@/lib/settings";
+
+// Cluster cards come live from the game servers (via the bot); refresh hourly.
+export const revalidate = 3600;
 
 export const metadata = pageMeta({
   title: "Settings & Wipe Schedule",
@@ -62,7 +67,8 @@ function StatBlock({ label, value }: { label: string; value: string }) {
   );
 }
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const live = await getLiveSettings();
   return (
     <>
       <PageHeader
@@ -77,11 +83,24 @@ export default function SettingsPage() {
         {/* ── Cluster Settings ── */}
         <div className="mb-2">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-accent mb-4">Cluster Settings</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <ClusterCard name="3/4 Man" wipe="Friday" rates={{ xp: "35x", harvest: "15x", tame: "Instant", breed: "50x", stack: "3,000", dinos: "200", saddle: "Default", weapon: "400%" }} />
-            <ClusterCard name="100x" wipe="every 2nd Wednesday" rates={{ xp: "100x", harvest: "100x", tame: "Instant", breed: "100x", stack: "25,000", dinos: "600", saddle: "125", weapon: "100x" }} />
-            <ClusterCard name="Solo / Duo" wipe="Mon / Sat" rates={{ xp: "25x", harvest: "25x", tame: "Instant", breed: "50x", stack: "5,000", dinos: "600", saddle: "Default", weapon: "Default" }} />
-          </div>
+          {live ? (
+            <>
+              <div className="grid grid-cols-1 gap-4">
+                {live.clusters.map((c) => <LiveClusterCard key={c.id} c={c} />)}
+              </div>
+              <p className="mt-3 flex items-center gap-2 text-xs text-text-muted">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]" aria-hidden />
+                Read live from the game servers&apos; configs · updated {updatedLabel(live.updated)}
+              </p>
+            </>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Fallback when the bot can't be reached. Live data replaces these within the hour. */}
+              <ClusterCard name="3/4 Man" wipe="Friday" rates={{ xp: "15x", harvest: "20x", tame: "Instant", breed: "50x", stack: "3,000", dinos: "200", saddle: "Default", weapon: "400%" }} />
+              <ClusterCard name="100x" wipe="every 2nd Wednesday" rates={{ xp: "Instant", harvest: "100x", tame: "Instant", breed: "100x", stack: "25,000", dinos: "600", saddle: "125", weapon: "100x" }} />
+              <ClusterCard name="Solo / Duo" wipe="Mon / Sat" rates={{ xp: "25x", harvest: "20-25x", tame: "Instant", breed: "50x", stack: "5,000", dinos: "600", saddle: "Default", weapon: "Default" }} />
+            </div>
+          )}
         </div>
 
         {/* ── Server Info ── */}
@@ -98,6 +117,16 @@ export default function SettingsPage() {
             <InfoCard title="100x 2/4 Man" value="Every other Wed" accent />
             <InfoCard title="All Clusters" value="1:00 PM EST" />
           </div>
+          {live && (
+            <div className="mt-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
+              {[...live.clusters].filter((c) => c.next_wipe).sort((a, b) => (a.next_wipe ?? 0) - (b.next_wipe ?? 0)).map((c) => (
+                <div key={c.id} className="flex justify-between gap-3 border-b border-border/40 py-1.5">
+                  <span className="text-text-primary">{c.name}</span>
+                  <span className="font-semibold text-accent">{wipeLabel(c.next_wipe as number)}</span>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="mt-4 space-y-1">
             <RuleItem text="3/4 Man rotates between 3 Man and 4 Man every Friday." />
             <RuleItem text="100x wipes every other Wednesday (every 2 weeks) and rotates between 2 Man and 4 Man each wipe." />
