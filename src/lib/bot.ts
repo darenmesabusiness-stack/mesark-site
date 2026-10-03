@@ -146,6 +146,7 @@ export type QueueTicket = {
   pinged: number;
   escalated: boolean;
   legacy: boolean;
+  review?: { state: string; note: string; updated_at: number | null };
 };
 
 export type TicketQueueData = {
@@ -153,6 +154,7 @@ export type TicketQueueData = {
   generated: number;
   sections: Partial<Record<"emergency" | "rank" | "staff" | "player" | "empty" | "hold", QueueTicket[]>>;
   tiers: Partial<Record<"emergency" | "rank" | "normal", { tickets: number; answered: number; p50_mins: number | null; p90_mins: number | null }>>;
+  cohorts?: Record<string, { tickets: number; response_samples: number; response_p50: number | null; response_p90: number | null; resolution_samples: number; resolution_p50: number | null; resolution_p90: number | null; invalid_response_intervals: number }>;
 };
 
 export type PlayerRecord = {
@@ -171,6 +173,14 @@ export type PlayerRecord = {
 };
 
 export type FinanceData = {
+  currency?: string;
+  currencies?: { currency: string; revenue: number; payments: number }[];
+  sync?: { last_attempt?: string; last_success?: string; recent_success?: string; history_completed?: string; last_error?: string; stale: boolean };
+  status_changes?: { payment_id: string; previous: string; current: string; observed_at: number }[];
+  delivery?: { payment_id: string; status: string; date: number; amount: number; currency: string; cart: string; delivery_state: string; note: string; updated_at: number | null; observed_at: number | null }[];
+  delivery_count?: number;
+  review_page?: number;
+  review_ready?: boolean;
   days: number;
   period: { revenue: number; payments: number; prev_revenue: number; change_pct: number | null; avg_daily: number };
   month: { revenue: number; payments: number };
