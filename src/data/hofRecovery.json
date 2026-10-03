@@ -7,434 +7,496 @@
       "matches": 159,
       "observedAt": "2026-09-22T20:00:00.347768+00:00",
       "observedScore": 211818,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1555850411057881199",
       "matches": 39,
       "observedAt": "2026-08-20T21:00:00.379892+00:00",
       "observedScore": 167948,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1554963005815660824",
       "matches": 3,
       "observedAt": "2026-09-17T13:00:00.965175+00:00",
       "observedScore": 27191,
-      "observedRank": 5
+      "observedRank": 5,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1554760015188070461",
       "matches": 147,
       "observedAt": "2026-09-16T02:00:01.295891+00:00",
       "observedScore": 496629,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1553453533636988988",
       "matches": 133,
       "observedAt": "2026-09-08T23:00:00.435068+00:00",
       "observedScore": 710162,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1553452783221608639",
       "matches": 308,
       "observedAt": "2026-09-02T00:00:01.085060+00:00",
       "observedScore": 923283,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1551590097311240254",
       "matches": 60,
       "observedAt": "2026-08-27T06:00:00.310955+00:00",
       "observedScore": 218183,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1550575029555568821",
       "matches": 134,
       "observedAt": "2026-09-10T22:00:00.318114+00:00",
       "observedScore": 274483,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1546933203519012995",
       "matches": 117,
       "observedAt": "2026-09-03T21:00:00.389362+00:00",
       "observedScore": 213252,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1544737480148918292",
       "matches": 222,
       "observedAt": "2026-08-14T19:00:00.281974+00:00",
       "observedScore": 369606,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1541893598289600642",
       "matches": 107,
       "observedAt": "2026-08-17T02:00:00.370134+00:00",
       "observedScore": 252506,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1541419652503179344",
       "matches": 222,
       "observedAt": "2026-08-14T19:00:00.281974+00:00",
       "observedScore": 369606,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1541419572937363577",
       "matches": 122,
       "observedAt": "2026-08-07T18:00:00.274184+00:00",
       "observedScore": 332125,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1540183554791710770",
       "matches": 112,
       "observedAt": "2026-08-13T22:00:00.389987+00:00",
       "observedScore": 391245,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1540144788739723424",
       "matches": 277,
       "observedAt": "2026-08-05T14:43:11.342176+00:00",
       "observedScore": 510421,
-      "observedRank": 3
+      "observedRank": 3,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1539424327760478351",
       "matches": 72,
       "observedAt": "2026-08-07T13:48:48.058388+00:00",
       "observedScore": 587596,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1536328474057510932",
       "matches": 125,
       "observedAt": "2026-07-23T22:00:00.382785+00:00",
       "observedScore": 671769,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1535052929743065108",
       "matches": 40,
       "observedAt": "2026-08-04T03:28:10.868686+00:00",
       "observedScore": 281043,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1532708830419619901",
       "matches": 141,
       "observedAt": "2026-07-24T19:00:00.273005+00:00",
       "observedScore": 249594,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "4 Man"
     },
     {
       "announcement": "1532706639218475119",
       "matches": 162,
       "observedAt": "2026-07-24T19:00:00.323505+00:00",
       "observedScore": 462040,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1530384564231340283",
       "matches": 145,
       "observedAt": "2026-07-21T22:00:01.311187+00:00",
       "observedScore": 737801,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1530192711116656691",
       "matches": 145,
       "observedAt": "2026-07-16T22:00:00.285946+00:00",
       "observedScore": 748121,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1529774897327374407",
       "matches": 69,
       "observedAt": "2026-07-10T14:20:26.483902+00:00",
       "observedScore": 395893,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1526680239957082383",
       "matches": 141,
       "observedAt": "2026-07-08T14:06:29.503500+00:00",
       "observedScore": 776704,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1526668369171054662",
       "matches": 109,
       "observedAt": "2026-07-10T19:00:00.237816+00:00",
       "observedScore": 307852,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1526666332286877807",
       "matches": 98,
       "observedAt": "2026-07-04T01:00:00.459192+00:00",
       "observedScore": 164128,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "4 Man"
     },
     {
       "announcement": "1526643722694033502",
       "matches": 110,
       "observedAt": "2026-07-14T13:30:05.673849+00:00",
       "observedScore": 161959,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1526586115119906826",
       "matches": 141,
       "observedAt": "2026-07-03T19:00:00.223930+00:00",
       "observedScore": 751501,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1525093797866770462",
       "matches": 142,
       "observedAt": "2026-06-30T23:00:00.697655+00:00",
       "observedScore": 464671,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1524903107291644115",
       "matches": 102,
       "observedAt": "2026-06-25T23:00:00.539368+00:00",
       "observedScore": 538313,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1524106650200572124",
       "matches": 345,
       "observedAt": "2026-06-29T23:00:00.353137+00:00",
       "observedScore": 239211,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1524106561876918272",
       "matches": 345,
       "observedAt": "2026-06-29T23:00:00.353137+00:00",
       "observedScore": 239211,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1522114014015000667",
       "matches": 345,
       "observedAt": "2026-06-29T23:00:00.353137+00:00",
       "observedScore": 239211,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1520485520545808516",
       "matches": 141,
       "observedAt": "2026-06-23T22:00:00.444442+00:00",
       "observedScore": 567596,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1520482189995802800",
       "matches": 117,
       "observedAt": "2026-06-19T19:00:00.325638+00:00",
       "observedScore": 166629,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1520473891695493330",
       "matches": 97,
       "observedAt": "2026-06-12T19:00:00.363220+00:00",
       "observedScore": 263378,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1519797849678938324",
       "matches": 137,
       "observedAt": "2026-06-10T12:59:59.748272+00:00",
       "observedScore": 617513,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1519791040125468802",
       "matches": 107,
       "observedAt": "2026-06-02T21:59:59.719708+00:00",
       "observedScore": 651888,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1519785800706035732",
       "matches": 403,
       "observedAt": "2026-06-25T19:00:00.283668+00:00",
       "observedScore": 287736,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1518978785880314078",
       "matches": 548,
       "observedAt": "2026-05-29T19:00:19.996570+00:00",
       "observedScore": 262809,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1518340604642201762",
       "matches": 109,
       "observedAt": "2026-06-04T21:00:00.374493+00:00",
       "observedScore": 558000,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1516486869343273051",
       "matches": 116,
       "observedAt": "2026-06-08T22:00:00.326181+00:00",
       "observedScore": 334294,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1516484950235283687",
       "matches": 117,
       "observedAt": "2026-06-01T23:00:00.281146+00:00",
       "observedScore": 211827,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1516477447653032089",
       "matches": 81,
       "observedAt": "2026-05-25T22:00:00.230731+00:00",
       "observedScore": 323452,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1516475287074902197",
       "matches": 56,
       "observedAt": "2026-05-18T23:00:00.291634+00:00",
       "observedScore": 288635,
-      "observedRank": 3
+      "observedRank": 3,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1515335492533489819",
       "matches": 142,
       "observedAt": "2026-05-27T16:59:59.399666+00:00",
       "observedScore": 620083,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1514639512209195008",
       "matches": 299,
       "observedAt": "2026-06-02T21:59:59.719708+00:00",
       "observedScore": 345722,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1509126912683933776",
       "matches": 89,
       "observedAt": "2026-05-14T21:00:00.314931+00:00",
       "observedScore": 397949,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1508977571927163010",
       "matches": 759,
       "observedAt": "2026-05-26T01:00:00.330539+00:00",
       "observedScore": 15814,
-      "observedRank": 10
+      "observedRank": 10,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1508311361791459328",
       "matches": 638,
       "observedAt": "2026-05-15T19:00:03.028917+00:00",
       "observedScore": 231473,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1505877274518487070",
       "matches": 133,
       "observedAt": "2026-05-12T22:59:59.476396+00:00",
       "observedScore": 497872,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1505872218553450599",
       "matches": 183,
       "observedAt": "2026-05-18T08:59:59.308952+00:00",
       "observedScore": 402433,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1505849499401326592",
       "matches": 125,
       "observedAt": "2026-04-21T21:59:59.821230+00:00",
       "observedScore": 686441,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "100x"
     },
     {
       "announcement": "1504860336900149432",
       "matches": 614,
       "observedAt": "2026-04-24T19:00:00.318760+00:00",
       "observedScore": 278781,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1504468326334595232",
       "matches": 115,
       "observedAt": "2026-05-14T05:00:00.278461+00:00",
       "observedScore": 19850,
-      "observedRank": 9
+      "observedRank": 9,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1504465294452592640",
       "matches": 112,
       "observedAt": "2026-05-08T10:45:41.062816+00:00",
       "observedScore": 243836,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1504461835993219082",
       "matches": 129,
       "observedAt": "2026-05-01T14:00:00.253779+00:00",
       "observedScore": 477048,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1502179264638746634",
       "matches": 221,
       "observedAt": "2026-04-29T01:00:00.483500+00:00",
       "observedScore": 56288,
-      "observedRank": 4
+      "observedRank": 4,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1502178784164708495",
       "matches": 614,
       "observedAt": "2026-04-24T19:00:00.318760+00:00",
       "observedScore": 278781,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "3/6 Man"
     },
     {
       "announcement": "1502172778315649055",
       "matches": 157,
       "observedAt": "2026-05-05T00:38:16.092511+00:00",
       "observedScore": 376047,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Solo"
     },
     {
       "announcement": "1502170860293722193",
       "matches": 93,
       "observedAt": "2026-04-24T12:31:31.015602+00:00",
       "observedScore": 360946,
-      "observedRank": 1
+      "observedRank": 1,
+      "observedCluster": "Duo"
     },
     {
       "announcement": "1502168913251926066",
       "matches": 40,
       "observedAt": "2026-04-17T14:07:03.739962+00:00",
       "observedScore": 413297,
-      "observedRank": 2
+      "observedRank": 2,
+      "observedCluster": "Duos"
     }
   ]
 }

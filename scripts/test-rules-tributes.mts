@@ -70,7 +70,8 @@ form.set("score",""); form.set("signature","76561199000000001");assert.equal(par
 assert.equal(seed.sources.length,12); assert.ok(seed.sections.some(s=>s.rules.some(r=>/24 hours on 100x/.test(r))));
 assert.ok(seed.sections.some(s=>s.rules.some(r=>/maximum limit on solos is 2 DPS Dinos/.test(r))));
 for(const candidate of recovery.candidates) {
- assert.deepEqual(Object.keys(candidate).sort(),["announcement","matches","observedAt","observedScore","observedRank"].sort());
+ assert.deepEqual(Object.keys(candidate).sort(),["announcement","matches","observedAt","observedScore","observedRank","observedCluster"].sort());
+ assert.ok(["3 Man","Solos","Duos","3/6 Man","100x 2/6 Man","100x","Solo","Duo","4 Man"].includes(candidate.observedCluster));
  assert.ok(hof.winners.some(w=>w.id===candidate.announcement));
  assert.ok(Number.isSafeInteger(candidate.observedScore) && candidate.observedScore>=0);
 }

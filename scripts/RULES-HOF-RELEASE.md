@@ -49,6 +49,11 @@ leaderboard tables recovered18,835snapshots/188,350rows, with exact-name/cluster
 review candidates for62announcements in the45days before recognition. This is
 not a final-season identity match. Leads see safe date/score/rank candidates in
 the editor; no raw messages, names or internal event IDs are shipped there. No fuzzy identity matches or restored live DBs.
+Historical source labels include combined3/6 Man and100x2/6 Man leaderboards.
+Candidate matching is by cluster family, not a proven specific cluster/season.
+The lead review panel displays the original source label; unknown source families
+are rejected instead of silently being treated as main. Fresh read onOctober3
+recovered18,841snapshots/188,410rows with62candidates, still review-only.
 Private local review evidence: out/review/hof-recovered-candidates.json and
 hof-history-review.md. Parser _scripts/recover_hof_score_history.py is read-only;
 five offline shape/truncation/privacy/zero/grouping tests pass. Confirm season
