@@ -5,7 +5,9 @@ export interface MapWindow { cluster: string; wiped_at: string; expires_at: stri
 export interface TribeLocation { tribe_id: number; map: string; lat: number; lon: number; observed_at: string }
 export interface MesaTribe {
   id: number; name: string; rank: number; score: number; kills: number; deaths: number;
-  location: Omit<TribeLocation, "tribe_id"> | null;
+  location: (Omit<TribeLocation, "tribe_id"> & {
+    mapImage?: { src: string; w: number; h: number; x: number; y: number } | null;
+  }) | null;
 }
 
 /** No scheduled-wipe inference: late wipes must not reveal bases early. */

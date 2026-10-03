@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { packTribes, tribeColors, type MesaTribe } from "@/lib/mesaMap";
 import { fixText, num, playerHref, tribeHref } from "@/lib/leaderboard";
@@ -67,6 +68,18 @@ export function MesaMap({ cluster, tribes, expiresAt }: { cluster: string; tribe
           <Link className="text-sm text-accent underline underline-offset-4" href={tribeHref(cluster, tribe.id)}>Full tribe profile →</Link></div>
         <dl className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">{[["Cluster rank", `#${tribe.rank}`], ["Tribe score", num(tribe.score)], ["Player kills", num(tribe.kills)], ["Player deaths", num(tribe.deaths)]].map(([label, value]) => <div key={label}><dt className="text-sm text-text-muted">{label}</dt><dd className="mt-1 font-mono text-xl">{value}</dd></div>)}</dl>
         <div className="mt-5 text-sm text-text-muted">{tribe.location ? <><p className="text-text-primary">{tribe.location.map} · Approximate GPS {tribe.location.lat.toFixed(1)}, {tribe.location.lon.toFixed(1)}</p><p className="mt-1">Last verified {new Date(tribe.location.observed_at).toLocaleDateString("en-US", { timeZone: "America/New_York" })}. Tribes may move or have additional bases.</p></> : <p>Home map and coordinates haven&apos;t been verified.</p>}</div>
+        {tribe.location?.mapImage && <details key={tribe.id} className="mt-4 border border-border bg-bg-primary/40 p-4">
+          <summary className="cursor-pointer text-sm text-accent">Open {tribe.location.map} home map</summary>
+          <figure className="mt-4 max-w-lg">
+            <div className="relative overflow-hidden" style={{ aspectRatio: `${tribe.location.mapImage.w} / ${tribe.location.mapImage.h}` }}>
+              <Image src={tribe.location.mapImage.src} width={tribe.location.mapImage.w} height={tribe.location.mapImage.h}
+                sizes="(max-width: 640px) 100vw, 512px" alt={`${tribe.location.map} map with an approximate home region for ${fixText(tribe.name)}`} className="h-auto w-full" />
+              <span aria-hidden className="absolute h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-lg"
+                style={{ left: `${tribe.location.mapImage.x}%`, top: `${tribe.location.mapImage.y}%`, background: tribeColor(tribe.id), opacity: .7 }} />
+            </div>
+            <figcaption className="mt-3 text-sm text-text-muted">Verified approximate home region. This is not a live player location.</figcaption>
+          </figure>
+        </details>}
         <h4 className="mt-5 font-display text-xl font-bold">Players</h4>
         {roster?.key !== key ? <p className="mt-2 text-sm text-text-muted">Loading players…</p> : roster.names === null ? <p className="mt-2 text-sm text-text-muted">Player list is unavailable. Try the tribe profile.</p> : !roster.names.length ? <p className="mt-2 text-sm text-text-muted">No public player names available.</p> : <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm">{roster.names.map((name, index) => <li key={`${name}:${index}`}><Link href={playerHref(name)} className="text-accent hover:underline">{fixText(name)}</Link></li>)}</ul>}
       </> : <p className="text-text-muted">Click a bubble or tribe name to see their players, score and verified location.</p>}
