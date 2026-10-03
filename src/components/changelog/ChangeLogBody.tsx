@@ -163,7 +163,7 @@ function ItemList({ items }: { items: ChangeItem[] }) {
       {items.map((it, i) => (
         <li key={i} className="flex items-start gap-3 py-2.5">
           <span
-            className={`mt-0.5 inline-flex w-[72px] shrink-0 justify-center border px-1.5 py-0.5 font-mono text-sm font-semibold uppercase tracking-wider ${TAGS[it.tag].className}`}
+            className={`mt-0.5 inline-flex min-w-[88px] shrink-0 justify-center border px-1.5 py-0.5 font-mono text-sm font-semibold uppercase tracking-wider ${TAGS[it.tag].className}`}
           >
             {TAGS[it.tag].label}
           </span>

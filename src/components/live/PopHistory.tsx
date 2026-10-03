@@ -36,10 +36,10 @@ export function PopHistory({ pop }: { pop: PopulationData }) {
           <polyline points={pts.join(" ")} fill="none" className="stroke-accent" strokeWidth={2} vectorEffect="non-scaling-stroke" />
         </svg>
       </div>
-      <figcaption className="mt-2 flex justify-between pl-8 font-mono text-sm text-text-muted">
+      <figcaption className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 font-mono text-sm text-text-muted sm:grid-cols-[auto_1fr_auto] sm:pl-8">
         <span>{fmt(hours[0])} ET</span>
-        <span>Players online, hourly average</span>
-        <span>{fmt(hours[hours.length - 1])} ET</span>
+        <span className="col-span-2 row-start-1 text-center sm:col-span-1 sm:col-start-2">Players online, hourly average</span>
+        <span className="text-right">{fmt(hours[hours.length - 1])} ET</span>
       </figcaption>
       {peaks.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-border/60 pt-3 text-sm text-text-muted">
