@@ -5,9 +5,21 @@ import { useEffect, useState } from "react";
 import { packTribes, tribeColors, type MesaTribe } from "@/lib/mesaMap";
 import { fixText, num, playerHref, tribeHref } from "@/lib/leaderboard";
 
-export function MesaMap({ cluster, tribes }: { cluster: string; tribes: MesaTribe[] }) {
+export function MesaMap({ cluster, tribes, expiresAt }: { cluster: string; tribes: MesaTribe[]; expiresAt: string | null }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [roster, setRoster] = useState<{ key: string; names: string[] | null } | null>(null);
+  const [expired, setExpired] = useState(false);
+  useEffect(() => {
+    if (!expiresAt) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const check = () => {
+      const remaining = Date.parse(expiresAt) - Date.now();
+      if (remaining <= 0) setExpired(true);
+      else timer = setTimeout(check, Math.min(remaining, 86_400_000));
+    };
+    timer = setTimeout(check, 0);
+    return () => clearTimeout(timer);
+  }, [expiresAt]);
   const tribe = tribes.find(t => t.id === selected);
   const key = `${cluster}:${selected}`;
   useEffect(() => {
@@ -22,7 +34,8 @@ export function MesaMap({ cluster, tribes }: { cluster: string; tribes: MesaTrib
   const bubbles = packTribes(tribes);
   const colors = tribeColors(tribes);
   const tribeColor = (id: number) => colors.get(id);
-  if (!tribes.length) return <p className="border border-border p-5 text-text-muted">No ranked tribes yet this wipe.</p>;
+  if (expired) return <p className="border border-border p-5 text-text-muted">This wipe&apos;s map has closed. Refresh for the next wipe&apos;s opening time.</p>;
+  if (!tribes.length) return <p className="border border-border p-5 text-text-muted">No tribe scores recorded yet this wipe.</p>;
   return <div className="border border-border bg-bg-card/60">
     <div className="flex flex-wrap justify-between gap-2 border-b border-border px-5 py-4 text-sm text-text-muted">
       <p>Top {tribes.length} tribes · Bigger bubble, higher tribe score</p>

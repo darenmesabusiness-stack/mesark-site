@@ -14,7 +14,7 @@ export default async function MesaMapEditor({ searchParams }: { searchParams: Pr
   if (!isLead(user)) return <StaffGate user={user} />;
   const sp = await searchParams, cluster = mapCluster(sp.cluster), window = await mapWindow(cluster.key);
   const state = currentMapState(window);
-  const locations = window ? await query<{ tribe_id: number; map: string; lat: number; lon: number }>("select tribe_id, map, lat, lon from mesa_map_locations where cluster = $1 and wiped_at = $2::timestamptz order by tribe_id", [cluster.key, window.wiped_at]) : [];
+  const locations = window ? await query<{ tribe_id: number; map: string; lat: number; lon: number }>("select tribe_id, map, lat, lon from mesa_map_locations where cluster = $1 and wiped_at = $2::timestamptz and exists(select 1 from users where steam_id=$3 and role in ('owner','lead')) order by tribe_id", [cluster.key, window.wiped_at, user.steam_id]) : [];
   const input = "mt-1 w-full border border-border bg-bg-primary px-3 py-2 text-text-primary";
   return <StaffShell user={user} active="/staff/mesa-map" title="Mesa Map" kicker="Wipes & verified tribe homes">
     <nav className="flex flex-wrap gap-2">{CLUSTERS.map(c => <Link key={c.key} href={`/staff/mesa-map?cluster=${c.key}`} className={`border px-4 py-2 ${c.key === cluster.key ? "border-accent text-accent" : "border-border"}`}>{c.name}</Link>)}</nav>
