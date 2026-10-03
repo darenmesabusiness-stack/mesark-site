@@ -91,6 +91,21 @@ const SCHEMA = [
     severity text not null check(severity in ('normal','major')), actor text not null,
     created_at timestamptz not null default now()
   )`,
+  `create table if not exists mesa_map_wipes (
+     cluster text primary key, wiped_at timestamptz not null, expires_at timestamptz not null,
+     updated_by text, updated_at timestamptz not null default now(),
+     check (expires_at > wiped_at + interval '24 hours')
+   )`,
+  `create table if not exists mesa_map_locations (
+     cluster text not null, wiped_at timestamptz not null, tribe_id bigint not null,
+     map text not null, lat double precision not null check (lat between 0 and 100),
+     lon double precision not null check (lon between 0 and 100), observed_at timestamptz not null,
+     source text not null, updated_by text, primary key (cluster, wiped_at, tribe_id)
+   )`,
+  `create table if not exists mesa_map_audit (
+     id bigint generated always as identity primary key, actor text not null, cluster text not null,
+     action text not null, data jsonb not null, at timestamptz not null default now()
+   )`,
   `create table if not exists users (
      steam_id    text primary key,
      persona     text,
@@ -129,6 +144,21 @@ const SCHEMA = [
      updated_at  timestamptz not null default now(),
      updated_by  text,
      primary key (map, cave_id)
+   )`,
+  `create table if not exists mesa_map_wipes (
+     cluster text primary key, wiped_at timestamptz not null, expires_at timestamptz not null,
+     updated_by text, updated_at timestamptz not null default now(),
+     check (expires_at > wiped_at + interval '24 hours')
+   )`,
+  `create table if not exists mesa_map_locations (
+     cluster text not null, wiped_at timestamptz not null, tribe_id bigint not null,
+     map text not null, lat double precision not null check (lat between 0 and 100),
+     lon double precision not null check (lon between 0 and 100), observed_at timestamptz not null,
+     source text not null, updated_by text, primary key (cluster, wiped_at, tribe_id)
+   )`,
+  `create table if not exists mesa_map_audit (
+     id bigint generated always as identity primary key, actor text not null, cluster text not null,
+     action text not null, data jsonb not null, at timestamptz not null default now()
    )`,
 ];
 

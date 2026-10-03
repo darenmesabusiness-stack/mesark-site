@@ -67,7 +67,7 @@ export function WipeCountdown({ compact = false }: { compact?: boolean }) {
             <div className={`mt-1 font-mono text-lg font-semibold tabular-nums sm:text-xl ${isNext ? "text-accent" : "text-text-primary/85"}`}>
               {tl.days > 0 ? `${tl.days}d ` : ""}{pad(tl.hours)}:{pad(tl.minutes)}:{pad(tl.seconds)}
             </div>
-            <div className="hud-label !text-[10px] mt-1">{shortCadence(s)} @ 1:00 PM EST</div>
+            <div className="hud-label !text-xs mt-1">{shortCadence(s)} @ 1:00 PM EST</div>
           </div>
         );
       })}

@@ -94,8 +94,7 @@ export function HallOfFame() {
               How to qualify →
             </Link>
             <Link
-              href="https://leaderboards.mesark.net"
-              target="_blank"
+              href="/leaderboards"
               className="clip-corner inline-flex items-center justify-center gap-3 border border-white/20 bg-white/5 px-7 py-3.5 font-display text-lg font-extrabold tracking-wider transition hover:border-blue/60 hover:bg-blue/10"
             >
               Live leaderboards

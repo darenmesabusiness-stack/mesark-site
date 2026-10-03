@@ -4,7 +4,7 @@ import { wipeLabel } from "@/lib/settings";
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="py-1.5">
-      <div className="text-[10px] uppercase tracking-wider text-text-muted/60 mb-0.5">{label}</div>
+      <div className="text-xs uppercase tracking-wider text-text-muted/80 mb-0.5">{label}</div>
       <div className="text-sm font-bold text-accent leading-tight">{value}</div>
     </div>
   );

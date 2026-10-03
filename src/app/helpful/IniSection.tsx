@@ -84,7 +84,7 @@ export function IniSection() {
       </div>
 
       {/* Code block */}
-      <pre className="bg-bg-card border border-border rounded-lg p-4 text-[11px] text-text-muted overflow-x-auto leading-relaxed whitespace-pre max-h-[400px] overflow-y-auto">
+      <pre className="bg-bg-card border border-border rounded-lg p-4 text-[13px] text-text-muted overflow-x-auto leading-relaxed whitespace-pre max-h-[400px] overflow-y-auto">
         {text}
       </pre>
     </div>

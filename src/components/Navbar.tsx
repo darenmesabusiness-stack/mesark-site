@@ -14,32 +14,18 @@ const NAV_LINKS = [
 
 type NavLink = { href: string; label: string; external?: boolean };
 const NAV_GROUPS: { label: string; links: NavLink[] }[] = [
-  {
-    label: "Guides",
-    links: [
-      { href: "/helpful", label: "Player guides" },
-      { href: "/settings", label: "Rates & wipes" },
-      { href: "/maps", label: "Cave maps" },
-      { href: "/changelog", label: "Updates" },
-    ],
-  },
-  {
-    label: "Community",
-    links: [
-      { href: "/live", label: "Live activity" },
-      { href: "/hall-of-fame", label: "Hall of Fame" },
-      {
-        href: "https://leaderboards.mesark.net",
-        label: "Leaderboards",
-        external: true,
-      },
-      {
-        href: "https://discord.gg/mesark",
-        label: "Join Discord",
-        external: true,
-      },
-    ],
-  },
+  { label: "Guides", links: [
+    { href: "/helpful", label: "Common Issues" },
+    { href: "/settings", label: "Settings" },
+    { href: "/maps", label: "Cave maps" },
+    { href: "/changelog", label: "Changelog" },
+  ] },
+  { label: "Community", links: [
+    { href: "/live", label: "Mesa Map" },
+    { href: "/hall-of-fame", label: "Hall of Fame" },
+    { href: "/leaderboards", label: "Leaderboards" },
+    { href: "https://discord.gg/mesark", label: "Join Discord", external: true },
+  ] },
 ];
 
 function NavGroup({

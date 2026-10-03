@@ -93,7 +93,7 @@ export default async function AccountPage({
           )}
 
           <section className="mt-10 border border-border bg-bg-card/60 p-5 sm:p-6">
-            <p className="hud-label !text-[10px]">Discord</p>
+            <p className="hud-label !text-xs">Discord</p>
             <h2 className="font-display mt-1 text-3xl font-black">Link your Discord</h2>
             <p className="mt-1 mb-5 text-sm text-text-muted">So staff know who you are in tickets, and ticket replies from the website can reach you on Discord.</p>
             <DiscordLink linkedName={user.discord_name ?? (user.discord_id ? "your Discord" : null)} />
@@ -108,7 +108,7 @@ export default async function AccountPage({
               ["Claim your profile", "Link your in-game stats to this account."],
             ].map(([title, text]) => (
               <div key={title} className="bg-bg-card p-5">
-                <p className="hud-label !text-[10px]">Coming next</p>
+                <p className="hud-label !text-xs">Coming next</p>
                 <h2 className="font-display mt-1 text-2xl font-black">{title}</h2>
                 <p className="mt-2 text-sm text-text-muted">{text}</p>
               </div>

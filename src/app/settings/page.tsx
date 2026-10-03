@@ -8,7 +8,7 @@ import { getLiveSettings, updatedLabel, wipeLabel } from "@/lib/settings";
 export const revalidate = 3600;
 
 export const metadata = pageMeta({
-  title: "Settings & Wipe Schedule",
+  title: "Settings",
   description: "Rates, mods, commands and wipe times for every MESARK cluster.",
 });
 
@@ -61,7 +61,7 @@ function ClusterCard({ name, wipe, rates }: {
 function StatBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="text-center py-1.5">
-      <div className="text-[10px] uppercase tracking-wider text-text-muted/60 mb-0.5">{label}</div>
+      <div className="text-xs uppercase tracking-wider text-text-muted/80 mb-0.5">{label}</div>
       <div className="text-sm font-bold text-accent">{value}</div>
     </div>
   );
@@ -72,7 +72,7 @@ export default async function SettingsPage() {
   return (
     <>
       <PageHeader
-        title="Settings & Wipe Schedule"
+        title="Settings"
         subtitle="Rates, configuration, commands, keybinds, mods, and wipe times for each cluster."
         image="/art/ark/threesix.jpg"
         focus="object-[50%_30%]"

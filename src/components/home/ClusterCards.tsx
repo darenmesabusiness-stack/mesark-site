@@ -46,17 +46,17 @@ export function ClusterCards() {
               <div className="absolute inset-0 bg-accent/0 mix-blend-overlay transition duration-500 group-hover:bg-accent/15" />
 
               <div className="absolute left-4 top-4 flex items-center gap-2">
-                <span className="hud-label !text-[10px] bg-bg-primary/70 px-2 py-1 backdrop-blur">
+                <span className="hud-label !text-xs bg-bg-primary/70 px-2 py-1 backdrop-blur">
                   {serverCount(c.key)} servers
                 </span>
               </div>
 
               <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="hud-label !text-accent !text-[10px]">{wipeDay(c.key)}</div>
+                <div className="hud-label !text-accent !text-xs">{wipeDay(c.key)}</div>
                 <h3 className="font-display mt-1 text-6xl font-black">{c.name}</h3>
                 <p className="mt-2 text-sm text-text-primary/70">{c.tagline}</p>
                 <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
-                  <span className="hud-label !text-[10px]">{c.tribe}</span>
+                  <span className="hud-label !text-xs">{c.tribe}</span>
                   <span className="font-display text-lg font-extrabold tracking-wider text-accent transition-transform group-hover:translate-x-1">
                     View servers →
                   </span>

@@ -16,6 +16,7 @@ const NAV: {
   { href: "/staff/changelog", label: "Change log", access: "lead" },
   { href: "/staff/caves", label: "Caves", access: "lead" },
   { href: "/staff/hof", label: "Hall of Fame", access: "lead" },
+  { href: "/staff/mesa-map", label: "Mesa Map", access: "lead" },
   { href: "/staff/team", label: "Team", access: "lead" },
   { href: "/staff/finance", label: "Finance", access: "owner" },
 ];

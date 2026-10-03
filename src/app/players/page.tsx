@@ -1,5 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
+import { SteamAvatar } from "@/components/profiles/SteamAvatar";
+import { RankingMedal } from "@/components/RankingMedal";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PageHeader } from "@/components/PageHeader";
 import {
@@ -56,7 +58,7 @@ export default async function PlayersPage({ searchParams }: { searchParams: Prom
               defaultValue={q}
               placeholder="Player or tribe name"
               autoComplete="off"
-              className="w-full border border-border bg-bg-card/60 py-3.5 pl-12 pr-4 text-base placeholder:text-text-muted/60 focus:border-accent/50 focus:outline-none"
+              className="w-full border border-border bg-bg-card/60 py-3.5 pl-12 pr-4 text-base placeholder:text-text-muted/80 focus:border-accent/50 focus:outline-none"
             />
           </label>
           <button type="submit" className="clip-corner-sm bg-accent px-6 font-display text-xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-accent/90">
@@ -78,14 +80,15 @@ export default async function PlayersPage({ searchParams }: { searchParams: Prom
               {(players?.rows ?? []).slice(0, q ? 20 : 10).map((p) => (
                 <li key={p.PlayerName}>
                   <Link href={playerHref(p.PlayerName)} className="group flex items-center gap-4 py-3 transition hover:bg-accent/[0.05]">
-                    <span className="w-10 shrink-0 text-right font-mono text-xs text-text-muted">#{p.rank}</span>
+                    <RankingMedal rank={p.rank} />
+                    <SteamAvatar avatar={p.avatar} name={fixText(p.PlayerName)} />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-semibold group-hover:text-accent">{fixText(p.PlayerName)}</span>
-                      <span className="font-mono text-[11px] text-text-muted">{p.clusters.map(clusterName).join(" · ")}</span>
+                      <span className="font-mono text-[13px] text-text-muted">{p.clusters.map(clusterName).join(" · ")}</span>
                     </span>
                     <span className="text-right">
                       <span className="font-display block text-2xl font-black">{num(p.PlayerKills)}</span>
-                      <span className="hud-label !text-[9px]">kills · {kd(p.PlayerKills, p.DeathByPlayer)} K/D</span>
+                      <span className="hud-label !text-xs">kills · {kd(p.PlayerKills, p.DeathByPlayer)} K/D</span>
                     </span>
                   </Link>
                 </li>
@@ -117,9 +120,9 @@ export default async function PlayersPage({ searchParams }: { searchParams: Prom
 
         <p className="mt-12 border-t border-border pt-6 text-sm text-text-muted">
           Stats come from the live{" "}
-          <a href="https://leaderboards.mesark.net" className="text-text-primary underline decoration-accent/50 underline-offset-4 hover:text-accent">
+          <Link href="/leaderboards" className="text-text-primary underline decoration-accent/50 underline-offset-4 hover:text-accent">
             leaderboards
-          </a>{" "}
+          </Link>{" "}
           and refresh every few minutes. Profiles show names as typed in game; names that break the{" "}
           <Link href="/rules" className="text-text-primary underline decoration-accent/50 underline-offset-4 hover:text-accent">
             rules
@@ -135,11 +138,11 @@ function TribeLine({ t, clusterKey }: { t: TribeRow; clusterKey: string }) {
   return (
     <li>
       <Link href={tribeHref(clusterKey, t.TribeID)} className="group flex items-center gap-4 py-2.5 transition hover:bg-accent/[0.05]">
-        <span className="w-10 shrink-0 text-right font-mono text-xs text-text-muted">#{t.rank}</span>
+        <RankingMedal rank={t.rank} />
         <span className="min-w-0 flex-1 truncate font-semibold group-hover:text-accent">{fixText(t.TribeName)}</span>
         <span className="text-right">
           <span className="font-display block text-xl font-black">{num(t.DamageScore)}</span>
-          <span className="hud-label !text-[9px]">
+          <span className="hud-label !text-xs">
             score · {clusterByKey(clusterKey)?.name}
           </span>
         </span>

@@ -67,17 +67,17 @@ export function ChangeLogBody({ month, mapNames }: { month: ChangeMonth; mapName
                 keepInView();
               }}
               placeholder="Search: rex, turret, cave…"
-              className="w-full border border-border bg-bg-card/60 py-2 pl-9 pr-3 text-sm placeholder:text-text-muted/60 focus:border-accent/50 focus:outline-none"
+              className="w-full border border-border bg-bg-card/60 py-2 pl-9 pr-3 text-sm placeholder:text-text-muted/80 focus:border-accent/50 focus:outline-none"
             />
           </label>
         </div>
         <div className="mt-2 flex items-center gap-4">
-          <p className="hud-label shrink-0 !text-[10px]">
+          <p className="hud-label shrink-0 !text-xs">
             {cluster ? `Changes that hit ${cluster}` : "Every cluster"} · {shown} change{shown === 1 ? "" : "s"}
           </p>
           <div className="ml-auto hidden gap-4 overflow-x-auto md:flex [scrollbar-width:none]">
             {sections.map((s) => (
-              <a key={sectionId(s)} href={`#${sectionId(s)}`} className="hud-label shrink-0 !text-[10px] transition hover:!text-accent">
+              <a key={sectionId(s)} href={`#${sectionId(s)}`} className="hud-label shrink-0 !text-xs transition hover:!text-accent">
                 {sectionTitle(s)}
               </a>
             ))}
@@ -163,7 +163,7 @@ function ItemList({ items }: { items: ChangeItem[] }) {
       {items.map((it, i) => (
         <li key={i} className="flex items-start gap-3 py-2.5">
           <span
-            className={`mt-0.5 inline-flex w-[72px] shrink-0 justify-center border px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider ${TAGS[it.tag].className}`}
+            className={`mt-0.5 inline-flex w-[72px] shrink-0 justify-center border px-1.5 py-0.5 font-mono text-xs font-semibold uppercase tracking-wider ${TAGS[it.tag].className}`}
           >
             {TAGS[it.tag].label}
           </span>
@@ -171,7 +171,7 @@ function ItemList({ items }: { items: ChangeItem[] }) {
           {it.link && (
             <Link
               href={it.link}
-              className="mt-0.5 inline-flex shrink-0 items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-text-muted transition hover:text-accent"
+              className="mt-0.5 inline-flex shrink-0 items-center gap-1 font-mono text-xs uppercase tracking-wider text-text-muted transition hover:text-accent"
               aria-label="Show this cave on the map"
             >
               <MapPinIcon className="h-4 w-4" />

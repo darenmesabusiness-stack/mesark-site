@@ -1,4 +1,5 @@
 import { pageMeta } from "@/lib/seo";
+import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import {
   ContentSection,
@@ -6,7 +7,6 @@ import {
   RuleItem,
 } from "@/components/ContentSection";
 import { hofTiers } from "@/data/hof";
-import Link from "next/link";
 
 export const metadata = pageMeta({
   title: "Compete",
@@ -34,10 +34,8 @@ export default function CompetePage() {
           </Link>
         </div>
         {/* Leaderboard Link Card */}
-        <a
-          href="https://leaderboards.mesark.net"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/leaderboards"
           className="clip-corner block border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-all p-6 group"
         >
           <div className="flex items-center justify-between">
@@ -46,25 +44,14 @@ export default function CompetePage() {
                 Live Leaderboards
               </h2>
               <p className="text-sm text-text-muted mt-1">
-                View real-time tribe rankings, scores, and wipe stats on the
-                leaderboard site.
+                View player rankings, tribe scores, and wipe stats here on MESA.
               </p>
             </div>
-            <svg
-              className="w-6 h-6 text-accent shrink-0 group-hover:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
+            <svg className="w-6 h-6 text-accent shrink-0 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m9 5 7 7-7 7" />
             </svg>
           </div>
-        </a>
+        </Link>
 
         {/* ── Hall of Fame ── */}
         <ContentSection title="Tier System" defaultOpen={true}>

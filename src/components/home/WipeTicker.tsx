@@ -39,12 +39,12 @@ export function WipeTicker() {
             <div className="flex items-center justify-between gap-2">
               <span className="font-display whitespace-nowrap text-xl font-extrabold tracking-wide sm:text-2xl">{s.cluster}</span>
               {isNext ? (
-                <span className="flex items-center gap-1.5 hud-label !text-accent !tracking-[0.18em] !text-[10px]">
+                <span className="flex items-center gap-1.5 hud-label !text-accent !tracking-[0.18em] !text-xs">
                   <span className="live-dot h-1.5 w-1.5 rounded-full bg-accent" />
                   Next up
                 </span>
               ) : (
-                <span className="hud-label hidden !text-[10px] sm:inline">{shortCadence(s)} 1PM EST</span>
+                <span className="hud-label hidden !text-xs sm:inline">{shortCadence(s)} 1PM EST</span>
               )}
             </div>
             <div
