@@ -9,7 +9,7 @@ import { changeTotals, highlights } from "@/components/changelog/tags";
 export async function generateMetadata(): Promise<Metadata> {
   const [latest] = await publishedMonths();
   return pageMeta({
-    title: "Change Log",
+    title: "Changelog",
     description: "Every MESARK update, month by month.",
     image: { url: latest.hero, width: 2400, height: 1350 },
   });
@@ -22,7 +22,7 @@ export default async function ChangeLogIndex() {
   return (
     <>
       <PageHeader
-        title="Change Log"
+        title="Changelog"
         subtitle="Every change we ship, month by month. Dino of the Month, cave reworks, cluster balance and F2 Shop."
         image="/art/ark/siege.jpg"
         focus="object-[70%_50%]"

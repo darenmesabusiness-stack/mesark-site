@@ -117,9 +117,9 @@ export default async function PlayersPage({ searchParams }: { searchParams: Prom
 
         <p className="mt-12 border-t border-border pt-6 text-sm text-text-muted">
           Stats come from the live{" "}
-          <a href="https://leaderboards.mesark.net" className="text-text-primary underline decoration-accent/50 underline-offset-4 hover:text-accent">
+          <Link href="/leaderboards" className="text-text-primary underline decoration-accent/50 underline-offset-4 hover:text-accent">
             leaderboards
-          </a>{" "}
+          </Link>{" "}
           and refresh every few minutes. Profiles show names as typed in game; names that break the{" "}
           <Link href="/rules" className="text-text-primary underline decoration-accent/50 underline-offset-4 hover:text-accent">
             rules
