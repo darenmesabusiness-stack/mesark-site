@@ -101,7 +101,7 @@ export default async function ChangeLogIndex() {
                     </p>
                   )}
                   <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
-                    <span className="font-mono text-[11px] text-text-muted">
+                    <span className="font-mono text-[13px] text-text-muted">
                       {t.total} changes{t.caves ? ` · ${t.caves} cave${t.caves === 1 ? "" : "s"}` : ""}
                     </span>
                     <span className="font-display text-lg font-extrabold tracking-wider text-accent transition-transform group-hover:translate-x-1">

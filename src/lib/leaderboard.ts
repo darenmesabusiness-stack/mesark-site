@@ -35,6 +35,7 @@ export interface PlayerCluster {
   totalPlayers: number;
 }
 export interface PlayerDetail {
+  avatar?: string | null;
   playerName: string;
   clusters: PlayerCluster[];
 }
@@ -57,6 +58,7 @@ export interface TribeDetail {
   members: TribeMember[];
 }
 export interface PlayerRow {
+  avatar?: string | null;
   PlayerName: string;
   PlayerKills: number;
   DeathByPlayer: number;

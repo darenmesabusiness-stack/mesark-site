@@ -25,7 +25,7 @@ export function CommonIssues() {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search: mod mismatch, crashes, Discord, missing rank…"
-          className="w-full border border-border bg-bg-card/60 px-4 py-3 text-base placeholder:text-text-muted/60 focus:border-accent/50 focus:outline-none"
+          className="w-full border border-border bg-bg-card/60 px-4 py-3 text-base placeholder:text-text-muted/80 focus:border-accent/50 focus:outline-none"
         />
       </label>
       <p className="text-sm text-text-muted" role="status">

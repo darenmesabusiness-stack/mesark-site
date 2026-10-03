@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ShareButton } from "@/components/profiles/ShareButton";
+import { SteamAvatar } from "@/components/profiles/SteamAvatar";
 
 /**
  * Profile header: name and share button on the left, the cluster's portrait render
@@ -14,6 +15,7 @@ export function ProfileHero({
   art,
   focus,
   shareLabel,
+  avatar,
 }: {
   kicker: string;
   title: string;
@@ -21,6 +23,7 @@ export function ProfileHero({
   art: string;
   focus: string;
   shareLabel?: string;
+  avatar?: string | null;
 }) {
   return (
     <section className="relative overflow-hidden pb-12 pt-28 sm:pt-36">
@@ -36,7 +39,7 @@ export function ProfileHero({
             <span className="h-px w-8 bg-accent" />
             {kicker}
           </Link>
-          <h1 className="font-display break-words text-[clamp(3rem,9vw,7.5rem)] font-black">{title}</h1>
+          <div className="flex items-center gap-4">{kicker === "Player profile" && <SteamAvatar avatar={avatar} name={title} className="h-20 w-20 sm:h-24 sm:w-24" />}<h1 className="min-w-0 font-display break-words text-[clamp(3rem,9vw,7.5rem)] font-black">{title}</h1></div>
           <p className="mt-3 font-mono text-sm text-text-primary/75">{sub}</p>
           <div className="mt-7">
             <ShareButton label={shareLabel} />

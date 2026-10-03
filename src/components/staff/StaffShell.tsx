@@ -10,6 +10,7 @@ const NAV: { href: string; label: string; access: "staff" | "lead" | "owner" }[]
   { href: "/staff/discord", label: "Discord", access: "lead" },
   { href: "/staff/changelog", label: "Change log", access: "lead" },
   { href: "/staff/caves", label: "Caves", access: "lead" },
+  { href: "/staff/mesa-map", label: "Mesa Map", access: "lead" },
   { href: "/staff/team", label: "Team", access: "lead" },
   { href: "/staff/finance", label: "Finance", access: "owner" },
 ];

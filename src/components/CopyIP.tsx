@@ -24,9 +24,9 @@ export function CopyIP({ ip, label }: { ip: string; label: string }) {
         <span className="truncate">{label}</span>
       </span>
       <span className="flex items-center gap-3">
-        <code className="font-mono text-[11px] text-text-muted sm:text-xs">{ip}</code>
+        <code className="font-mono text-[13px] text-text-muted sm:text-xs">{ip}</code>
         <span
-          className={`w-14 text-right font-mono text-[10px] font-semibold uppercase tracking-widest transition ${
+          className={`w-14 text-right font-mono text-xs font-semibold uppercase tracking-widest transition ${
             copied ? "text-emerald-400" : "text-accent"
           }`}
         >

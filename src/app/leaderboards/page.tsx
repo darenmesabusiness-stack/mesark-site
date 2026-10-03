@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { RankingMedal, RankingPodium } from "@/components/RankingMedal";
+import { SteamAvatar } from "@/components/profiles/SteamAvatar";
 import { PageHeader } from "@/components/PageHeader";
 import { pageMeta } from "@/lib/seo";
 import {
@@ -152,6 +154,7 @@ export default async function LeaderboardsPage({
           </p>
         ) : (
           <>
+            <RankingPodium rows={data.rows} query={query} />
             <div className="mt-5 overflow-x-auto border-y border-border">
               <table className="w-full text-left text-sm">
                 <caption className="sr-only">
@@ -198,10 +201,10 @@ export default async function LeaderboardsPage({
                   {data.rows.map((row, index) => (
                     <tr
                       key={`${row.tribeId ?? row.name}:${index}`}
-                      className="hover:bg-accent/[0.05]"
+                      className={row.rank === 1 ? "bg-[#e4b64b]/[0.08]" : row.rank === 2 ? "bg-[#b3c4d4]/[0.06]" : row.rank === 3 ? "bg-[#bd8051]/[0.08]" : "hover:bg-accent/[0.05]"}
                     >
                       <td className="px-3 py-4 font-mono text-text-muted">
-                        #{num(row.rank)}
+                        <RankingMedal rank={row.rank} />
                       </td>
                       <th
                         scope="row"
@@ -216,8 +219,9 @@ export default async function LeaderboardsPage({
                                 ? tribeHref(query.cluster, row.tribeId!)
                                 : playerHref(row.name)
                             }
-                            className="hover:text-accent"
+                            className="flex items-center gap-3 hover:text-accent"
                           >
+                            {!tribes && <SteamAvatar avatar={row.avatar} name={fixText(row.name)} />}
                             {fixText(row.name)}
                           </Link>
                         )}

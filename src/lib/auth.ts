@@ -87,7 +87,7 @@ export async function steamProfile(steamId: string): Promise<{ persona: string |
     const res = await fetch(`https://steamcommunity.com/profiles/${steamId}?xml=1`, { cache: "no-store" });
     const xml = await res.text();
     const tag = (name: string) => new RegExp(`<${name}><!\\[CDATA\\[([\\s\\S]*?)\\]\\]></${name}>`).exec(xml)?.[1]?.trim() || null;
-    const avatar = tag("avatarMedium");
+    const avatar = tag("avatarFull") ?? tag("avatarMedium");
     return { persona: tag("steamID"), avatar: avatar?.startsWith("https://") ? avatar : null };
   } catch {
     return { persona: null, avatar: null };

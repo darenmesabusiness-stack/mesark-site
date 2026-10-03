@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { getRankings, rankingHref, rankingQuery } from "../src/lib/rankings";
+import { steamAvatar } from "../src/lib/steamAvatar";
 
 const originalFetch = globalThis.fetch;
 let requested = "";
@@ -43,6 +44,10 @@ try {
     "upstream rank survives pagination/search",
   );
   assert.equal(players?.rows[0].playTime, 120);
+  assert.equal(players?.rows[0].avatar, null);
+  assert.equal(steamAvatar(`https://avatars.steamstatic.com/${"a".repeat(40)}_full.jpg`) !== null, true);
+  assert.equal(steamAvatar("https://evil.example/avatar.jpg"), null);
+  assert.equal(steamAvatar("https://steamcommunity.com/profiles/76561190000000000"), null);
   assert.equal(players?.pages, 4);
   assert.equal(JSON.stringify(players).includes("76561190000000000"), false);
   assert.equal(JSON.stringify(players).includes("privateEvidence"), false);

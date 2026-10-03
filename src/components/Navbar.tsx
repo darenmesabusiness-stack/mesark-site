@@ -21,7 +21,7 @@ const NAV_GROUPS: { label: string; links: NavLink[] }[] = [
     { href: "/changelog", label: "Changelog" },
   ] },
   { label: "Community", links: [
-    { href: "/live", label: "Happening Now" },
+    { href: "/live", label: "Mesa Map" },
     { href: "/compete", label: "Hall of Fame" },
     { href: "/leaderboards", label: "Leaderboards" },
     { href: "https://discord.gg/mesark", label: "Join Discord", external: true },
