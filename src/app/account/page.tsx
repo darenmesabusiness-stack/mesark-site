@@ -45,7 +45,7 @@ export default async function AccountPage({
         <>
           <h1 className="font-display text-[clamp(3rem,10vw,6rem)] font-black">Sign in</h1>
           <p className="mt-4 max-w-xl text-lg text-text-primary/75">
-            Sign in with your Steam account to claim your player profile and, soon, open support tickets from here.
+            Sign in with Steam, link your Discord, and get help from MESA staff.
           </p>
           {enabled ? (
             <a
@@ -100,9 +100,12 @@ export default async function AccountPage({
           </section>
 
           <section className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
+            <Link href="/support" className="bg-bg-card p-5 hover:bg-accent/[0.06]">
+              <h2 className="font-display text-2xl font-black">Your tickets →</h2>
+              <p className="mt-2 text-sm text-text-muted">Open a ticket, read replies, and continue your conversation.</p>
+            </Link>
             {[
               ["Claim your profile", "Link your in-game stats to this account."],
-              ["Tickets", "Open and follow support tickets here."],
             ].map(([title, text]) => (
               <div key={title} className="bg-bg-card p-5">
                 <p className="hud-label !text-[10px]">Coming next</p>
