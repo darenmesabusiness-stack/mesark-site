@@ -1,10 +1,14 @@
 import { pageMeta } from "@/lib/seo";
-import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { currentUser } from "@/lib/auth";
 import { dbConfigured } from "@/lib/db";
 import { isOwner, canSupport } from "@/lib/staff";
 import { DiscordLink } from "@/components/account/DiscordLink";
+import { SteamAvatar } from "@/components/profiles/SteamAvatar";
+import { LinkedStats } from "@/components/profiles/LinkedStats";
+import { ProfileEditor } from "@/components/account/ProfileEditor";
+import { accountProfile } from "@/lib/account-profile";
 
 export const metadata = pageMeta({
   title: "Your Account",
@@ -29,6 +33,7 @@ export default async function AccountPage({
   const sp = await searchParams;
   const enabled = dbConfigured();
   const user = enabled ? await currentUser() : null;
+  const profile = user ? await accountProfile(user.steam_id) : null;
   const notice = sp.error ? ERRORS[sp.error] : sp.deleted ? "Your account and sign-ins are deleted." : null;
 
   return (
@@ -72,9 +77,7 @@ export default async function AccountPage({
       ) : (
         <>
           <div className="flex flex-wrap items-center gap-5">
-            {user.avatar && (
-              <Image src={user.avatar} alt="" width={88} height={88} className="clip-corner-sm h-[88px] w-[88px] border border-border" unoptimized />
-            )}
+            <SteamAvatar avatar={user.avatar} name={user.persona ?? "Survivor"} className="h-36 w-36 !rounded-xl !text-6xl sm:h-44 sm:w-44" />
             <div className="min-w-0">
               <h1 className="font-display break-words text-[clamp(2.75rem,9vw,5rem)] font-black">{user.persona ?? "Survivor"}</h1>
               <p className="mt-1 font-mono text-xs text-text-muted">
@@ -94,9 +97,9 @@ export default async function AccountPage({
 
           <section className="mt-10 border border-border bg-bg-card/60 p-5 sm:p-6">
             <p className="hud-label !text-xs">Discord</p>
-            <h2 className="font-display mt-1 text-3xl font-black">Link your Discord</h2>
-            <p className="mt-1 mb-5 text-sm text-text-muted">So staff know who you are in tickets, and ticket replies from the website can reach you on Discord.</p>
-            <DiscordLink linkedName={user.discord_name ?? (user.discord_id ? "your Discord" : null)} />
+            <h2 className="font-display mt-1 text-3xl font-black">{user.discord_id ? "Discord connected" : "Link your Discord"}</h2>
+            <p className="mt-1 mb-5 text-sm text-text-muted">{user.discord_id ? "Your Discord is linked to this Steam account. You can open tickets and read staff replies here." : "Link once so staff can recognize you and find your support tickets."}</p>
+            <DiscordLink linkedName={user.discord_id ? user.discord_name ?? "your Discord" : null} />
           </section>
 
           <section className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
@@ -104,16 +107,19 @@ export default async function AccountPage({
               <h2 className="font-display text-2xl font-black">Your tickets →</h2>
               <p className="mt-2 text-sm text-text-muted">Open a ticket, read replies, and continue your conversation.</p>
             </Link>
-            {[
-              ["Claim your profile", "Link your in-game stats to this account."],
-            ].map(([title, text]) => (
-              <div key={title} className="bg-bg-card p-5">
-                <p className="hud-label !text-xs">Coming next</p>
-                <h2 className="font-display mt-1 text-2xl font-black">{title}</h2>
-                <p className="mt-2 text-sm text-text-muted">{text}</p>
-              </div>
-            ))}
+            <a href="#your-stats" className="bg-bg-card p-5 hover:bg-accent/[0.06]">
+              <h2 className="font-display text-2xl font-black">Your game stats →</h2>
+              <p className="mt-2 text-sm text-text-muted">Automatically matched to the Steam account you signed in with. No separate claim needed.</p>
+            </a>
           </section>
+
+          <section id="your-stats" className="mt-10 scroll-mt-24">
+            <h2 className="font-display mb-4 text-3xl font-black">Your game stats</h2>
+            <Suspense fallback={<p role="status" className="border border-border bg-bg-card p-5 text-text-muted">Loading your game stats…</p>}>
+              <LinkedStats steamId={user.steam_id} />
+            </Suspense>
+          </section>
+          <ProfileEditor profile={profile} />
 
           <div className="mt-10 flex flex-wrap items-start gap-6 border-t border-border pt-6">
             <form action="/api/auth/logout" method="post">

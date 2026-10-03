@@ -124,6 +124,13 @@ const SCHEMA = [
      expires_at  timestamptz not null
    )`,
   `create index if not exists sessions_steam_id on sessions (steam_id)`,
+  // Optional public customization. Deleting the account also removes its profile.
+  `create table if not exists player_profiles (
+     id uuid primary key, steam_id text unique not null references users(steam_id) on delete cascade,
+     bio text not null default '' check(length(bio)<=280),
+     accent text not null default 'ember' check(accent in ('ember','gold','teal','violet')),
+     published boolean not null default false
+   )`,
   // Roles v2: the first-week "admin" (full access) is now "owner"; nothing writes "admin" any more.
   `update users set role = 'owner' where role = 'admin'`,
   // Change log months written in the staff editor; published rows override the built-in months.
