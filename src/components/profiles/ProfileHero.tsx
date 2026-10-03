@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ShareButton } from "@/components/profiles/ShareButton";
 import { SteamAvatar } from "@/components/profiles/SteamAvatar";
 
 /** Player profiles lead with Steam identity; tribe profiles retain cluster art. */
@@ -10,7 +9,6 @@ export function ProfileHero({
   sub,
   art,
   focus,
-  shareLabel,
   avatar,
   player = kicker === "Player profile",
   accentColor,
@@ -20,7 +18,6 @@ export function ProfileHero({
   sub: string;
   art: string;
   focus: string;
-  shareLabel?: string;
   avatar?: string | null;
   player?: boolean;
   accentColor?: string;
@@ -41,9 +38,6 @@ export function ProfileHero({
           </Link>
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">{player && <SteamAvatar avatar={avatar} name={title} borderColor={accentColor} className="h-36 w-36 !rounded-xl !border-2 !text-6xl sm:h-48 sm:w-48" />}<h1 className="min-w-0 font-display break-words text-[clamp(3rem,9vw,7.5rem)] font-black">{title}</h1></div>
           <p className="mt-3 font-mono text-sm text-text-primary/75">{sub}</p>
-          <div className="mt-7">
-            <ShareButton label={shareLabel} />
-          </div>
         </div>
         {!player && <div className="clip-corner relative hidden aspect-[4/5] overflow-hidden border border-border md:block">
           <Image src={art} alt="" fill preload sizes="360px" quality={85} className={`ken-burns object-cover ${focus}`} />

@@ -46,7 +46,6 @@ export default async function TribePage({ params }: Params) {
         sub={`#${num(tribe.scoreRank)} of ${num(tribe.totalTribes)} tribes by tribe score · ${tribe.members.length} member${tribe.members.length === 1 ? "" : "s"}`}
         art={cluster.art}
         focus={cluster.focus}
-        shareLabel="Copy tribe link"
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-24">
