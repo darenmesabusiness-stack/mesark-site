@@ -1,4 +1,4 @@
-/** Real multi-connection PostgreSQL tests. CI supplies a disposable local database. */
+/** Real multi-connection PostgreSQL tests against a disposable local database. */
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { setTimeout as delay } from "node:timers/promises";

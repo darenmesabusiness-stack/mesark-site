@@ -26,7 +26,7 @@ Validation:
   setup, session retention after blocked deletion, and successful deletion.
 - `scripts/test-owner-concurrency.mts` requires a disposable local PostgreSQL
   database named `mesa_owner_test` via `OWNER_TEST_DATABASE_URL`. It creates and
-  drops only its own uniquely named schema. CI runs seven forced multi-connection
+  drops only its own uniquely named schema and runs seven forced multi-connection
   races and a rollback check. PGlite alone cannot prove cross-connection locking.
 
 This release needs no schema migration. Rolling back to an older application
