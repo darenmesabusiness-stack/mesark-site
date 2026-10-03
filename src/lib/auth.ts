@@ -21,7 +21,7 @@ export interface User {
   avatar: string | null;
   discord_id: string | null;
   discord_name: string | null;
-  role: "player" | "staff" | "lead" | "owner";
+  role: "player" | "moderator" | "staff" | "lead" | "owner";
   created_at: string;
 }
 

@@ -24,15 +24,19 @@ export default function PrivacyPage() {
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
         <ContentSection title="Who we are" defaultOpen>
           <p>
-            MESA ARK (&ldquo;MESA&rdquo;, &ldquo;we&rdquo;) runs ARK: Survival Evolved PvP servers, this website
-            (mesark.net), the leaderboards (leaderboards.mesark.net), the store (store.mesark.net) and the MESA
-            Discord servers. This policy covers all of them. MESA is not affiliated with Studio Wildcard.
+            MESA ARK (&ldquo;MESA&rdquo;, &ldquo;we&rdquo;) runs ARK: Survival
+            Evolved PvP servers, this website (mesark.net), the leaderboards
+            (leaderboards.mesark.net), the store (store.mesark.net) and the MESA
+            Discord servers. This policy covers all of them. MESA is not
+            affiliated with Studio Wildcard.
           </p>
         </ContentSection>
 
         <ContentSection title="This website" defaultOpen>
           <RuleItem text="Signing in is optional. If you sign in through Steam, you log in on Steam's own site and Steam confirms your Steam ID to us. We store that ID with your public Steam name and avatar, when you joined and when you last signed in. Your password only ever goes to Steam." />
-          <RuleItem text="Website support requires Steam sign-in and a verified Discord link. Your website ticket and replies are sent to the same private Discord conversation used by staff. We keep a submission record to prevent duplicate tickets and messages. Unlinking stops website access; it does not erase existing support records or transcripts." />
+          <RuleItem text="Website support requires Steam sign-in and a verified Discord link. New tickets, replies and application details are stored privately in our website database; evidence files are stored in private Vercel storage. Only you and staff assigned to that kind of request can read them. Internal staff notes are hidden from players. Earlier Discord tickets remain in Discord during the transition." />
+          <RuleItem text="Ticket history, attachments and staff audit records remain after closing a ticket or deleting an account, where needed for support, enforcement and disputes. Unlinking stops new submissions. Ask support to review or delete records we no longer need." />
+          <RuleItem text="The Hall of Fame displays public winner announcements, member names, public Discord profiles and base tour links. Private application evidence, Steam IDs and base coordinates are not published." />
           <RuleItem text="Signing in sets one cookie that keeps you signed in for up to 30 days. We use no advertising or tracking cookies." />
           <RuleItem text="Your Steam ID is never shown publicly. You can sign out or delete your account on the Account page. If you are the only site owner, appoint another owner before deleting your account." />
           <RuleItem text="Player and tribe profile pages show the same public stats as the leaderboards. They are not listed in search engines." />
@@ -42,42 +46,65 @@ export default function PrivacyPage() {
         </ContentSection>
 
         <ContentSection title="Our game servers" defaultOpen>
-          <p>When you play on a MESA server, the server and our admin tools record:</p>
+          <p>
+            When you play on a MESA server, the server and our admin tools
+            record:
+          </p>
           <RuleItem text="Your Steam ID, Steam name, character name and tribe." />
           <RuleItem text="Which server you joined and when, and in-game events such as kills, purchases with in-game points, and admin actions." />
           <RuleItem text="Your IP address and a hardware ID, used only to enforce bans and stop ban evasion, cheating and alt abuse." />
           <p>
-            We use this to run the servers, enforce the rules, investigate reports and build the public leaderboards.
-            The leaderboards show character names, tribe names and in-game stats, never Steam IDs or IP addresses.
+            We use this to run the servers, enforce the rules, investigate
+            reports and build the public leaderboards. The leaderboards show
+            character names, tribe names and in-game stats, never Steam IDs or
+            IP addresses.
           </p>
         </ContentSection>
 
         <ContentSection title="Discord and our support bot" defaultOpen>
           <RuleItem text="Our Discord bot answers questions and handles support tickets. It stores ticket transcripts and the questions you ask it." />
           <RuleItem text="It reads messages in our public community channels to spot common questions, measure how the community feels about updates and write weekly reports for staff. Messages are stored with your Discord user ID." />
-          <RuleItem text="Message text is sent to OpenAI to write support answers and classify topics and sentiment." warning />
+          <RuleItem
+            text="Message text is sent to OpenAI to write support answers and classify topics and sentiment."
+            warning
+          />
           <RuleItem text="If you link your Discord to your Steam ID (the /link command), we keep your Discord user ID and username with your account so staff can help you faster. Unlink any time on the Account page; deleting your account removes the link too." />
           <RuleItem text="The bot may send you a direct message, for example about a ticket or to welcome you back after time away." />
         </ContentSection>
 
         <ContentSection title="Purchases" defaultOpen>
           <p>
-            Store payments are processed by Tip4Serv and its payment providers. We never see or store your card
-            details. Tip4Serv shares the order with us (what you bought, the amount, the date and the Steam or
-            in-game identifier needed to deliver it), and we keep those records for delivery, support, refunds,
-            chargeback disputes and our accounts. The rules on purchases are in the Terms, linked in the footer
-            of <a href="https://store.mesark.net/" className="text-accent hover:underline">store.mesark.net</a>.
+            Store payments are processed by Tip4Serv and its payment providers.
+            We never see or store your card details. Tip4Serv shares the order
+            with us (what you bought, the amount, the date and the Steam or
+            in-game identifier needed to deliver it), and we keep those records
+            for delivery, support, refunds, chargeback disputes and our
+            accounts. The rules on purchases are in the Terms, linked in the
+            footer of{" "}
+            <a
+              href="https://store.mesark.net/"
+              className="text-accent hover:underline"
+            >
+              store.mesark.net
+            </a>
+            .
           </p>
         </ContentSection>
 
         <ContentSection title="Who we share it with" defaultOpen>
-          <p>We do not sell your data. We only share it with services that run MESA for us:</p>
-          <RuleItem text="Vercel (website hosting and analytics) and Neon (the database behind website accounts)." />
+          <p>
+            We do not sell your data. We only share it with services that run
+            MESA for us:
+          </p>
+          <RuleItem text="Vercel (website hosting, private evidence storage and analytics) and Neon (website accounts, tickets and staff records)." />
           <RuleItem text="Our game server and bot hosting providers." />
           <RuleItem text="Discord (the platform our community and bot run on)." />
           <RuleItem text="OpenAI (AI processing for the support bot)." />
           <RuleItem text="Tip4Serv and its payment providers (store purchases)." />
-          <p>We may also share information when the law requires it, or to deal with fraud or chargebacks.</p>
+          <p>
+            We may also share information when the law requires it, or to deal
+            with fraud or chargebacks.
+          </p>
         </ContentSection>
 
         <ContentSection title="How long we keep it" defaultOpen>
@@ -90,16 +117,22 @@ export default function PrivacyPage() {
 
         <ContentSection title="Your choices" defaultOpen>
           <p>
-            You can ask us what we hold about you, or ask us to correct or delete it, by opening a ticket in the{" "}
-            <a href={SUPPORT} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+            You can ask us what we hold about you, or ask us to correct or
+            delete it, by opening a ticket in the{" "}
+            <a
+              href={SUPPORT}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
               MESA Support Discord
             </a>
-            . We may keep records we need for active bans, fraud prevention or the law. MESA is not meant for
-            children under 13.
+            . We may keep records we need for active bans, fraud prevention or
+            the law. MESA is not meant for children under 13.
           </p>
           <p>
-            If this policy changes, we will update the date at the top of this page and post the change in our
-            Discord.
+            If this policy changes, we will update the date at the top of this
+            page and post the change in our Discord.
           </p>
         </ContentSection>
       </div>

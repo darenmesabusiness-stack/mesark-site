@@ -1,0 +1,28 @@
+import { randomUUID } from "node:crypto";
+import { currentUser } from "@/lib/auth";
+import { isLead } from "@/lib/staff";
+import { moderatorBoard, moderatorDeductions } from "@/lib/moderatorStore";
+import { currentRewardMonth, monthBounds } from "@/lib/moderatorRewards";
+import { StaffGate, StaffShell } from "@/components/staff/StaffShell";
+import { recordDeduction } from "./actions";
+
+export default async function ModeratorBoard({ searchParams }: { searchParams: Promise<{month?:string;saved?:string;error?:string}> }) {
+  const user = await currentUser();
+  if (!user || (user.role !== "moderator" && !isLead(user))) return <StaffGate user={user} />;
+  const sp = await searchParams, current = currentRewardMonth();
+  const month = sp.month && monthBounds(sp.month) && sp.month <= current ? sp.month : current;
+  const [rows, deductions] = await Promise.all([moderatorBoard(user.steam_id, month), moderatorDeductions(user.steam_id, month)]);
+  const complete = month < current, input = "mt-1 w-full border border-border bg-bg-primary px-3 py-2";
+  return <StaffShell user={user} active="/staff/moderators" title="Moderator rewards" kicker="Question support · monthly tickets">
+    <form className="flex items-end gap-3"><label>Month (UTC)<input type="month" name="month" defaultValue={month} max={current} className={input} /></label><button className="border border-accent px-4 py-2 text-accent">View month</button></form>
+    <p className="mt-5 text-text-muted">Expected: 45 answered tickets per month. Below 30 in a completed month requires an inactivity review. Arrange absences with Aiden or Hadzak ahead of time.</p>
+    <p className="mt-3 text-sm text-text-muted">One credit per resolved question ticket: a moderator who answered publicly gets the credit, preferring the closer, then the assigned moderator, then the most replies. Internal notes and reopening a ticket add no credits. This board counts website tickets; earlier Discord totals remain on the Discord moderator board.</p>
+    <div className="mt-5 grid gap-3 sm:grid-cols-3">{[["61+ tickets", "$50 store credit"], ["101+ tickets", "$125 store credit, replacing $50"], ["401+ tickets", "TOAA for 28 days"]].map(([title, detail]) => <div key={title} className="border border-border bg-bg-card/60 p-4"><p className="font-display text-2xl font-bold">{title}</p><p className="mt-1 text-sm text-text-muted">{detail}</p></div>)}</div>
+    <p className="mt-3 text-sm text-text-muted">Most tickets: extra $75 store credit. Ties need lead review. During the transition, combine website totals with earlier Discord credits and deductions before approving any reward or most-ticket bonus. This board shows website-only eligibility estimates; no rewards are paid automatically.</p>
+    {sp.saved && <p className="mt-4 text-teal" role="status">Deduction recorded.</p>}{sp.error && <p className="mt-4 text-accent" role="alert">Deduction not recorded. Check role, amount, month and reason.</p>}
+    <div className="mt-6 overflow-x-auto border border-border"><table className="w-full min-w-[680px] text-left text-sm"><thead className="bg-bg-secondary"><tr>{["Moderator", "Answered", "Deductions", "Net tickets", "Store credit", "TOAA", "Status"].map(t => <th key={t} className="p-3">{t}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.steam_id} className="border-t border-border"><td className="p-3">{row.persona}</td><td className="p-3">{row.credits}</td><td className="p-3">−{row.deductions}</td><td className="p-3 font-mono">{row.tickets}</td><td className="p-3">${row.storeCredit + row.bonus}{row.bonus ? " (includes $75 bonus)" : row.tied ? " · bonus tie: review" : ""}</td><td className="p-3">{row.toaaDays ? `${row.toaaDays} days` : "—"}</td><td className="p-3">{complete && row.inactivityReview ? "Inactivity review" : row.targetMet ? "45-ticket target met" : complete ? "Below expected 45" : "Month in progress"}</td></tr>)}</tbody></table></div>
+    {!rows.length && <p className="mt-3 text-text-muted">No moderator accounts or activity for this month.</p>}
+    {isLead(user) && <form action={recordDeduction} className="mt-8 space-y-4 border border-border p-5"><input type="hidden" name="request_id" value={randomUUID()} /><input type="hidden" name="month" value={month} /><h2 className="font-display text-2xl font-bold">Record a ticket deduction</h2><p className="text-sm text-text-muted">Incorrect advice: 5–10 tickets. A larger issue on the admin side: more than 10. Record the affected ticket and what happened in the reason. This is an immutable audit record, with retries counted once.</p><div className="grid gap-4 sm:grid-cols-3"><label>Moderator<select name="moderator" required className={input}>{rows.map(r => <option key={r.steam_id} value={r.steam_id}>{r.persona}</option>)}</select></label><label>Issue severity<select name="severity" className={input}><option value="normal">Incorrect information (5–10)</option><option value="major">Larger admin issue (11+)</option></select></label><label>Tickets deducted<input type="number" name="points" required min="5" max="10000" className={input} /></label></div><label className="block">Reason and ticket reference<textarea name="reason" required maxLength={2000} className={input} /></label><button className="border border-accent px-4 py-2 text-accent">Record deduction</button></form>}
+    <h2 className="mt-8 font-display text-2xl font-bold">Deduction history</h2><ul className="mt-3 space-y-3">{deductions.map((d,i) => <li key={`${d.created_at}:${i}`} className="border border-border p-4 text-sm"><p>{d.persona} · −{d.points} tickets · {d.severity}</p><p className="mt-2 whitespace-pre-wrap break-words text-text-muted">{d.reason}</p></li>)}</ul>
+  </StaffShell>;
+}

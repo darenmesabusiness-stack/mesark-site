@@ -5,15 +5,21 @@
  */
 import { neon } from "@neondatabase/serverless";
 
-export type Query = <T = Record<string, unknown>>(text: string, params?: unknown[]) => Promise<T[]>;
+export type Query = <T = Record<string, unknown>>(
+  text: string,
+  params?: unknown[],
+) => Promise<T[]>;
 export type Statement = { text: string; params?: unknown[] };
-export type Transaction = (statements: Statement[]) => Promise<Record<string, unknown>[][]>;
+export type Transaction = (
+  statements: Statement[],
+) => Promise<Record<string, unknown>[][]>;
 
 let driver: Query | null = null;
 let transactionDriver: Transaction | null = null;
 let ready: Promise<void> | null = null;
 
-export const dbConfigured = () => Boolean(driver || process.env.DATABASE_URL || process.env.POSTGRES_URL);
+export const dbConfigured = () =>
+  Boolean(driver || process.env.DATABASE_URL || process.env.POSTGRES_URL);
 
 /** Lets scripts run the same code against an in-memory Postgres (scripts/test-auth.mts). */
 export function useDriver(q: Query, transaction?: Transaction) {
@@ -28,14 +34,63 @@ function connect(): Query {
   if (!url) throw new Error("Database not configured");
   const sql = neon(url);
   driver = (text, params = []) => sql.query(text, params) as never;
-  transactionDriver = (statements) => sql.transaction(
-    statements.map(({ text, params = [] }) => sql.query(text, params)),
-    { isolationLevel: "ReadCommitted" },
-  );
+  transactionDriver = (statements) =>
+    sql.transaction(
+      statements.map(({ text, params = [] }) => sql.query(text, params)),
+      { isolationLevel: "ReadCommitted" },
+    );
   return driver;
 }
 
 const SCHEMA = [
+  `create table if not exists hof_entries (
+    id text primary key, data jsonb not null, published boolean not null default false,
+    updated_by text not null, updated_at timestamptz not null default now()
+  )`,
+  `create table if not exists hof_audit (
+    id bigserial primary key, entry_id text not null, actor text not null,
+    data jsonb not null, published boolean not null, created_at timestamptz not null default now()
+  )`,
+  `create table if not exists support_tickets (
+    id uuid primary key, number bigserial unique, opener text not null, opener_name text not null,
+    discord_id text not null, type text not null, cluster text not null, subject text not null,
+    details jsonb not null default '{}', fingerprint text not null,
+    status text not null default 'open' check(status in ('open','closed')),
+    assigned_to text, hold boolean not null default false, priority integer not null default 0,
+    created_at timestamptz not null default now(), updated_at timestamptz not null default now(),
+    closed_at timestamptz
+  )`,
+  `create index if not exists support_tickets_opener on support_tickets(opener, created_at desc)`,
+  `create table if not exists support_messages (
+    id uuid primary key, ticket_id uuid not null references support_tickets(id), actor text not null,
+    author text not null, body text not null, private boolean not null default false,
+    fingerprint text not null, created_at timestamptz not null default now()
+  )`,
+  `create index if not exists support_messages_ticket on support_messages(ticket_id, created_at)`,
+  `create table if not exists support_access (
+    steam_id text not null, cluster text not null, type text not null,
+    granted_by text not null, primary key(steam_id, cluster, type)
+  )`,
+  `create table if not exists support_access_audit (
+    id bigserial primary key, actor text not null, target text not null, cluster text not null,
+    type text not null, enabled boolean not null, created_at timestamptz not null default now()
+  )`,
+  `create table if not exists support_uploads (
+    id uuid primary key, ticket_id uuid not null references support_tickets(id), actor text not null,
+    name text not null, pathname text unique not null, mime text not null, bytes integer not null,
+    ready boolean not null default false, created_at timestamptz not null default now()
+  )`,
+  `alter table support_messages add column if not exists kind text not null default 'reply'`,
+  `create table if not exists moderator_credits (
+    ticket_id uuid primary key references support_tickets(id), moderator text not null,
+    credited_at timestamptz not null default now()
+  )`,
+  `create table if not exists moderator_deductions (
+    id uuid primary key, moderator text not null, month text not null,
+    points integer not null check(points >= 5 and points <= 10000), reason text not null,
+    severity text not null check(severity in ('normal','major')), actor text not null,
+    created_at timestamptz not null default now()
+  )`,
   `create table if not exists users (
      steam_id    text primary key,
      persona     text,
@@ -83,7 +138,8 @@ async function ensureReady() {
     ready = (async () => {
       // Neon executes this batch in order in one HTTP round trip. Separate requests
       // made cold sign-in/staff navigation pay the network latency for every DDL.
-      if (transactionDriver) await transactionDriver(SCHEMA.map((text) => ({ text })));
+      if (transactionDriver)
+        await transactionDriver(SCHEMA.map((text) => ({ text })));
       else for (const stmt of SCHEMA) await q(stmt);
     })().catch((e) => {
       ready = null;
@@ -94,7 +150,10 @@ async function ensureReady() {
 }
 
 /** Run a query, creating the schema first if this instance hasn't yet. */
-export async function query<T = Record<string, unknown>>(text: string, params: unknown[] = []): Promise<T[]> {
+export async function query<T = Record<string, unknown>>(
+  text: string,
+  params: unknown[] = [],
+): Promise<T[]> {
   await ensureReady();
   return connect()<T>(text, params);
 }
@@ -104,9 +163,13 @@ export async function query<T = Record<string, unknown>>(text: string, params: u
  * is a separate statement after the lock, so READ COMMITTED sees the preceding
  * transaction's changes. Both statements must run in one database transaction.
  */
-export async function ownershipQuery<T>(text: string, params: unknown[] = []): Promise<T[]> {
+export async function ownershipQuery<T>(
+  text: string,
+  params: unknown[] = [],
+): Promise<T[]> {
   await ensureReady();
-  if (!transactionDriver) throw new Error("Ownership changes require a transaction driver");
+  if (!transactionDriver)
+    throw new Error("Ownership changes require a transaction driver");
   const results = await transactionDriver([
     { text: "select pg_advisory_xact_lock(1296388929, 1)" }, // MESA ownership lifecycle
     { text, params },

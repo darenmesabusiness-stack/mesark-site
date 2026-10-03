@@ -14,32 +14,64 @@ const NAV_LINKS = [
 
 type NavLink = { href: string; label: string; external?: boolean };
 const NAV_GROUPS: { label: string; links: NavLink[] }[] = [
-  { label: "Guides", links: [
-    { href: "/helpful", label: "Player guides" },
-    { href: "/settings", label: "Rates & wipes" },
-    { href: "/maps", label: "Cave maps" },
-    { href: "/changelog", label: "Updates" },
-  ] },
-  { label: "Community", links: [
-    { href: "/live", label: "Live activity" },
-    { href: "/compete", label: "Hall of Fame" },
-    { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
-    { href: "https://discord.gg/mesark", label: "Join Discord", external: true },
-  ] },
+  {
+    label: "Guides",
+    links: [
+      { href: "/helpful", label: "Player guides" },
+      { href: "/settings", label: "Rates & wipes" },
+      { href: "/maps", label: "Cave maps" },
+      { href: "/changelog", label: "Updates" },
+    ],
+  },
+  {
+    label: "Community",
+    links: [
+      { href: "/live", label: "Live activity" },
+      { href: "/hall-of-fame", label: "Hall of Fame" },
+      {
+        href: "https://leaderboards.mesark.net",
+        label: "Leaderboards",
+        external: true,
+      },
+      {
+        href: "https://discord.gg/mesark",
+        label: "Join Discord",
+        external: true,
+      },
+    ],
+  },
 ];
 
-function NavGroup({ group, pathname }: { group: typeof NAV_GROUPS[number]; pathname: string }) {
+function NavGroup({
+  group,
+  pathname,
+}: {
+  group: (typeof NAV_GROUPS)[number];
+  pathname: string;
+}) {
   const ref = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
     const closeOutside = (event: PointerEvent) => {
-      if (event.target instanceof Node && !ref.current?.contains(event.target) && ref.current) ref.current.open = false;
+      if (
+        event.target instanceof Node &&
+        !ref.current?.contains(event.target) &&
+        ref.current
+      )
+        ref.current.open = false;
     };
     document.addEventListener("pointerdown", closeOutside);
     return () => document.removeEventListener("pointerdown", closeOutside);
   }, []);
-  const active = group.links.some((link) => !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`)));
+  const active = group.links.some(
+    (link) =>
+      !link.external &&
+      (pathname === link.href || pathname.startsWith(`${link.href}/`)),
+  );
   return (
-    <details ref={ref} name="desktop-navigation" className="group relative"
+    <details
+      ref={ref}
+      name="desktop-navigation"
+      className="group relative"
       onKeyDown={(event) => {
         if (event.key === "Escape" && ref.current) {
           ref.current.open = false;
@@ -47,18 +79,36 @@ function NavGroup({ group, pathname }: { group: typeof NAV_GROUPS[number]; pathn
         }
       }}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.open = false;
-      }}>
-      <summary className={`cursor-pointer list-none px-3 py-2 font-display text-lg font-bold uppercase tracking-wider transition hover:text-text-primary [&::-webkit-details-marker]:hidden ${active ? "text-text-primary" : "text-text-primary/60"}`}>
-        {group.label} <span aria-hidden className="ml-1 text-xs text-accent">⌄</span>
+        if (!event.currentTarget.contains(event.relatedTarget))
+          event.currentTarget.open = false;
+      }}
+    >
+      <summary
+        className={`cursor-pointer list-none px-3 py-2 font-display text-lg font-bold uppercase tracking-wider transition hover:text-text-primary [&::-webkit-details-marker]:hidden ${active ? "text-text-primary" : "text-text-primary/60"}`}
+      >
+        {group.label}{" "}
+        <span aria-hidden className="ml-1 text-xs text-accent">
+          ⌄
+        </span>
       </summary>
       <div className="absolute left-0 top-full mt-2 w-56 border border-border bg-bg-primary p-2 shadow-xl">
         {group.links.map((link) => (
-          <Link key={link.href} href={link.href} target={link.external ? "_blank" : undefined}
-            onClick={() => { if (ref.current) ref.current.open = false; }}
+          <Link
+            key={link.href}
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            onClick={() => {
+              if (ref.current) ref.current.open = false;
+            }}
             aria-current={pathname === link.href ? "page" : undefined}
-            className="block px-3 py-3 text-sm text-text-primary/80 transition hover:bg-accent/10 hover:text-accent">
-            {link.label}{link.external && <span aria-hidden className="float-right">↗</span>}
+            className="block px-3 py-3 text-sm text-text-primary/80 transition hover:bg-accent/10 hover:text-accent"
+          >
+            {link.label}
+            {link.external && (
+              <span aria-hidden className="float-right">
+                ↗
+              </span>
+            )}
           </Link>
         ))}
       </div>
@@ -66,7 +116,10 @@ function NavGroup({ group, pathname }: { group: typeof NAV_GROUPS[number]; pathn
   );
 }
 
-type Me = { enabled: boolean; user: { persona: string | null; avatar: string | null } | null };
+type Me = {
+  enabled: boolean;
+  user: { persona: string | null; avatar: string | null } | null;
+};
 
 /** Sign-in state for the nav, fetched after load so every page can stay static. */
 function useMe() {
@@ -85,12 +138,25 @@ function useMe() {
 }
 
 function AccountButton({ me }: { me: Me }) {
-  const label = me.user ? `Your account (${me.user.persona ?? "signed in"})` : "Sign in through Steam";
+  const label = me.user
+    ? `Your account (${me.user.persona ?? "signed in"})`
+    : "Sign in through Steam";
   return (
-    <Link href="/account" aria-label={label} title={label} className="ml-3 flex h-9 w-9 items-center justify-center text-text-primary/70 transition hover:text-accent">
+    <Link
+      href="/account"
+      aria-label={label}
+      title={label}
+      className="ml-3 flex h-9 w-9 items-center justify-center text-text-primary/70 transition hover:text-accent"
+    >
       {me.user?.avatar ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={me.user.avatar} alt="" width={30} height={30} className="h-[30px] w-[30px] border border-border" />
+        <img
+          src={me.user.avatar}
+          alt=""
+          width={30}
+          height={30}
+          className="h-[30px] w-[30px] border border-border"
+        />
       ) : (
         <UserCircleIcon className="h-7 w-7" />
       )}
@@ -105,7 +171,11 @@ function subscribeScroll(cb: () => void) {
 
 export function Navbar() {
   const pathname = usePathname();
-  const scrolled = useSyncExternalStore(subscribeScroll, () => window.scrollY > 24, () => false);
+  const scrolled = useSyncExternalStore(
+    subscribeScroll,
+    () => window.scrollY > 24,
+    () => false,
+  );
   // Menu state is keyed to the route it was opened on, so navigating closes it.
   const [openOn, setOpenOn] = useState<string | null>(null);
   const open = openOn === pathname;
@@ -118,12 +188,18 @@ export function Navbar() {
     <nav
       aria-label="Main navigation"
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        solid ? "border-b border-border bg-bg-primary/85 backdrop-blur-xl" : "border-b border-transparent bg-transparent"
+        solid
+          ? "border-b border-border bg-bg-primary/85 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="group flex items-center gap-3" aria-label="MESA home">
+          <Link
+            href="/"
+            className="group flex items-center gap-3"
+            aria-label="MESA home"
+          >
             <Image
               src="/favicon.png"
               alt=""
@@ -131,13 +207,18 @@ export function Navbar() {
               height={34}
               className="transition-transform group-hover:scale-110 group-hover:-rotate-3"
             />
-            <span className="font-display text-2xl font-black tracking-wide">MESA</span>
+            <span className="font-display text-2xl font-black tracking-wide">
+              MESA
+            </span>
           </Link>
 
           {/* Desktop */}
           <div className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link: NavLink) => {
-              const isActive = !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`));
+              const isActive =
+                !link.external &&
+                (pathname === link.href ||
+                  pathname.startsWith(`${link.href}/`));
               return (
                 <Link
                   key={link.href}
@@ -145,15 +226,28 @@ export function Navbar() {
                   target={link.external ? "_blank" : undefined}
                   aria-current={isActive ? "page" : undefined}
                   className={`relative px-3 py-2 font-display text-lg font-bold uppercase tracking-wider transition ${
-                    isActive ? "text-text-primary" : "text-text-primary/60 hover:text-text-primary"
+                    isActive
+                      ? "text-text-primary"
+                      : "text-text-primary/60 hover:text-text-primary"
                   }`}
                 >
                   {link.label}
-                  {isActive && <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-[1px] h-[2px] bg-accent" />}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute inset-x-3 -bottom-[1px] h-[2px] bg-accent"
+                    />
+                  )}
                 </Link>
               );
             })}
-            {NAV_GROUPS.map((group) => <NavGroup key={`${pathname}:${group.label}`} group={group} pathname={pathname} />)}
+            {NAV_GROUPS.map((group) => (
+              <NavGroup
+                key={`${pathname}:${group.label}`}
+                group={group}
+                pathname={pathname}
+              />
+            ))}
             {me?.enabled && <AccountButton me={me} />}
             <Link
               href="https://store.mesark.net/"
@@ -178,8 +272,12 @@ export function Navbar() {
             aria-controls="mobile-navigation"
             className="relative h-10 w-10 lg:hidden"
           >
-            <span className={`absolute left-2 right-2 top-[14px] h-[2px] bg-text-primary transition ${open ? "translate-y-[5px] rotate-45" : ""}`} />
-            <span className={`absolute left-2 right-2 top-[24px] h-[2px] bg-text-primary transition ${open ? "-translate-y-[5px] -rotate-45" : ""}`} />
+            <span
+              className={`absolute left-2 right-2 top-[14px] h-[2px] bg-text-primary transition ${open ? "translate-y-[5px] rotate-45" : ""}`}
+            />
+            <span
+              className={`absolute left-2 right-2 top-[24px] h-[2px] bg-text-primary transition ${open ? "-translate-y-[5px] -rotate-45" : ""}`}
+            />
           </button>
         </div>
       </div>
@@ -197,7 +295,10 @@ export function Navbar() {
           >
             <div className="px-4 py-4">
               {NAV_LINKS.map((link: NavLink, i) => {
-                const isActive = !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`));
+                const isActive =
+                  !link.external &&
+                  (pathname === link.href ||
+                    pathname.startsWith(`${link.href}/`));
                 return (
                   <motion.div
                     key={link.href}
@@ -215,7 +316,9 @@ export function Navbar() {
                       }`}
                     >
                       {link.label}
-                      <span className="text-base text-text-muted">{link.external ? "↗" : "→"}</span>
+                      <span className="text-base text-text-muted">
+                        {link.external ? "↗" : "→"}
+                      </span>
                     </Link>
                   </motion.div>
                 );
@@ -225,18 +328,29 @@ export function Navbar() {
                   <div key={group.label}>
                     <p className="hud-label mb-2 text-accent">{group.label}</p>
                     {group.links.map((link) => (
-                      <Link key={link.href} href={link.href} target={link.external ? "_blank" : undefined}
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        target={link.external ? "_blank" : undefined}
                         onClick={() => setOpen(false)}
-                        aria-current={pathname === link.href ? "page" : undefined}
-                        className={`block py-2 text-sm hover:text-accent ${pathname === link.href ? "text-accent" : "text-text-primary/80"}`}>
-                        {link.label}{link.external && <span aria-hidden> ↗</span>}
+                        aria-current={
+                          pathname === link.href ? "page" : undefined
+                        }
+                        className={`block py-2 text-sm hover:text-accent ${pathname === link.href ? "text-accent" : "text-text-primary/80"}`}
+                      >
+                        {link.label}
+                        {link.external && <span aria-hidden> ↗</span>}
                       </Link>
                     ))}
                   </div>
                 ))}
               </div>
               {me?.enabled && (
-                <Link href="/account" onClick={() => setOpen(false)} className="flex items-center justify-between border-b border-border/60 py-3 font-display text-3xl font-black uppercase text-text-primary">
+                <Link
+                  href="/account"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-between border-b border-border/60 py-3 font-display text-3xl font-black uppercase text-text-primary"
+                >
                   {me.user ? "Your account" : "Sign in"}
                   <span className="text-base text-text-muted">→</span>
                 </Link>

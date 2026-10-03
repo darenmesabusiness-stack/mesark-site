@@ -7,6 +7,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
+      url: `${baseUrl}/hall-of-fame`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "weekly",
