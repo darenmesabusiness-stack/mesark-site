@@ -198,7 +198,7 @@ export default async function LeaderboardsPage({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/70">
-                  {data.rows.map((row, index) => (
+                  {data.rows.filter((row) => row.rank > 3).map((row, index) => (
                     <tr
                       key={`${row.tribeId ?? row.name}:${index}`}
                       className={row.rank === 1 ? "bg-[#e4b64b]/[0.08]" : row.rank === 2 ? "bg-[#b3c4d4]/[0.06]" : row.rank === 3 ? "bg-[#bd8051]/[0.08]" : "hover:bg-accent/[0.05]"}
