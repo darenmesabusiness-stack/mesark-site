@@ -49,7 +49,7 @@ export function WebsiteTicket({
         <dl className="mt-6 grid gap-3 border border-border bg-bg-card/60 p-4">
           {Object.entries(t.details).map(([key, value]) => (
             <div key={key}>
-              <dt className="text-xs uppercase text-text-muted">
+              <dt className="text-sm uppercase text-text-muted">
                 {key.replaceAll("_", " ")}
               </dt>
               <dd className="mt-1 whitespace-pre-wrap break-words text-sm">
@@ -74,7 +74,7 @@ export function WebsiteTicket({
                 {m.private ? " · Internal note" : ""}
               </p>
               <time
-                className="text-xs text-text-muted"
+                className="text-sm text-text-muted"
                 dateTime={new Date(m.created_at).toISOString()}
               >
                 {new Date(m.created_at).toLocaleString("en-US", {

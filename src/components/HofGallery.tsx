@@ -82,7 +82,7 @@ export function HofGallery({
         ))}
       </nav>
       <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_12rem]">
-        <label className="grid gap-2 text-xs text-text-muted">
+        <label className="grid gap-2 text-sm text-text-muted">
           Find a tribe, member or season
           <input
             value={search}
@@ -91,7 +91,7 @@ export function HofGallery({
             type="search"
           />
         </label>
-        <label className="grid gap-2 text-xs text-text-muted">
+        <label className="grid gap-2 text-sm text-text-muted">
           Cluster
           <select
             value={cluster}
@@ -108,7 +108,7 @@ export function HofGallery({
           </select>
         </label>
       </div>
-      <p role="status" className="mb-5 text-xs text-text-muted">
+      <p role="status" className="mb-5 text-sm text-text-muted">
         {tab === "winners" ? records.length : members.length}{" "}
         {tab === "winners" ? "winner records" : "members"}
       </p>
@@ -129,7 +129,7 @@ export function HofGallery({
                   className="object-cover object-[30%_50%] opacity-70"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-bg-card to-transparent" />
-                <p className="absolute bottom-4 left-5 font-mono text-xs uppercase text-accent">
+                <p className="absolute bottom-4 left-5 font-mono text-sm uppercase text-accent">
                   {w.cluster} · Season {w.season}
                 </p>
               </div>
@@ -141,7 +141,7 @@ export function HofGallery({
                   {w.achievement ||
                     "Recognized as a Hall of Fame winner in the official MESA announcement."}
                 </p>
-                <h3 className="mt-5 text-xs uppercase tracking-widest text-text-muted">
+                <h3 className="mt-5 text-sm uppercase tracking-widest text-text-muted">
                   Winning roster
                 </h3>
                 <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
@@ -199,7 +199,7 @@ export function HofGallery({
                   {m.name} ↗
                 </a>
               </h2>
-              <ul className="mt-2 grid gap-1 text-xs text-text-muted">
+              <ul className="mt-2 grid gap-1 text-sm text-text-muted">
                 {m.honors.map((r) => (
                   <li key={r}>{r}</li>
                 ))}

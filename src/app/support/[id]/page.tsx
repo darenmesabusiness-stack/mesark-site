@@ -79,7 +79,7 @@ export default async function TicketPage({
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="font-semibold">{m.author}</p>
               <time
-                className="text-xs text-text-muted"
+                className="text-sm text-text-muted"
                 dateTime={new Date(m.at * 1000).toISOString()}
               >
                 {stamp(m.at)}
