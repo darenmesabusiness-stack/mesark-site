@@ -94,6 +94,26 @@ try {
   );
   assert.equal(rankingQuery({ page: "Infinity" }).page, 0);
   assert.equal(rankingQuery({ page: "9999" }).page, 1000);
+  response = {
+    ranking_data: [
+      { PlayerName: "N1gg3r", rank: 1, PlayerKills: 134, avatar: `https://avatars.steamstatic.com/${"a".repeat(40)}_full.jpg` },
+      { PlayerName: "Second survivor", rank: 2, PlayerKills: 121 },
+      { PlayerName: "Third survivor", rank: 3, PlayerKills: 116 },
+    ], pagination: { total_pages: 1 },
+  };
+  const initial = await getRankings(rankingQuery({}));
+  const explicit = await getRankings(rankingQuery({view:"players",cluster:"ALL",sort:"Kills"}));
+  assert.deepEqual(initial, explicit, "initial and explicit settings must preserve the same podium");
+  assert.deepEqual(initial?.rows.map(row=>row.rank), [1,2,3]);
+  assert.equal(initial?.rows[0].name, "Name hidden");
+  assert.equal(initial?.rows[0].nameHidden, true);
+  assert.equal(initial?.rows[0].avatar, null, "a filtered identity must not leak through its avatar");
+  assert.equal(JSON.stringify(initial).includes("N1gg3r"), false);
+  response = {ranking_data:[{TribeName:"76561190000000000",TribeID:42,rank:1,DamageScore:200}],pagination:{total_pages:1}};
+  const hiddenTribe = await getRankings(rankingQuery({view:"tribes"}));
+  assert.equal(hiddenTribe?.rows[0].rank,1);
+  assert.equal(hiddenTribe?.rows[0].tribeId,null,"a hidden identity must not get a tribe link");
+  assert.equal(JSON.stringify(hiddenTribe).includes("76561190000000000"),false);
   assert.equal(
     rankingQuery({ sort: ["Kills", "Deaths"], q: ["a", "b"] }).search,
     "",
