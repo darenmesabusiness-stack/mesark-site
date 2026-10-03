@@ -63,7 +63,7 @@ export function WebsiteTicket({
         <TicketControls key={t.status} ticket={t} assignees={assignees} />
       )}
       <div className="mt-8 grid gap-3">
-        {messages.map((m) => (
+        {messages.filter((m) => staff || !m.private).map((m) => (
           <article
             key={m.id}
             className={`border bg-bg-card/60 p-4 ${m.private ? "border-accent/40" : "border-border"}`}

@@ -14,7 +14,7 @@ export async function GET(
     `${d.ticket.subject} · ${d.ticket.cluster} · ${d.ticket.status}`,
     ...Object.entries(d.ticket.details).map(([k, v]) => `${k}: ${v}`),
     "",
-    ...d.messages.map(
+    ...d.messages.filter((m) => !m.private).map(
       (m) =>
         `[${new Date(m.created_at).toISOString()}] ${m.author}${m.private ? " (internal note)" : ""}\n${m.body}\n`,
     ),
