@@ -80,7 +80,7 @@ export default async function AccountPage({
             <SteamAvatar avatar={user.avatar} name={user.persona ?? "Survivor"} className="h-36 w-36 !rounded-xl !text-6xl sm:h-44 sm:w-44" />
             <div className="min-w-0">
               <h1 className="font-display break-words text-[clamp(2.75rem,9vw,5rem)] font-black">{user.persona ?? "Survivor"}</h1>
-              <p className="mt-1 font-mono text-xs text-text-muted">
+              <p className="mt-1 font-mono text-sm text-text-muted">
                 Steam ID {user.steam_id} · only you can see this
               </p>
             </div>
@@ -96,7 +96,7 @@ export default async function AccountPage({
           )}
 
           <section className="mt-10 border border-border bg-bg-card/60 p-5 sm:p-6">
-            <p className="hud-label !text-xs">Discord</p>
+            <p className="hud-label !text-sm">Discord</p>
             <h2 className="font-display mt-1 text-3xl font-black">{user.discord_id ? "Discord connected" : "Link your Discord"}</h2>
             <p className="mt-1 mb-5 text-sm text-text-muted">{user.discord_id ? "Your Discord is linked to this Steam account. You can open tickets and read staff replies here." : "Link once so staff can recognize you and find your support tickets."}</p>
             <DiscordLink linkedName={user.discord_id ? user.discord_name ?? "your Discord" : null} />

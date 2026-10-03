@@ -3,10 +3,18 @@ import { PGlite } from "@electric-sql/pglite";
 import { query, useDriver as setDriver, type Transaction } from "../src/lib/db";
 import { DAY, packTribes, tribeColors, windowState, type MesaTribe } from "../src/lib/mesaMap";
 import { confirmMapWipe, saveMapLocation, publishedLocations, mapWindow } from "../src/lib/mesaMapStore";
-import { getMesaMap } from "../src/lib/mesaMapData";
+import { getMesaMap, homeMapImage } from "../src/lib/mesaMapData";
 import { GET } from "../src/app/api/mesa-map/tribe/route";
 
 const pg = new PGlite();
+// A known cave's recorded image pin proves alignment with the existing map rulers.
+const knownPin = homeMapImage("The Island", 72.9, 44.8)!;
+assert.equal(knownPin.src, "/maps/the-island/map.webp");
+assert.ok(Math.abs(knownPin.x - 47.153) < .01 && Math.abs(knownPin.y - 69.657) < .01);
+assert.equal(homeMapImage("Unknown map", 50, 50), null);
+assert.equal(homeMapImage("The Island", NaN, 50), null);
+assert.equal(homeMapImage("The Island", 101, 50), null);
+assert.equal(homeMapImage("The Island", 0, 0), null, "out-of-image GPS must not be clamped to a false home pin");
 const transaction: Transaction = statements => pg.transaction(async tx => {
   const results: Record<string, unknown>[][] = [];
   for (const { text, params = [] } of statements) results.push((await tx.query(text, params)).rows as Record<string, unknown>[]);
@@ -38,6 +46,7 @@ try {
   const data = await getMesaMap("SOLO");
   assert.equal(data.tribes.length, 10);
   assert.equal(data.tribes[0].location?.lat, 41.2);
+  assert.equal(data.tribes[0].location?.mapImage?.src, "/maps/the-island/map.webp");
   assert.ok(!JSON.stringify(data).includes("private staff"), "verification evidence stays private");
   const roster = await GET(new Request("https://mesark.net/api/mesa-map/tribe?cluster=SOLO&tribe=1"));
   assert.deepEqual(await roster.json(), { members: ["Survivor"] });

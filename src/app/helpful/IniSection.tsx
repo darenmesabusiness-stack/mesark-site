@@ -61,7 +61,7 @@ export function IniSection() {
       </div>
 
       {/* Description */}
-      <p className="text-xs text-text-muted mb-3">{current.desc}</p>
+      <p className="text-sm text-text-muted mb-3">{current.desc}</p>
 
       {/* Actions */}
       <div className="flex gap-2 mb-3">
@@ -84,7 +84,7 @@ export function IniSection() {
       </div>
 
       {/* Code block */}
-      <pre className="bg-bg-card border border-border rounded-lg p-4 text-[13px] text-text-muted overflow-x-auto leading-relaxed whitespace-pre max-h-[400px] overflow-y-auto">
+      <pre className="bg-bg-card border border-border rounded-lg p-4 text-sm text-text-muted overflow-x-auto leading-relaxed whitespace-pre max-h-[400px] overflow-y-auto">
         {text}
       </pre>
     </div>

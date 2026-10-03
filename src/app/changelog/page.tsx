@@ -69,7 +69,7 @@ export default async function ChangeLogIndex() {
               ))}
             </ul>
             <div className="mt-5 flex items-center gap-5">
-              <span className="font-mono text-xs text-text-muted">{lt.total} changes</span>
+              <span className="font-mono text-sm text-text-muted">{lt.total} changes</span>
               <span className="font-display text-xl font-extrabold tracking-wider text-accent transition-transform group-hover:translate-x-1">
                 Read the notes →
               </span>
@@ -101,7 +101,7 @@ export default async function ChangeLogIndex() {
                     </p>
                   )}
                   <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
-                    <span className="font-mono text-[13px] text-text-muted">
+                    <span className="font-mono text-sm text-text-muted">
                       {t.total} changes{t.caves ? ` · ${t.caves} cave${t.caves === 1 ? "" : "s"}` : ""}
                     </span>
                     <span className="font-display text-lg font-extrabold tracking-wider text-accent transition-transform group-hover:translate-x-1">

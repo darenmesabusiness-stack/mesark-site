@@ -5,9 +5,9 @@ import { PERIODS } from "@/lib/bot";
 export function Tile({ label, value, note }: { label: string; value: React.ReactNode; note?: React.ReactNode }) {
   return (
     <div className="bg-bg-card p-4 sm:p-5">
-      <p className="hud-label !text-[10px]">{label}</p>
+      <p className="hud-label !text-sm">{label}</p>
       <p className="font-display mt-2 text-4xl font-black tabular-nums leading-none">{value}</p>
-      {note && <p className="mt-2 text-xs text-text-muted">{note}</p>}
+      {note && <p className="mt-2 text-sm text-text-muted">{note}</p>}
     </div>
   );
 }
@@ -21,7 +21,7 @@ export function Section({ title, note, children }: { title: string; note?: React
     <section className="mt-12">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <h2 className="font-display text-3xl font-black sm:text-4xl">{title}</h2>
-        {note && <p className="text-xs text-text-muted">{note}</p>}
+        {note && <p className="text-sm text-text-muted">{note}</p>}
       </div>
       <div className="mt-4">{children}</div>
     </section>
@@ -37,7 +37,7 @@ export function PeriodPicker({ path, days, extra }: { path: string; days: number
           key={p}
           href={{ pathname: path, query: { ...extra, days: String(p) } }}
           aria-current={p === days ? "true" : undefined}
-          className={`border px-3 py-1 font-mono text-xs uppercase tracking-wider transition ${
+          className={`border px-3 py-1 font-mono text-sm uppercase tracking-wider transition ${
             p === days ? "border-accent bg-accent text-bg-primary" : "border-border text-text-primary/80 hover:border-accent/50"
           }`}
         >
@@ -62,7 +62,7 @@ export function BarChart({ data, format = (n) => String(n), height = 140, label 
   return (
     <figure className="border border-border bg-bg-card/60 p-4">
       <div className="flex items-start gap-3">
-        <div className="flex flex-col justify-between text-right font-mono text-[10px] text-text-muted" style={{ height }}>
+        <div className="flex flex-col justify-between text-right font-mono text-sm text-text-muted" style={{ height }}>
           <span>{format(max)}</span>
           <span>0</span>
         </div>
@@ -78,7 +78,7 @@ export function BarChart({ data, format = (n) => String(n), height = 140, label 
           })}
         </svg>
       </div>
-      <figcaption className="mt-2 flex justify-between pl-10 font-mono text-[10px] text-text-muted">
+      <figcaption className="mt-2 flex justify-between pl-10 font-mono text-sm text-text-muted">
         <span>{data[0].x}</span>
         <span>{data[data.length - 1].x}</span>
       </figcaption>
@@ -116,7 +116,7 @@ export function Heatmap({ grid }: { grid: number[][] }) {
   const max = Math.max(...et.flat(), 1);
   return (
     <div className="overflow-x-auto border border-border bg-bg-card/60 p-4">
-      <table className="min-w-[640px] border-separate border-spacing-[3px] font-mono text-[10px] text-text-muted">
+      <table className="min-w-[640px] border-separate border-spacing-[3px] font-mono text-sm text-text-muted">
         <thead>
           <tr>
             <th />
@@ -138,7 +138,7 @@ export function Heatmap({ grid }: { grid: number[][] }) {
           ))}
         </tbody>
       </table>
-      <p className="mt-2 text-[11px] text-text-muted">New tickets by hour, Eastern time. Darker = busier (busiest hour: {max}).</p>
+      <p className="mt-2 text-sm text-text-muted">New tickets by hour, Eastern time. Darker = busier (busiest hour: {max}).</p>
     </div>
   );
 }
@@ -149,7 +149,7 @@ export function Table({ head, children, minWidth = 640 }: { head: React.ReactNod
     <div className="overflow-x-auto border border-border">
       <table className="w-full text-left text-sm" style={{ minWidth }}>
         <thead className="bg-bg-secondary">
-          <tr className="hud-label !text-[10px]">
+          <tr className="hud-label !text-sm">
             {head.map((h, i) => (
               <th key={i} className="px-3 py-3 font-normal first:pl-4">
                 {h}

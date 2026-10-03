@@ -63,7 +63,7 @@ export default async function CavesAdmin({ searchParams }: { searchParams: Promi
       <div className="mt-4 overflow-x-auto border border-border">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="bg-bg-secondary">
-            <tr className="hud-label !text-[10px]">
+            <tr className="hud-label !text-sm">
               <th className="px-4 py-3 font-normal">Cave</th>
               <th className="px-3 py-3 font-normal">GPS</th>
               <th className="px-3 py-3 font-normal">Clip</th>
@@ -75,13 +75,13 @@ export default async function CavesAdmin({ searchParams }: { searchParams: Promi
             {caves.map((c) => (
               <tr key={c.id} className="bg-bg-card/40">
                 <td className="px-4 py-3 font-semibold">{c.name}</td>
-                <td className="px-3 py-3 font-mono text-xs">
+                <td className="px-3 py-3 font-mono text-sm">
                   {c.lat}, {c.lon}
                 </td>
-                <td className="px-3 py-3 text-xs text-text-muted">{c.hasClip ? "Yes" : "None"}</td>
+                <td className="px-3 py-3 text-sm text-text-muted">{c.hasClip ? "Yes" : "None"}</td>
                 <td className="px-3 py-3">
-                  <span className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${PILL[c.status][1]}`}>{PILL[c.status][0]}</span>
-                  {c.editor && <span className="ml-2 text-xs text-text-muted">by {c.editor}</span>}
+                  <span className={`border px-2 py-0.5 font-mono text-sm uppercase tracking-wider ${PILL[c.status][1]}`}>{PILL[c.status][0]}</span>
+                  {c.editor && <span className="ml-2 text-sm text-text-muted">by {c.editor}</span>}
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-4">
@@ -94,7 +94,7 @@ export default async function CavesAdmin({ searchParams }: { searchParams: Promi
                       <form action={unhideCaveAction}>
                         <input type="hidden" name="map" value={map.slug} />
                         <input type="hidden" name="id" value={c.id} />
-                        <button type="submit" className="text-xs text-text-muted underline underline-offset-4 hover:text-accent">
+                        <button type="submit" className="text-sm text-text-muted underline underline-offset-4 hover:text-accent">
                           Show again
                         </button>
                       </form>
@@ -102,7 +102,7 @@ export default async function CavesAdmin({ searchParams }: { searchParams: Promi
                       <form action={hideCaveAction}>
                         <input type="hidden" name="map" value={map.slug} />
                         <input type="hidden" name="id" value={c.id} />
-                        <button type="submit" className="text-xs text-text-muted underline underline-offset-4 hover:text-accent">
+                        <button type="submit" className="text-sm text-text-muted underline underline-offset-4 hover:text-accent">
                           Hide
                         </button>
                       </form>
@@ -111,7 +111,7 @@ export default async function CavesAdmin({ searchParams }: { searchParams: Promi
                       <form action={restoreCaveAction}>
                         <input type="hidden" name="map" value={map.slug} />
                         <input type="hidden" name="id" value={c.id} />
-                        <button type="submit" className="text-xs text-text-muted underline underline-offset-4 hover:text-accent">
+                        <button type="submit" className="text-sm text-text-muted underline underline-offset-4 hover:text-accent">
                           Undo edits
                         </button>
                       </form>

@@ -70,7 +70,7 @@ export function RuleItem({ text, warning = false }: { text: string; warning?: bo
 export function InfoCard({ title, value, accent = false }: { title: string; value: string; accent?: boolean }) {
   return (
     <div className="clip-corner-sm border border-border bg-bg-primary/50 p-4">
-      <div className="hud-label !text-xs mb-1">{title}</div>
+      <div className="hud-label !text-sm mb-1">{title}</div>
       <div className={`font-display text-2xl font-extrabold ${accent ? "text-accent" : "text-text-primary"}`}>{value}</div>
     </div>
   );

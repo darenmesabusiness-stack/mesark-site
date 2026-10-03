@@ -41,7 +41,7 @@ export default async function ChangelogAdmin({ searchParams }: { searchParams: P
       <div className="mt-6 overflow-x-auto border border-border">
         <table className="w-full min-w-[600px] text-left text-sm">
           <thead className="bg-bg-secondary">
-            <tr className="hud-label !text-[10px]">
+            <tr className="hud-label !text-sm">
               <th className="px-4 py-3 font-normal">Month</th>
               <th className="px-3 py-3 font-normal">Status</th>
               <th className="px-3 py-3 font-normal">Changes</th>
@@ -54,10 +54,10 @@ export default async function ChangelogAdmin({ searchParams }: { searchParams: P
               <tr key={mo.slug} className="bg-bg-card/40">
                 <td className="px-4 py-3 font-display text-xl font-black">{mo.label}</td>
                 <td className="px-3 py-3">
-                  <span className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${PILL[mo.status]}`}>{LABEL[mo.status]}</span>
+                  <span className={`border px-2 py-0.5 font-mono text-sm uppercase tracking-wider ${PILL[mo.status]}`}>{LABEL[mo.status]}</span>
                 </td>
                 <td className="px-3 py-3 font-mono">{mo.changes}</td>
-                <td className="px-3 py-3 text-xs text-text-muted">
+                <td className="px-3 py-3 text-sm text-text-muted">
                   {mo.updatedAt ? `${new Date(mo.updatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}${mo.editor ? ` · ${mo.editor}` : ""}` : "Original post"}
                 </td>
                 <td className="px-4 py-3 text-right">

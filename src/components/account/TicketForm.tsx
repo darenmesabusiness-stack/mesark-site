@@ -183,14 +183,14 @@ export function TicketForm({
         />
       </label>
       {native ? (
-        <p className="text-xs text-text-muted">
+        <p className="text-sm text-text-muted">
           Private website ticket.{" "}
           {channel
             ? "Attach files below."
             : "Open the ticket, then attach screenshots, videos or documents."}
         </p>
       ) : (
-        <p className="text-xs text-text-muted">
+        <p className="text-sm text-text-muted">
           This older ticket continues in Discord.
         </p>
       )}

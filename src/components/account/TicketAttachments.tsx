@@ -70,7 +70,7 @@ export function TicketAttachments({ ticket }: { ticket: string }) {
           className="mt-2 block w-full text-sm"
         />
       </label>
-      <p className="text-xs text-text-muted">
+      <p className="text-sm text-text-muted">
         Private files · JPG, PNG, GIF, WebP, MP4, WebM, PDF or text · 32 MB per
         file
       </p>

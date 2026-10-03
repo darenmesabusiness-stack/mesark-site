@@ -45,7 +45,7 @@ export function TicketControls({
           value={selected}
           onChange={(e) => setSelected(e.target.value)}
           disabled={pending}
-          className="border border-border bg-bg-card p-2"
+          className="min-w-0 w-full border border-border bg-bg-card p-2"
         >
           {(ticket.status === "closed"
             ? ["reopen"]
@@ -81,7 +81,7 @@ export function TicketControls({
             name="value"
             disabled={pending}
             required
-            className="border border-border bg-bg-card p-2"
+            className="min-w-0 w-full border border-border bg-bg-card p-2"
           >
             {assignees.map((a) => (
               <option key={a.id} value={a.id}>
@@ -107,7 +107,7 @@ export function TicketControls({
       ) : (
         <input type="hidden" name="value" value="" />
       )}
-      <p className="text-xs text-text-muted">
+      <p className="text-sm text-text-muted">
         Transfer and priority changes require lead/owner access. Mark
         purchased-rank priority only after checking the purchase. HOF/staff
         reports retain their restricted access.

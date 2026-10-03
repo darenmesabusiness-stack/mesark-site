@@ -41,15 +41,15 @@ export function SupportView({ d }: { d: SupportData }) {
           <Table head={["Ticket", "Player", "Opened", "Waiting", "Last message", "First admin"]}>
             {d.open.map((o) => (
               <tr key={o.channel} className={o.staff ? "bg-bg-card/40" : "bg-accent/[0.06]"}>
-                <td className="px-4 py-2.5 font-mono text-xs">
+                <td className="px-4 py-2.5 font-mono text-sm">
                   {o.channel}
-                  {o.escalated && <span className="ml-2 border border-accent px-1.5 py-px text-[9px] uppercase text-accent">Escalated</span>}
+                  {o.escalated && <span className="ml-2 border border-accent px-1.5 py-px text-sm uppercase text-accent">Escalated</span>}
                 </td>
                 <td className="px-3 py-2.5">{o.player || "–"}</td>
-                <td className="px-3 py-2.5 text-xs text-text-muted">{dateTime(o.opened)}</td>
-                <td className="px-3 py-2.5 font-mono text-xs">{minutes(o.wait_mins)}</td>
-                <td className="px-3 py-2.5 font-mono text-xs text-text-muted">{minutes(o.idle_mins)} ago</td>
-                <td className="px-3 py-2.5 text-xs">{o.staff ?? <span className="text-accent">No reply yet</span>}</td>
+                <td className="px-3 py-2.5 text-sm text-text-muted">{dateTime(o.opened)}</td>
+                <td className="px-3 py-2.5 font-mono text-sm">{minutes(o.wait_mins)}</td>
+                <td className="px-3 py-2.5 font-mono text-sm text-text-muted">{minutes(o.idle_mins)} ago</td>
+                <td className="px-3 py-2.5 text-sm">{o.staff ?? <span className="text-accent">No reply yet</span>}</td>
               </tr>
             ))}
           </Table>
@@ -70,7 +70,7 @@ export function SupportView({ d }: { d: SupportData }) {
                 <td className="px-3 py-2.5 tabular-nums">{s.claimed_open}</td>
                 <td className="px-3 py-2.5 tabular-nums">{s.escalated}</td>
                 <td className="px-3 py-2.5 tabular-nums">{s.replies}</td>
-                <td className="px-3 py-2.5 tabular-nums text-xs">{s.rating ? `${s.rating.toFixed(1)} ★ (${s.ratings})` : "–"}</td>
+                <td className="px-3 py-2.5 tabular-nums text-sm">{s.rating ? `${s.rating.toFixed(1)} ★ (${s.ratings})` : "–"}</td>
                 <td className="px-3 py-2.5 font-mono font-semibold tabular-nums text-accent">{s.effort.toFixed(1)}</td>
               </tr>
             ))}

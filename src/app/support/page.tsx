@@ -17,15 +17,15 @@ async function WebsiteTickets({ user }: { user: User }) {
         <li key={t.id}>
           <Link
             href={`/support/w_${t.id}`}
-            className="flex justify-between gap-4 border border-border bg-bg-card/60 p-4 hover:border-accent"
+            className="flex flex-wrap justify-between gap-4 border border-border bg-bg-card/60 p-4 hover:border-accent"
           >
             <span>
               {supportLabel(t.type)} · #{t.number}
-              <span className="mt-1 block text-xs text-text-muted">
+              <span className="mt-1 block break-words text-sm text-text-muted">
                 {t.subject} · {t.cluster === "3/6 Man" ? "3 Man" : t.cluster}
               </span>
             </span>
-            <span className="text-xs text-accent">{t.status} →</span>
+            <span className="text-sm text-accent">{t.status} →</span>
           </Link>
         </li>
       ))}
@@ -51,18 +51,18 @@ async function MyTickets({ user }: { user: User }) {
         <li key={t.id}>
           <Link
             href={`/support/${t.id}`}
-            className="flex items-center justify-between gap-4 border border-border bg-bg-card/60 p-4 hover:border-accent"
+            className="flex flex-wrap items-center justify-between gap-4 border border-border bg-bg-card/60 p-4 hover:border-accent"
           >
             <span>
               <span className="font-display text-xl font-bold">
                 {t.type || "Support"}
               </span>
-              <span className="mt-1 block text-xs text-text-muted">
+              <span className="mt-1 block break-words text-sm text-text-muted">
                 {t.name} · {t.cluster === "3/6 Man" ? "3 Man" : t.cluster}
               </span>
             </span>
             <span
-              className={`font-mono text-xs uppercase ${t.status === "open" ? "text-accent" : "text-text-muted"}`}
+              className={`font-mono text-sm uppercase ${t.status === "open" ? "text-accent" : "text-text-muted"}`}
             >
               {t.status} →
             </span>
