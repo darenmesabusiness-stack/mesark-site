@@ -5,8 +5,8 @@ release approval required. This change does not retire any Discord channel.
 
 ## Behavior
 
-Rules now use all 139 clauses from the seven public rule-channel posts retrieved
-October 3. Every source clause is retained, including qualifiers, punishments and
+Rules now retain all 139 clauses from seven public rule-channel posts retrieved
+October 3, plus five later HOF eligibility/transfer updates from the HOF channel. Every source clause is retained, including qualifiers, punishments and
 later exceptions. HOF application instructions point to website support. Existing
 website-only unban price examples and promised turnaround are excluded because
 these public source posts do not establish them. Review that discrepancy before
@@ -43,9 +43,15 @@ accomplishments were added. Personal stories/results require actual evidence.
 Read-only leaderboard filesystem inventory found no SQL history dumps. Existing
 bot/off-host backup manifests begin October3; preserved intel leaderboard_events
 has 19,308 score observations across roughly six months, not guaranteed final
-season results. Exact tribe-name/cluster candidates within 45days before the 81
-announcements found zero matches. No fuzzy identity matches or restored live DBs.
-Private local review evidence: out/review/hof-score-candidates.json. Confirm season
+season results. The initial typed-field search found no matches because the old collector
+never populated score/tribe-ID fields. Follow-up parsing of preserved public
+leaderboard tables recovered18,835snapshots/188,350rows, with exact-name/cluster
+review candidates for62announcements in the45days before recognition. This is
+not a final-season identity match. Leads see safe date/score/rank candidates in
+the editor; no raw messages, names or internal event IDs are shipped there. No fuzzy identity matches or restored live DBs.
+Private local review evidence: out/review/hof-recovered-candidates.json and
+hof-history-review.md. Parser _scripts/recover_hof_score_history.py is read-only;
+five offline shape/truncation/privacy/zero/grouping tests pass. Confirm season
 boundaries and tribe identity before importing any old scores. Capture future
 verified final results and their source/time through the editor; the immutable
 audit retains each submission. No duplicate collector or backup job was added.
@@ -69,3 +75,8 @@ cutover after reviewed website parity, preservation and working access.
 
 Rollback by reverting approved code; preserve audit/history/newer player settings,
 and compare intervening changes. Do not delete additive tables or overwrite DBs.
+
+Land-base policy needs lead/user clarification before release: rules channel
+says individually approved land locations; July17HOF announcement permits land
+bases except named exclusions. Existing cave/request wording stays until resolved.
+Other later updates are source-backed and carry their actual effective qualifiers.

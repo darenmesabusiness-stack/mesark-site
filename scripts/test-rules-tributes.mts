@@ -8,6 +8,7 @@ import {parseHof,saveHof,publishedHof} from "../src/lib/hofStore";
 import type {User} from "../src/lib/auth";
 import {tributeColor,rosterHistory} from "../src/lib/hofTribute";
 import seed from "../src/data/rules.json";
+import recovery from "../src/data/hofRecovery.json";
 import hof from "../src/data/hofMembers.json";
 const pg=new PGlite();
 const tx:Transaction=statements=>pg.transaction(async db=>{
@@ -66,6 +67,13 @@ assert.ok(!JSON.stringify(await publishedHof()).includes(privateEvidence),"priva
 assert.equal((await query<{evidence:string}>("select evidence from hof_audit where entry_id=$1",[winner.id]))[0].evidence,privateEvidence);
 form.set("score","-1");assert.equal(parseHof(form),null);
 form.set("score",""); form.set("signature","76561199000000001");assert.equal(parseHof(form),null);
-assert.equal(seed.sources.length,7); assert.ok(seed.sections.some(s=>s.rules.some(r=>/24 hours on 100x/.test(r))));
+assert.equal(seed.sources.length,12); assert.ok(seed.sections.some(s=>s.rules.some(r=>/24 hours on 100x/.test(r))));
 assert.ok(seed.sections.some(s=>s.rules.some(r=>/maximum limit on solos is 2 DPS Dinos/.test(r))));
+for(const candidate of recovery.candidates) {
+ assert.deepEqual(Object.keys(candidate).sort(),["announcement","matches","observedAt","observedScore","observedRank"].sort());
+ assert.ok(hof.winners.some(w=>w.id===candidate.announcement));
+ assert.ok(Number.isSafeInteger(candidate.observedScore) && candidate.observedScore>=0);
+}
+assert.ok(seed.sections.some(s=>s.rules.some(r=>/win the season in which/.test(r))));
+assert.ok(seed.sections.some(s=>s.rules.some(r=>/September 25, 2026/.test(r))));
 await pg.close(); console.log("Rules permissions, immutable drafts, summary/full text, publication conflicts/restoration, HOF facts and opt-in identity links passed.");

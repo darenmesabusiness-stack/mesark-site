@@ -193,7 +193,7 @@
         "Onlined on any cluster past day 3 = Loses HOF role (This applies to EVERY player online during the raid including cyclers)",
         "Participating or playing with people who are doing any of the following: Cheating, duping, meshing, account sharing, popcorning.",
         "Serious rule breaks can lose your HOF roles (Lead admin decision)",
-        "HOF roles can also be transferred. If a tribe successfully raids a tribe containing HOF role owners, one HOF role from every member of the defending tribe who has HOF will be transferred to members of the raiding tribe, to be decided upon independently by the raiding tribe.",
+        "HOF roles can also be transferred. If a tribe successfully raids a tribe containing HOF role owners, one HOF role from every member of the defending tribe who has HOF will be transferred to members of the raiding tribe, to be decided upon independently by the raiding tribe.\nThe August 3 amendment additionally requires the raiding tribe to win that same season; see Later HOF eligibility updates.",
         "As well as this, HOF roles can be lost/transferred on every cluster if online wiped past day 3. For example, If you own solos HOF and you are onlined on 100x, you will lose the solos HOF, and this is applicable to all clusters."
       ]
     },
@@ -207,6 +207,16 @@
         "The raiding tribe chooses which members receive the transferred HOF roles.",
         "To be elligble to steal someones HOF role, you must have a HOF ticket open and be going for HOF in that season.",
         "If you cannot decide who will receive the roles by yourself, nobody will receive any. It is not our job to sort out tribe issues for you."
+      ]
+    },
+    {
+      "title": "Later HOF eligibility updates",
+      "rules": [
+        "To receive a transferred HOF role, you must win the season in which you online-wiped the defending player or tribe. Effective immediately from August 3, 2026, in addition to the other transfer requirements.",
+        "Glowden, Voltage Den and Glowtail are allowed for HOF, as announced September 25, 2026. This supersedes their earlier disqualification notices.",
+        "Rockwell Cave is allowed for HOF. Shadow’s Storm Depths is not allowed for HOF on 100x only. These changes apply from each cluster’s next wipe following the August 4, 2026 announcement.",
+        "Southgate is disqualified from HOF until announced otherwise. This applies from each cluster’s next wipe following the August 30, 2026 announcement.",
+        "Shook’s Crypts, Psycho Cove, Gen2 Cube (bugged, 1x), Shadow’s Dragon Den, Drunken Wakanda Cave and Doppey Cave are allowed for HOF, as announced July 2, 2026."
       ]
     }
   ],
@@ -238,6 +248,26 @@
     {
       "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1516242830304088064",
       "updated": "2026-07-18T21:10:37.613000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1533874672632991855",
+      "updated": "2026-08-03T18:58:26.516000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1553066488506748949",
+      "updated": "2026-09-25T15:31:45.440000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1534174510885113907",
+      "updated": "2026-08-04T14:24:59.379000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1543738494092845136",
+      "updated": "2026-08-30T21:45:38.266000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1522388551566889041",
+      "updated": "2026-07-02T23:48:35.305000+00:00"
     }
   ],
   "checked": "2026-10-03"
