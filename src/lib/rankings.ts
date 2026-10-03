@@ -1,4 +1,4 @@
-import { CLUSTERS, isBlockedName } from "@/lib/leaderboard";
+import { CLUSTERS } from "@/lib/leaderboard";
 import { steamAvatar } from "@/lib/steamAvatar";
 
 export const PLAYER_SORTS = [
@@ -94,7 +94,7 @@ export async function getRankings(
       const name = query.mode === "tribes" ? item.TribeName : item.PlayerName;
       if (typeof name !== "string" || !name.trim()) continue;
       const rank = number(item.rank);
-      const nameHidden = isBlockedName(name) || /7656\d{13}/.test(name);
+      const nameHidden = /7656\d{13}/.test(name);
       // Retain the actual podium position without exposing a filtered identity.
       // Never promote a lower-ranked entry into somebody else's medal slot.
       if (nameHidden && (!Number.isInteger(rank) || rank < 1 || rank > 3)) continue;
