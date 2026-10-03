@@ -5,7 +5,7 @@ import { StaffGate, StaffShell } from "@/components/staff/StaffShell";
 import { BridgeError, PeriodPicker } from "@/components/staff/StatBits";
 import { DiscordView } from "@/components/staff/DiscordView";
 
-export const metadata = { title: "Discord growth" };
+export const metadata = { title: { absolute: "Discord growth | MESARK" } };
 
 export default async function DiscordStats({ searchParams }: { searchParams: Promise<{ days?: string }> }) {
   const user = await currentUser();
