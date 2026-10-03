@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { total } = changeTotals(m);
   const dotm = m.dotm ? `Dino of the Month: ${m.dotm.dino}${m.dotm.bonus ? ` (${m.dotm.bonus} tamed resistance)` : ""}. ` : "";
   return pageMeta({
-    title: `${m.month} ${m.year} Change Log`,
+    title: `${m.month} ${m.year} Changelog`,
     description: `${dotm}${total} changes to MESARK.`,
     image: { url: m.hero, width: 2400, height: 1350 },
   });

@@ -7,9 +7,9 @@ const COLUMNS = [
     links: [
       { href: "/servers", label: "Server IPs" },
       { href: "/maps", label: "Cave Maps" },
-      { href: "/changelog", label: "Change Log" },
-      { href: "/settings", label: "Settings & Wipe" },
-      { href: "/helpful", label: "Helpful Guides" },
+      { href: "/changelog", label: "Changelog" },
+      { href: "/settings", label: "Settings" },
+      { href: "/helpful", label: "Common Issues" },
       { href: "https://store.mesark.net/", label: "Store" },
     ],
   },
@@ -26,7 +26,7 @@ const COLUMNS = [
       { href: "/compete", label: "Hall of Fame" },
       { href: "/players", label: "Player Profiles" },
       { href: "/account", label: "Your Account" },
-      { href: "https://leaderboards.mesark.net", label: "Leaderboards" },
+      { href: "/leaderboards", label: "Leaderboards" },
     ],
   },
   {

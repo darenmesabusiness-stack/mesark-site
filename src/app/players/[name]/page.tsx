@@ -88,9 +88,9 @@ export default async function PlayerPage({ params }: Params) {
             <Link href="/players" className="hud-label !text-text-primary/80 transition hover:!text-accent">
               Find another player →
             </Link>
-            <a href="https://leaderboards.mesark.net" className="hud-label !text-text-primary/80 transition hover:!text-accent">
+            <Link href="/leaderboards" className="hud-label !text-text-primary/80 transition hover:!text-accent">
               Leaderboards →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

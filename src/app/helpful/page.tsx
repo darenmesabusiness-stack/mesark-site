@@ -1,29 +1,38 @@
 import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
+import Link from "next/link";
+import { CommonIssues } from "@/components/CommonIssues";
 import { PageHeader } from "@/components/PageHeader";
 import { ContentSection, RuleItem } from "@/components/ContentSection";
 import { IniSection } from "./IniSection";
 
 export const metadata = pageMeta({
-  title: "Helpful Guides",
-  description: "Guides, INI settings and tips for playing on MESARK.",
+  title: "Common Issues",
+  description: "Fix joining, mod mismatch, crashes and account issues on MESA. INI presets, keybinds and private support help.",
 });
 
 export default function HelpfulPage() {
   return (
     <>
       <PageHeader
-        title="Helpful Guides"
-        subtitle="Tips, settings, and guides to get the most out of MESA."
+        title="Common Issues"
+        subtitle="Find your issue, try the first checks, and know what to send support."
         image="/art/ark/solo.jpg"
         focus="object-[50%_25%]"
         kicker="Guides"
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
+        <CommonIssues />
+        <div className="flex flex-wrap gap-x-5 gap-y-2 border-y border-border py-4 text-sm">
+          <Link href="/support" className="font-semibold text-accent hover:underline">Still stuck? Player Support →</Link>
+          <a href="#detailed-guides" className="text-text-primary hover:text-accent">Detailed guides & INI presets ↓</a>
+          <Link href="/settings" className="text-text-primary hover:text-accent">Settings & wipe times →</Link>
+        </div>
+        <h2 id="detailed-guides" className="scroll-mt-28 pt-6 font-display text-3xl font-extrabold">Detailed guides</h2>
 
         {/* ── INI Setup ── */}
-        <ContentSection title="PvP INI Settings (BaseDeviceProfiles)" defaultOpen={true}>
+        <ContentSection title="PvP INI Settings (BaseDeviceProfiles)">
           <p className="text-text-primary font-medium mb-3">
             INI files are <strong>allowed</strong> on MESA. These go in the <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">BaseDeviceProfiles.ini</code> file
             inside your ARK Engine config folder. Pick the preset that matches your playstyle.
@@ -46,7 +55,7 @@ export default function HelpfulPage() {
               </div>
               <div className="flex gap-3 items-start">
                 <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">4</span>
-                <span>Open it with Notepad &rarr; <strong>delete everything</strong> inside &rarr; paste your chosen INI &rarr; save</span>
+                <span>Close ARK and <strong>save a backup</strong> of the original file. Open it with Notepad, replace its contents with your chosen preset, and save. Restore the backup if the preset causes problems.</span>
               </div>
             </div>
             <div className="mt-3 text-xs text-text-muted">
@@ -95,7 +104,7 @@ export default function HelpfulPage() {
           <div className="space-y-2">
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
-              <span>Open Steam &rarr; <strong>View</strong> &rarr; <strong>Servers</strong> &rarr; <strong>Favorites</strong> tab</span>
+              <span>Open Steam&apos;s server browser from <strong>View</strong> (Servers or Game Servers) &rarr; <strong>Favorites</strong> tab</span>
             </div>
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
@@ -114,7 +123,7 @@ export default function HelpfulPage() {
 
         {/* ── CCC Coordinates ── */}
         <ContentSection title="How to Get CCC Coordinates">
-          <p className="mb-2">Admins need your CCC coordinates to teleport to your location in-game.</p>
+          <p className="mb-2">If staff ask for your location, send CCC coordinates in your private ticket. Never publish live base or player coordinates in community posts.</p>
           <div className="space-y-2">
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
@@ -133,7 +142,7 @@ export default function HelpfulPage() {
 
         {/* ── SteamID64 ── */}
         <ContentSection title="How to Find Your SteamID64">
-          <p className="mb-2">Your SteamID64 is required when opening support tickets.</p>
+          <p className="mb-2">Website sign-in identifies your Steam account automatically. If staff ask for an ID, or an application asks for tribe members&apos; Steam IDs, use this guide and share them only in private support.</p>
           <div className="space-y-2">
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
@@ -162,11 +171,11 @@ export default function HelpfulPage() {
             </div>
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
-              <span>Click <strong>Unsubscribe From All</strong> to remove old versions</span>
+              <span>First check Steam&apos;s Downloads page and let pending Workshop updates finish. Close ARK before changing subscriptions.</span>
             </div>
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
-              <span>Click <strong>Subscribe to All</strong> to redownload the latest versions</span>
+              <span>If a specific mod still mismatches, unsubscribe and resubscribe to that mod, then wait for it to download. Use <strong>Subscribe to All</strong> on the collection if you are missing required mods.</span>
             </div>
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">4</span>
@@ -184,7 +193,7 @@ export default function HelpfulPage() {
 
         {/* ── Troubleshooting ── */}
         <ContentSection title="Troubleshooting &mdash; Crashes & Performance">
-          <p className="font-semibold text-text-primary mb-2">Verify Game Files (fixes most issues):</p>
+          <p className="font-semibold text-text-primary mb-2">Verify Game Files (checks for missing or damaged files):</p>
           <div className="space-y-2 mb-4">
             <div className="flex gap-3 items-start">
               <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
@@ -202,13 +211,14 @@ export default function HelpfulPage() {
 
           <p className="font-semibold text-text-primary mb-2">Crystal Isles crashing:</p>
           <RuleItem text="Try verifying game files first (above)." />
-          <RuleItem text="If still crashing: Steam Library → ARK → DLC section → uncheck Crystal Isles → restart Steam → re-check Crystal Isles → try again." />
+          <RuleItem text="Check Steam Library → ARK → Properties → DLC and confirm Crystal Isles is installed. Capture the error if verification and the DLC check do not help." />
 
           <p className="font-semibold text-text-primary mt-3 mb-2">VPN issues:</p>
-          <RuleItem text="Disable any VPN before connecting. VPNs can block game server ports or cause timeouts." />
+          <RuleItem text="If you use a VPN and get connection timeouts, compare with your normal connection if you can. Report whether only one connection fails." />
 
           <p className="font-semibold text-text-primary mt-3 mb-2">Still not working:</p>
-          <RuleItem text="Full reinstall: uninstall ARK, delete remaining files in Steam/steamapps/common/ARK/, reinstall, switch back to preaquatica branch." />
+          <RuleItem text="Open a support ticket with the error and checks you tried before a full reinstall. Keep backups of saves and configuration; do not delete the entire ARK folder as a first troubleshooting step." />
+          <p className="text-xs">File verification steps: <a href="https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB" className="text-accent underline underline-offset-4">Steam Support</a>.</p>
         </ContentSection>
 
         {/* ── Custom Keybinds ── */}
