@@ -1,4 +1,6 @@
-import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
+import { handleUploadPresigned, type HandleUploadPresignedBody } from "@vercel/blob/client";
+import { issueSignedToken } from "@vercel/blob";
+import { getVercelOidcToken } from "@vercel/oidc";
 import { currentUser } from "@/lib/auth";
 import {
   completeUpload,
@@ -10,11 +12,11 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function POST(request: NextRequest) {
   let stage = "request";
   try {
-    const body = (await request.json()) as HandleUploadBody;
-    const result = await handleUpload({
+    const body = (await request.json()) as HandleUploadPresignedBody;
+    const result = await handleUploadPresigned({
       body,
       request,
-      onBeforeGenerateToken: async (pathname, payload) => {
+      getSignedToken: async (pathname, payload) => {
         stage = "origin";
         if (request.headers.get("origin") !== new URL(request.url).origin)
           throw new Error("Invalid origin");
@@ -35,10 +37,19 @@ export async function POST(request: NextRequest) {
         if (!reserved || reserved !== pathname)
           throw new Error("Ticket closed, access changed, or limit reached");
         stage = "blob-token";
-        return {
+        const constraints = {
+          pathname,
+          operations: ["put" as const],
           allowedContentTypes: [p.mime],
           maximumSizeInBytes: Math.min(Number(p.bytes), MAX_UPLOAD),
           validUntil: Date.now() + 10 * 60 * 1000,
+        };
+        return {
+          token: await issueSignedToken({ ...constraints, oidcToken: await getVercelOidcToken() }),
+          urlOptions: {
+          allowedContentTypes: constraints.allowedContentTypes,
+          maximumSizeInBytes: constraints.maximumSizeInBytes,
+          validUntil: constraints.validUntil,
           addRandomSuffix: false,
           allowOverwrite: false,
           tokenPayload: JSON.stringify({
@@ -46,6 +57,7 @@ export async function POST(request: NextRequest) {
             actor: user.steam_id,
             pathname,
           }),
+          },
         };
       },
       onUploadCompleted: async ({ blob, tokenPayload }) => {

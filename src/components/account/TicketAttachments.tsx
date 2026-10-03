@@ -1,5 +1,5 @@
 "use client";
-import { upload } from "@vercel/blob/client";
+import { uploadPresigned } from "@vercel/blob/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MAX_UPLOAD, UPLOAD_TYPES } from "@/lib/supportUploadTypes";
@@ -28,7 +28,7 @@ export function TicketAttachments({ ticket }: { ticket: string }) {
         setMessage("");
         try {
           const id = crypto.randomUUID();
-          await upload(
+          await uploadPresigned(
             `support/${ticket}/${id}.${UPLOAD_TYPES[file.type]}`,
             file,
             {
