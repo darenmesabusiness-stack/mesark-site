@@ -83,7 +83,7 @@ export default async function ChangeLogMonthPage({ params }: { params: Promise<{
         <div className="grid grid-cols-3 gap-px border border-border bg-border sm:grid-cols-6">
           {TAG_ORDER.map((t) => (
             <div key={t} className="bg-bg-secondary px-3 py-3">
-              <p className={`font-mono text-xs uppercase tracking-wider ${TAGS[t].className.split(" ").filter((c) => c.startsWith("text-")).join(" ")}`}>
+              <p className={`font-mono text-sm uppercase tracking-wider ${TAGS[t].className.split(" ").filter((c) => c.startsWith("text-")).join(" ")}`}>
                 {TAGS[t].label}
               </p>
               <p className="font-display mt-1 text-3xl font-black">{tags[t]}</p>

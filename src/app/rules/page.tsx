@@ -168,27 +168,27 @@ export default function RulesPage() {
         <ContentSection title="Unban Process">
           <div className="space-y-2">
             <div className="flex gap-3 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-xs font-bold flex items-center justify-center">1</span>
+              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-bold flex items-center justify-center">1</span>
               <span>Join the support Discord server</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-xs font-bold flex items-center justify-center">2</span>
+              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-bold flex items-center justify-center">2</span>
               <span>Create a support ticket in the unban channel</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-xs font-bold flex items-center justify-center">3</span>
+              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-bold flex items-center justify-center">3</span>
               <span>Submit your ban reason and in-game name (IGN)</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-xs font-bold flex items-center justify-center">4</span>
+              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-bold flex items-center justify-center">4</span>
               <span>Wait for admin review (usually within 24 hours)</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-xs font-bold flex items-center justify-center">5</span>
+              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-bold flex items-center justify-center">5</span>
               <span>Complete payment once approved</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-xs font-bold flex items-center justify-center">6</span>
+              <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-bold flex items-center justify-center">6</span>
               <span>You will be unbanned after payment confirmation</span>
             </div>
           </div>

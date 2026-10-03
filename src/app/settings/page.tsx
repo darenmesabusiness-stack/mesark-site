@@ -40,7 +40,7 @@ function ClusterCard({ name, wipe, rates }: {
       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent opacity-60" />
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-lg text-text-primary">{name}</h3>
-        <span className="text-xs font-semibold uppercase tracking-wider bg-accent/15 text-accent px-3 py-1 rounded-full">
+        <span className="text-sm font-semibold uppercase tracking-wider bg-accent/15 text-accent px-3 py-1 rounded-full">
           Wipe {wipe}
         </span>
       </div>
@@ -61,7 +61,7 @@ function ClusterCard({ name, wipe, rates }: {
 function StatBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="text-center py-1.5">
-      <div className="text-xs uppercase tracking-wider text-text-muted/80 mb-0.5">{label}</div>
+      <div className="text-sm uppercase tracking-wider text-text-muted/80 mb-0.5">{label}</div>
       <div className="text-sm font-bold text-accent">{value}</div>
     </div>
   );
@@ -88,7 +88,7 @@ export default async function SettingsPage() {
               <div className="grid grid-cols-1 gap-4">
                 {live.clusters.map((c) => <LiveClusterCard key={c.id} c={c} />)}
               </div>
-              <p className="mt-3 flex items-center gap-2 text-xs text-text-muted">
+              <p className="mt-3 flex items-center gap-2 text-sm text-text-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]" aria-hidden />
                 Read live from the game servers&apos; configs · updated {updatedLabel(live.updated)}
               </p>

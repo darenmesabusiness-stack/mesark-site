@@ -133,7 +133,7 @@ export default async function LeaderboardsPage({
           <h2 className="font-display text-3xl font-black">
             {selectedCluster?.name ?? "All clusters"} · {query.sort}
           </h2>
-          <p className="text-xs text-text-muted">
+          <p className="text-sm text-text-muted">
             Refreshes every few minutes · select a name for its profile
           </p>
         </div>
@@ -161,7 +161,7 @@ export default async function LeaderboardsPage({
                   {tribes ? "Tribe" : "Player"} rankings by {query.sort}
                   {query.search ? ` matching ${query.search}` : ""}
                 </caption>
-                <thead className="border-b border-border bg-bg-card/60 text-xs text-text-muted">
+                <thead className="border-b border-border bg-bg-card/60 text-sm text-text-muted">
                   <tr>
                     <th scope="col" className="px-3 py-3">
                       Rank

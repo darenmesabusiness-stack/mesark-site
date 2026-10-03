@@ -4,7 +4,7 @@ import { wipeLabel } from "@/lib/settings";
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="py-1.5">
-      <div className="text-xs uppercase tracking-wider text-text-muted/80 mb-0.5">{label}</div>
+      <div className="text-sm uppercase tracking-wider text-text-muted/80 mb-0.5">{label}</div>
       <div className="text-sm font-bold text-accent leading-tight">{value}</div>
     </div>
   );
@@ -16,7 +16,7 @@ function Drawer({ title, count, children }: { title: string; count: number; chil
     <details className="group border-t border-border/60 first-of-type:border-t-0">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-2.5 text-sm text-text-primary hover:text-accent [&::-webkit-details-marker]:hidden">
         <span className="font-semibold">{title}</span>
-        <span className="flex items-center gap-2 text-xs text-text-muted">
+        <span className="flex items-center gap-2 text-sm text-text-muted">
           {count}
           <svg className="h-3.5 w-3.5 transition group-open:rotate-45" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden>
             <path strokeLinecap="round" d="M12 5v14M5 12h14" />
@@ -32,7 +32,7 @@ function ValueList({ items }: { items: NamedValue[] }) {
   return (
     <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
       {items.map((i) => (
-        <div key={i.name} className="flex justify-between gap-3 border-b border-border/30 py-1 text-xs">
+        <div key={i.name} className="flex justify-between gap-3 border-b border-border/30 py-1 text-sm">
           <span className="text-text-muted">{i.name}</span>
           <span className="font-mono text-text-primary">{i.value}</span>
         </div>
@@ -42,7 +42,7 @@ function ValueList({ items }: { items: NamedValue[] }) {
 }
 
 function NameList({ names }: { names: string[] }) {
-  return <p className="text-xs leading-relaxed text-text-muted">{names.join(" · ")}</p>;
+  return <p className="text-sm leading-relaxed text-text-muted">{names.join(" · ")}</p>;
 }
 
 /** One cluster, read live from its game servers' configs. */
@@ -54,12 +54,12 @@ export function LiveClusterCard({ c }: { c: ClusterSettings }) {
       <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-2xl font-extrabold tracking-wide text-text-primary">{c.name}</h3>
         {c.next_wipe && (
-          <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+          <span className="rounded-full bg-accent/15 px-3 py-1 text-sm font-semibold uppercase tracking-wider text-accent">
             Next wipe {wipeLabel(c.next_wipe)}
           </span>
         )}
       </div>
-      <p className="mb-3 text-xs text-text-muted">
+      <p className="mb-3 text-sm text-text-muted">
         {c.wipe_cadence && <>Wipes {c.wipe_cadence}. </>}
         {c.maps.length} maps: {c.maps.join(", ")}
       </p>

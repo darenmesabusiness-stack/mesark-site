@@ -98,8 +98,8 @@ export function Footer() {
 
       <div className="relative border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 sm:flex-row sm:px-6">
-          <span className="hud-label !text-xs">MESA ARK &copy; {new Date().getFullYear()}</span>
-          <span className="hud-label !text-xs">Not affiliated with Studio Wildcard</span>
+          <span className="hud-label !text-sm">MESA ARK &copy; {new Date().getFullYear()}</span>
+          <span className="hud-label !text-sm">Not affiliated with Studio Wildcard</span>
         </div>
       </div>
     </footer>

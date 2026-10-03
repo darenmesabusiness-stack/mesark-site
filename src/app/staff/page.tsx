@@ -104,7 +104,7 @@ export default async function StaffHome() {
           const body = (
             <>
               <span
-                className={`inline-block border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${STATUS[m.status]}`}
+                className={`inline-block border px-2 py-0.5 font-mono text-sm uppercase tracking-wider ${STATUS[m.status]}`}
               >
                 {m.status}
               </span>

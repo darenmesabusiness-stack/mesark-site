@@ -59,7 +59,7 @@ export function ChangelogEditor({
 
       <div className="flex flex-wrap gap-4">
         <label className="grid gap-1 text-sm">
-          <span className="hud-label !text-[10px]">Month</span>
+          <span className="hud-label !text-sm">Month</span>
           <select
             name="month"
             value={month}
@@ -75,7 +75,7 @@ export function ChangelogEditor({
           </select>
         </label>
         <label className="grid gap-1 text-sm">
-          <span className="hud-label !text-[10px]">Year</span>
+          <span className="hud-label !text-sm">Year</span>
           <input
             name="year"
             type="number"
@@ -96,7 +96,7 @@ export function ChangelogEditor({
       </div>
 
       <label className="grid gap-2">
-        <span className="hud-label !text-[10px]">The Discord post (paste every part of the month, one after the other)</span>
+        <span className="hud-label !text-sm">The Discord post (paste every part of the month, one after the other)</span>
         <textarea
           name="raw"
           value={raw}
@@ -104,7 +104,7 @@ export function ChangelogEditor({
           rows={18}
           spellCheck={false}
           placeholder={"# <:mesark:...> NOVEMBER CHANGE LOG\n\n# 🦖 Dino Of The Month\n```\nRex is the chosen Dino Of The Month for November, Tamed Resistance upgraded to 3x\n```\n# ⚠️ Change-Logs\n```\n- Increased ...\n```"}
-          className="w-full border border-border bg-bg-primary px-4 py-3 font-mono text-[13px] leading-relaxed placeholder:text-text-muted/50 focus:border-accent/50 focus:outline-none"
+          className="w-full border border-border bg-bg-primary px-4 py-3 font-mono text-sm leading-relaxed placeholder:text-text-muted/50 focus:border-accent/50 focus:outline-none"
         />
       </label>
 
@@ -125,7 +125,7 @@ export function ChangelogEditor({
         </p>
         <div className="flex flex-wrap gap-2">
           {TAG_ORDER.map((t) => (
-            <span key={t} className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${TAGS[t].className}`}>
+            <span key={t} className={`border px-2 py-0.5 font-mono text-sm uppercase tracking-wider ${TAGS[t].className}`}>
               {TAGS[t].label} {counts[t]}
             </span>
           ))}
@@ -155,7 +155,7 @@ export function ChangelogEditor({
       )}
 
       <fieldset className="grid gap-3">
-        <legend className="hud-label mb-3 !text-[10px]">Header art (Blender renders from ARK&apos;s game files)</legend>
+        <legend className="hud-label mb-3 !text-sm">Header art (Blender renders from ARK&apos;s game files)</legend>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
           {heroes.map((h) => (
             <label
@@ -165,7 +165,7 @@ export function ChangelogEditor({
               <input type="radio" name="hero" value={h.src} checked={hero === h.src} onChange={() => setHero(h.src)} className="sr-only" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={h.src} alt="" className="aspect-video w-full object-cover" loading="lazy" />
-              <span className="block px-2 py-1.5 text-xs">{h.label}</span>
+              <span className="block px-2 py-1.5 text-sm">{h.label}</span>
             </label>
           ))}
         </div>

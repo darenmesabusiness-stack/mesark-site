@@ -27,7 +27,7 @@ export function PopHistory({ pop }: { pop: PopulationData }) {
   return (
     <figure className="border border-border bg-bg-card/60 p-4">
       <div className="flex items-start gap-3">
-        <div className="flex flex-col justify-between text-right font-mono text-xs text-text-muted" style={{ height: h }}>
+        <div className="flex flex-col justify-between text-right font-mono text-sm text-text-muted" style={{ height: h }}>
           <span>{Math.round(max)}</span>
           <span>0</span>
         </div>
@@ -36,13 +36,13 @@ export function PopHistory({ pop }: { pop: PopulationData }) {
           <polyline points={pts.join(" ")} fill="none" className="stroke-accent" strokeWidth={2} vectorEffect="non-scaling-stroke" />
         </svg>
       </div>
-      <figcaption className="mt-2 flex justify-between pl-8 font-mono text-xs text-text-muted">
+      <figcaption className="mt-2 flex justify-between pl-8 font-mono text-sm text-text-muted">
         <span>{fmt(hours[0])} ET</span>
         <span>Players online, hourly average</span>
         <span>{fmt(hours[hours.length - 1])} ET</span>
       </figcaption>
       {peaks.length > 0 && (
-        <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-border/60 pt-3 text-xs text-text-muted">
+        <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-border/60 pt-3 text-sm text-text-muted">
           {peaks.map((g) => (
             <li key={g.name}>
               {g.name} peak <span className="font-mono text-text-primary">{Math.round(g.peak!)}</span>

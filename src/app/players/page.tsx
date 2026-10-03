@@ -84,11 +84,11 @@ export default async function PlayersPage({ searchParams }: { searchParams: Prom
                     <SteamAvatar avatar={p.avatar} name={fixText(p.PlayerName)} />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-semibold group-hover:text-accent">{fixText(p.PlayerName)}</span>
-                      <span className="font-mono text-[13px] text-text-muted">{p.clusters.map(clusterName).join(" · ")}</span>
+                      <span className="font-mono text-sm text-text-muted">{p.clusters.map(clusterName).join(" · ")}</span>
                     </span>
                     <span className="text-right">
                       <span className="font-display block text-2xl font-black">{num(p.PlayerKills)}</span>
-                      <span className="hud-label !text-xs">kills · {kd(p.PlayerKills, p.DeathByPlayer)} K/D</span>
+                      <span className="hud-label !text-sm">kills · {kd(p.PlayerKills, p.DeathByPlayer)} K/D</span>
                     </span>
                   </Link>
                 </li>
@@ -142,7 +142,7 @@ function TribeLine({ t, clusterKey }: { t: TribeRow; clusterKey: string }) {
         <span className="min-w-0 flex-1 truncate font-semibold group-hover:text-accent">{fixText(t.TribeName)}</span>
         <span className="text-right">
           <span className="font-display block text-xl font-black">{num(t.DamageScore)}</span>
-          <span className="hud-label !text-xs">
+          <span className="hud-label !text-sm">
             score · {clusterByKey(clusterKey)?.name}
           </span>
         </span>

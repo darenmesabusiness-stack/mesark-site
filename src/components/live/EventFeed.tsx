@@ -31,7 +31,7 @@ export function EventFeed({ items, now }: { items: FeedItem[]; now: number }) {
         const k = KIND[e.kind];
         return (
           <li key={i} className="flex flex-wrap items-center gap-x-4 gap-y-1 bg-bg-card/40 px-4 py-3">
-            <span className={`w-24 shrink-0 border px-2 py-0.5 text-center font-mono text-xs uppercase tracking-wider ${k.tone}`}>{k.label}</span>
+            <span className={`w-24 shrink-0 border px-2 py-0.5 text-center font-mono text-sm uppercase tracking-wider ${k.tone}`}>{k.label}</span>
             <p className="min-w-0 flex-1 text-sm">
               {e.kind === "boss" ? (
                 <>
@@ -50,7 +50,7 @@ export function EventFeed({ items, now }: { items: FeedItem[]; now: number }) {
                 </>
               )}
             </p>
-            <span className="shrink-0 font-mono text-[13px] text-text-muted">
+            <span className="shrink-0 font-mono text-sm text-text-muted">
               {prettyCluster(e.cluster)} · {ago(e.at, now)}
             </span>
           </li>

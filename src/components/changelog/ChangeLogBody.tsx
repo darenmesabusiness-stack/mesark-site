@@ -72,12 +72,12 @@ export function ChangeLogBody({ month, mapNames }: { month: ChangeMonth; mapName
           </label>
         </div>
         <div className="mt-2 flex items-center gap-4">
-          <p className="hud-label shrink-0 !text-xs">
+          <p className="hud-label shrink-0 !text-sm">
             {cluster ? `Changes that hit ${cluster}` : "Every cluster"} · {shown} change{shown === 1 ? "" : "s"}
           </p>
           <div className="ml-auto hidden gap-4 overflow-x-auto md:flex [scrollbar-width:none]">
             {sections.map((s) => (
-              <a key={sectionId(s)} href={`#${sectionId(s)}`} className="hud-label shrink-0 !text-xs transition hover:!text-accent">
+              <a key={sectionId(s)} href={`#${sectionId(s)}`} className="hud-label shrink-0 !text-sm transition hover:!text-accent">
                 {sectionTitle(s)}
               </a>
             ))}
@@ -124,7 +124,7 @@ function Section({ section, mapNames }: { section: ChangeSection; mapNames: Reco
           <p className="hud-label !text-accent">{KICKERS[section.kind]}</p>
           <h2 className="font-display mt-1 text-4xl font-black sm:text-5xl">{sectionTitle(section)}</h2>
         </div>
-        <span className="font-mono text-xs text-text-muted">{section.items.length}</span>
+        <span className="font-mono text-sm text-text-muted">{section.items.length}</span>
       </div>
       {section.kind === "caves" ? <CaveGroups items={section.items} mapNames={mapNames} /> : <ItemList items={section.items} />}
     </section>
@@ -163,7 +163,7 @@ function ItemList({ items }: { items: ChangeItem[] }) {
       {items.map((it, i) => (
         <li key={i} className="flex items-start gap-3 py-2.5">
           <span
-            className={`mt-0.5 inline-flex w-[72px] shrink-0 justify-center border px-1.5 py-0.5 font-mono text-xs font-semibold uppercase tracking-wider ${TAGS[it.tag].className}`}
+            className={`mt-0.5 inline-flex w-[72px] shrink-0 justify-center border px-1.5 py-0.5 font-mono text-sm font-semibold uppercase tracking-wider ${TAGS[it.tag].className}`}
           >
             {TAGS[it.tag].label}
           </span>
@@ -171,7 +171,7 @@ function ItemList({ items }: { items: ChangeItem[] }) {
           {it.link && (
             <Link
               href={it.link}
-              className="mt-0.5 inline-flex shrink-0 items-center gap-1 font-mono text-xs uppercase tracking-wider text-text-muted transition hover:text-accent"
+              className="mt-0.5 inline-flex shrink-0 items-center gap-1 font-mono text-sm uppercase tracking-wider text-text-muted transition hover:text-accent"
               aria-label="Show this cave on the map"
             >
               <MapPinIcon className="h-4 w-4" />

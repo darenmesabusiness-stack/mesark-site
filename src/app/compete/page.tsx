@@ -77,7 +77,7 @@ export default function CompetePage() {
                     >
                       {t.name}
                     </td>
-                    <td className="py-2.5 pr-4 font-mono text-xs">
+                    <td className="py-2.5 pr-4 font-mono text-sm">
                       {t.wins} win{t.wins > 1 ? "s" : ""}
                     </td>
                     <td className="py-2.5 text-accent">{t.reward}</td>

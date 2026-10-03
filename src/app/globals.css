@@ -67,7 +67,7 @@ body {
 
 .hud-label {
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   letter-spacing: 0.14em;
   text-transform: uppercase;
