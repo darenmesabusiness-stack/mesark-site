@@ -38,7 +38,7 @@ export function WipeCountdown({ compact = false }: { compact?: boolean }) {
         {rows.map(({ s, next }) => {
           const tl = getTimeLeft(next, now);
           return (
-            <div key={s.cluster} className="flex items-center gap-2 border border-border bg-bg-card/40 px-3 py-1.5 text-xs">
+            <div key={s.cluster} className="flex items-center gap-2 border border-border bg-bg-card/40 px-3 py-1.5 text-sm">
               <span className="font-semibold text-text-primary">{s.cluster}</span>
               <span className="font-mono text-accent">
                 {tl.days > 0 ? `${tl.days}d ` : ""}{pad(tl.hours)}:{pad(tl.minutes)}:{pad(tl.seconds)}
@@ -67,7 +67,7 @@ export function WipeCountdown({ compact = false }: { compact?: boolean }) {
             <div className={`mt-1 font-mono text-lg font-semibold tabular-nums sm:text-xl ${isNext ? "text-accent" : "text-text-primary/85"}`}>
               {tl.days > 0 ? `${tl.days}d ` : ""}{pad(tl.hours)}:{pad(tl.minutes)}:{pad(tl.seconds)}
             </div>
-            <div className="hud-label !text-xs mt-1">{shortCadence(s)} @ 1:00 PM EST</div>
+            <div className="hud-label !text-sm mt-1">{shortCadence(s)} @ 1:00 PM EST</div>
           </div>
         );
       })}

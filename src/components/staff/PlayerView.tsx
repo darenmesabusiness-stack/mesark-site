@@ -23,9 +23,9 @@ export function PlayerView({ p }: { p: PlayerRecord }) {
     <article className="mb-14 border-t border-border pt-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="hud-label !text-[10px]">Player</p>
+          <p className="hud-label !text-sm">Player</p>
           <h2 className="font-display mt-1 text-4xl font-black sm:text-5xl">{latest ?? p.steam_id}</h2>
-          <p className="mt-1 font-mono text-xs text-text-muted">
+          <p className="mt-1 font-mono text-sm text-text-muted">
             {p.steam_id} ·{" "}
             <a href={`https://steamcommunity.com/profiles/${p.steam_id}`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-accent">
               Steam profile ↗
@@ -34,11 +34,11 @@ export function PlayerView({ p }: { p: PlayerRecord }) {
         </div>
         <div className="text-right text-sm">
           <p className={activeBan ? "font-semibold text-accent" : "text-teal"}>{activeBan ? "Banned somewhere right now" : "No active ban"}</p>
-          <p className="text-xs text-text-muted">
+          <p className="text-sm text-text-muted">
             {p.ban_count} ban{p.ban_count === 1 ? "" : "s"} on record{p.reason_type ? ` · last reason: ${p.reason_type}` : ""}
             {p.evasions ? ` · ${p.evasions} evasion${p.evasions === 1 ? "" : "s"}` : ""}
           </p>
-          {p.unban_price && <p className="mt-1 text-xs text-text-muted">Unban: {p.unban_price}</p>}
+          {p.unban_price && <p className="mt-1 text-sm text-text-muted">Unban: {p.unban_price}</p>}
         </div>
       </div>
 
@@ -51,7 +51,7 @@ export function PlayerView({ p }: { p: PlayerRecord }) {
                 <td className="px-3 py-2.5 text-sm">
                   <BanState b={b} />
                 </td>
-                <td className="px-3 py-2.5 text-xs text-text-muted">{day(b.since)}</td>
+                <td className="px-3 py-2.5 text-sm text-text-muted">{day(b.since)}</td>
               </tr>
             ))}
           </Table>
@@ -68,11 +68,11 @@ export function PlayerView({ p }: { p: PlayerRecord }) {
                 <td className="px-4 py-2.5 font-semibold">{n.name || "–"}</td>
                 <td className="px-3 py-2.5 text-text-muted">{n.steam_name || "–"}</td>
                 <td className="px-3 py-2.5">{n.tribe || "–"}</td>
-                <td className="px-3 py-2.5 text-xs">
+                <td className="px-3 py-2.5 text-sm">
                   {n.cluster || "?"}
                   {n.server ? ` · ${n.server}` : ""}
                 </td>
-                <td className="px-3 py-2.5 text-xs text-text-muted">{dateTime(n.last_seen)}</td>
+                <td className="px-3 py-2.5 text-sm text-text-muted">{dateTime(n.last_seen)}</td>
               </tr>
             ))}
           </Table>
@@ -87,11 +87,11 @@ export function PlayerView({ p }: { p: PlayerRecord }) {
               ["Same IP", p.same_ip],
             ].map(([label, ids]) => (
               <div key={label as string} className="border border-border bg-bg-card/60 p-4">
-                <p className="hud-label !text-[10px]">{label as string}</p>
+                <p className="hud-label !text-sm">{label as string}</p>
                 {(ids as string[]).length === 0 ? (
                   <p className="mt-2 text-sm text-text-muted">None</p>
                 ) : (
-                  <ul className="mt-2 space-y-1 font-mono text-xs">
+                  <ul className="mt-2 space-y-1 font-mono text-sm">
                     {(ids as string[]).map((id) => (
                       <li key={id}>
                         <Link href={look(id)} className="underline underline-offset-4 hover:text-accent">
@@ -112,13 +112,13 @@ export function PlayerView({ p }: { p: PlayerRecord }) {
           <Table head={["Date", "Channel", "Reason", "Clips"]}>
             {p.proofs.map((b, i) => (
               <tr key={i} className="bg-bg-card/40">
-                <td className="px-4 py-2.5 text-xs text-text-muted">{day(b.time)}</td>
-                <td className="px-3 py-2.5 text-xs">#{b.channel}</td>
+                <td className="px-4 py-2.5 text-sm text-text-muted">{day(b.time)}</td>
+                <td className="px-3 py-2.5 text-sm">#{b.channel}</td>
                 <td className="px-3 py-2.5">
                   {b.reason || "(no text)"}
-                  {b.type && b.type !== "Other" && <span className="ml-2 text-[10px] uppercase text-text-muted">{b.type}</span>}
+                  {b.type && b.type !== "Other" && <span className="ml-2 text-sm uppercase text-text-muted">{b.type}</span>}
                 </td>
-                <td className="px-3 py-2.5 text-xs">
+                <td className="px-3 py-2.5 text-sm">
                   {b.links.length === 0
                     ? "–"
                     : b.links.map((l, j) => (
@@ -150,11 +150,11 @@ export function PlayerView({ p }: { p: PlayerRecord }) {
           <Table head={["When", "Admin", "Action", "Cluster", "Detail"]} minWidth={720}>
             {p.admin_actions.map((a, i) => (
               <tr key={i} className="bg-bg-card/40">
-                <td className="px-4 py-2.5 text-xs text-text-muted">{dateTime(a.time)}</td>
+                <td className="px-4 py-2.5 text-sm text-text-muted">{dateTime(a.time)}</td>
                 <td className="px-3 py-2.5">{a.admin}</td>
-                <td className="px-3 py-2.5 text-xs">{a.action}</td>
-                <td className="px-3 py-2.5 text-xs">{a.cluster}</td>
-                <td className="max-w-md px-3 py-2.5 text-xs text-text-muted [overflow-wrap:anywhere]">{a.detail}</td>
+                <td className="px-3 py-2.5 text-sm">{a.action}</td>
+                <td className="px-3 py-2.5 text-sm">{a.cluster}</td>
+                <td className="max-w-md px-3 py-2.5 text-sm text-text-muted [overflow-wrap:anywhere]">{a.detail}</td>
               </tr>
             ))}
           </Table>

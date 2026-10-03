@@ -42,7 +42,7 @@ function ClusterCard({ c }: { c: PlayerCluster & { playerName?: string } }) {
         <h2 className="font-display min-w-0 flex-1 text-4xl font-black sm:text-5xl">{cl.name}</h2>
         <p className="text-right">
           <span className="font-display block text-3xl font-black text-accent">#{num(c.killsRank)}</span>
-          <span className="hud-label !text-xs">in kills of {num(c.totalPlayers)}</span>
+          <span className="hud-label !text-sm">in kills of {num(c.totalPlayers)}</span>
         </p>
       </div>
       <div className="p-5 pt-4">
@@ -62,7 +62,7 @@ function ClusterCard({ c }: { c: PlayerCluster & { playerName?: string } }) {
         <dl className="mt-4 grid grid-cols-4 gap-x-3 gap-y-4">
           {stats.map(([label, value]) => (
             <div key={label}>
-              <dt className="hud-label !text-xs">{label}</dt>
+              <dt className="hud-label !text-sm">{label}</dt>
               <dd className="font-display mt-0.5 text-2xl font-black">{value}</dd>
             </div>
           ))}

@@ -37,8 +37,8 @@ function Server({ s, days }: { s: MembersServer; days: number }) {
           <Table head={["Invite", "Joins"]} minWidth={320}>
             {s.top_invites.map((i) => (
               <tr key={i.code}>
-                <td className="px-4 py-2.5 font-mono text-xs">{i.code}</td>
-                <td className="px-3 py-2.5 font-mono text-xs">{i.joins.toLocaleString()}</td>
+                <td className="px-4 py-2.5 font-mono text-sm">{i.code}</td>
+                <td className="px-3 py-2.5 font-mono text-sm">{i.joins.toLocaleString()}</td>
               </tr>
             ))}
           </Table>

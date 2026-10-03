@@ -69,7 +69,7 @@ export function CaveEditor({
       <div className="grid content-start gap-3">
         {map.image ? (
           <>
-            <p className="hud-label !text-[10px]">Click the map to drop the pin</p>
+            <p className="hud-label !text-sm">Click the map to drop the pin</p>
             <div
               role="button"
               tabIndex={-1}
@@ -95,7 +95,7 @@ export function CaveEditor({
                 />
               )}
             </div>
-            <p className="text-xs text-text-muted">Grey dots are the other caves on this map. Fine-tune with the GPS boxes.</p>
+            <p className="text-sm text-text-muted">Grey dots are the other caves on this map. Fine-tune with the GPS boxes.</p>
           </>
         ) : (
           <p className="border border-border bg-bg-card/60 p-4 text-sm text-text-muted">
@@ -107,7 +107,7 @@ export function CaveEditor({
       <div className="grid content-start gap-5">
         {state.error && <p className="border-l-2 border-accent bg-bg-card/80 px-4 py-3 text-sm">{state.error}</p>}
         <label className="grid gap-1">
-          <span className="hud-label !text-[10px]">Cave name</span>
+          <span className="hud-label !text-sm">Cave name</span>
           <input
             name="name"
             value={name}
@@ -119,7 +119,7 @@ export function CaveEditor({
         </label>
         <div className="flex gap-3">
           <label className="grid flex-1 gap-1">
-            <span className="hud-label !text-[10px]">GPS latitude</span>
+            <span className="hud-label !text-sm">GPS latitude</span>
             <input
               name="lat"
               type="number"
@@ -133,7 +133,7 @@ export function CaveEditor({
             />
           </label>
           <label className="grid flex-1 gap-1">
-            <span className="hud-label !text-[10px]">GPS longitude</span>
+            <span className="hud-label !text-sm">GPS longitude</span>
             <input
               name="lon"
               type="number"
@@ -148,7 +148,7 @@ export function CaveEditor({
           </label>
         </div>
         <label className="grid gap-1">
-          <span className="hud-label !text-[10px]">Notes (one per line: chokes, flyers, structure damage…)</span>
+          <span className="hud-label !text-sm">Notes (one per line: chokes, flyers, structure damage…)</span>
           <textarea
             name="notes"
             defaultValue={cave?.notes.join("\n") ?? ""}
@@ -157,7 +157,7 @@ export function CaveEditor({
           />
         </label>
         <label className="grid gap-1">
-          <span className="hud-label !text-[10px]">Admin teleport (optional)</span>
+          <span className="hud-label !text-sm">Admin teleport (optional)</span>
           <input
             name="spi"
             defaultValue={cave?.spi ?? ""}
@@ -167,7 +167,7 @@ export function CaveEditor({
         </label>
 
         <div className="grid gap-2">
-          <span className="hud-label !text-[10px]">Walkthrough clip (GIF, MP4 or WebM, up to 4 MB)</span>
+          <span className="hud-label !text-sm">Walkthrough clip (GIF, MP4 or WebM, up to 4 MB)</span>
           {video ? (
             isGif(video) ? (
               // eslint-disable-next-line @next/next/no-img-element

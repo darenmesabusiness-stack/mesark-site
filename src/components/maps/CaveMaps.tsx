@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Cave, CaveMap } from "@/data/caves";
 
 const MAX_ZOOM = 6;
@@ -37,12 +37,10 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
     setQuery("");
   };
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return map.caves
-      .map((c, i) => ({ c, n: i + 1 }))
-      .filter(({ c }) => !q || c.name.toLowerCase().includes(q) || c.notes.some((n) => n.toLowerCase().includes(q)));
-  }, [map, query]);
+  const q = query.trim().toLowerCase();
+  const filtered = map.caves
+    .map((c, i) => ({ c, n: i + 1 }))
+    .filter(({ c }) => !q || c.name.toLowerCase().includes(q) || c.notes.some((n) => n.toLowerCase().includes(q)));
 
   return (
     <div className="space-y-5">
@@ -60,7 +58,7 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
             }`}
           >
             {m.name}
-            <span className={`ml-2 font-mono text-xs ${m.slug === slug ? "text-bg-primary/70" : "text-text-muted"}`}>
+            <span className={`ml-2 font-mono text-sm ${m.slug === slug ? "text-bg-primary/70" : "text-text-muted"}`}>
               {m.caves.length}
             </span>
           </button>
@@ -107,7 +105,7 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
                       <PinBadge n={n} />
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm font-semibold">{c.name}</span>
-                        <span className="font-mono text-[13px] text-text-muted">
+                        <span className="font-mono text-sm text-text-muted">
                           {c.lat}, {c.lon}
                         </span>
                       </span>
@@ -128,7 +126,7 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
 function PinBadge({ n, active = false }: { n: number; active?: boolean }) {
   return (
     <span
-      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 font-mono text-xs font-bold sm:h-7 sm:w-7 sm:text-[13px] ${
+      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 font-mono text-sm font-bold sm:h-7 sm:w-7 sm:text-sm ${
         active ? "border-white bg-accent text-bg-primary" : "border-accent/80 bg-bg-primary text-accent"
       }`}
     >
@@ -142,6 +140,7 @@ function PinBadge({ n, active = false }: { n: number; active?: boolean }) {
 function MapView({ map, selected, onSelect }: { map: CaveMap; selected: string | null; onSelect: (id: string) => void }) {
   const box = useRef<HTMLDivElement>(null);
   const [view, setView] = useState({ z: 1, x: 0, y: 0 });
+  const [focused, setFocused] = useState<string | null>(null);
   const drag = useRef<{ x: number; y: number; vx: number; vy: number; moved: boolean } | null>(null);
   const pinch = useRef<{ d: number; z: number } | null>(null);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
@@ -176,15 +175,17 @@ function MapView({ map, selected, onSelect }: { map: CaveMap; selected: string |
     return () => el.removeEventListener("wheel", onWheel);
   }, [zoomAt]);
 
-  // Centre the selected cave when it's picked from the list.
-  useEffect(() => {
-    const c = map.caves.find((x) => x.id === selected);
-    if (!c || c.x == null || c.y == null) return;
-    setView((v) => {
+  // Adjust this component's view before committing a changed cave selection.
+  // A guarded render update avoids a second effect-driven layout/render cycle.
+  const selectedCave = map.caves.find((c) => c.id === selected);
+  const focusKey = selectedCave ? `${selectedCave.id}:${selectedCave.x}:${selectedCave.y}` : null;
+  if (focused !== focusKey) {
+    setFocused(focusKey);
+    if (selectedCave?.x != null && selectedCave.y != null) setView((v) => {
       const z = Math.max(v.z, 2.2);
-      return clamp(z, -(c.x! / 100 - 0.5) * z, -(c.y! / 100 - 0.5) * z);
+      return clamp(z, -(selectedCave.x! / 100 - 0.5) * z, -(selectedCave.y! / 100 - 0.5) * z);
     });
-  }, [selected, map, clamp]);
+  }
 
   const onPointerDown = (e: React.PointerEvent) => {
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -250,7 +251,7 @@ function MapView({ map, selected, onSelect }: { map: CaveMap; selected: string |
                   <PinBadge n={i + 1} active={c.id === selected} />
                 </span>
                 {c.id === selected && <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-accent/50" />}
-                <span className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 hidden -translate-x-1/2 whitespace-nowrap bg-bg-primary/95 px-2 py-1 text-xs font-semibold text-text-primary shadow-lg group-hover:block">
+                <span className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 hidden -translate-x-1/2 whitespace-nowrap bg-bg-primary/95 px-2 py-1 text-sm font-semibold text-text-primary shadow-lg group-hover:block">
                   {c.name}
                 </span>
               </button>
@@ -276,7 +277,7 @@ function MapView({ map, selected, onSelect }: { map: CaveMap; selected: string |
           </button>
         ))}
       </div>
-      <p className="pointer-events-none absolute bottom-2 left-3 font-mono text-xs uppercase tracking-widest text-text-primary/60">
+      <p className="pointer-events-none absolute bottom-2 left-3 font-mono text-sm uppercase tracking-widest text-text-primary/60">
         Scroll or pinch to zoom · drag to move
       </p>
     </div>
@@ -361,7 +362,7 @@ function CaveDetail({ cave, n, mapName, onBack }: { cave: Cave; n: number; mapNa
           <span className="font-mono text-lg text-text-primary">
             {cave.lat}, {cave.lon}
           </span>
-          <span className="font-mono text-xs uppercase tracking-widest text-accent">{copied === "gps" ? "Copied" : "Copy"}</span>
+          <span className="font-mono text-sm uppercase tracking-widest text-accent">{copied === "gps" ? "Copied" : "Copy"}</span>
         </button>
         {cave.notes.length > 0 && (
           <ul className="space-y-1.5 text-sm text-text-primary/85">
@@ -379,8 +380,8 @@ function CaveDetail({ cave, n, mapName, onBack }: { cave: Cave; n: number; mapNa
             onClick={() => copy(cave.spi!, "spi")}
             className="w-full border border-dashed border-border px-3 py-2 text-left transition hover:border-accent/50"
           >
-            <span className="hud-label block !text-xs">Admin teleport {copied === "spi" ? "· copied" : "· click to copy"}</span>
-            <code className="mt-1 block break-all font-mono text-[13px] text-text-muted">{cave.spi}</code>
+            <span className="hud-label block !text-sm">Admin teleport {copied === "spi" ? "· copied" : "· click to copy"}</span>
+            <code className="mt-1 block break-all font-mono text-sm text-text-muted">{cave.spi}</code>
           </button>
         )}
       </div>

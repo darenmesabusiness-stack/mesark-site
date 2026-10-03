@@ -41,7 +41,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
       <div className="mt-6 overflow-x-auto border border-border">
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="bg-bg-secondary">
-            <tr className="hud-label !text-[10px]">
+            <tr className="hud-label !text-sm">
               <th className="px-4 py-3 font-normal">Account</th>
               <th className="px-3 py-3 font-normal">Steam ID</th>
               <th className="px-3 py-3 font-normal">Joined</th>
@@ -59,12 +59,12 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                       <img src={r.avatar} alt="" width={28} height={28} className="h-7 w-7 border border-border" />
                     )}
                     <span className="font-semibold">{r.persona ?? "Unknown"}</span>
-                    {r.steam_id === user.steam_id && <span className="font-mono text-[10px] uppercase text-text-muted">you</span>}
+                    {r.steam_id === user.steam_id && <span className="font-mono text-sm uppercase text-text-muted">you</span>}
                   </span>
                 </td>
-                <td className="px-3 py-3 font-mono text-xs text-text-muted">{r.steam_id}</td>
-                <td className="px-3 py-3 font-mono text-xs">{fmt(r.created_at)}</td>
-                <td className="px-3 py-3 font-mono text-xs">{fmt(r.last_login)}</td>
+                <td className="px-3 py-3 font-mono text-sm text-text-muted">{r.steam_id}</td>
+                <td className="px-3 py-3 font-mono text-sm">{fmt(r.created_at)}</td>
+                <td className="px-3 py-3 font-mono text-sm">{fmt(r.last_login)}</td>
                 <td className="px-4 py-3">
                   {assignable.includes(r.role) ? (
                   <form action="/api/staff/role" method="post" className="flex items-center gap-2">
@@ -82,12 +82,12 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                         </option>
                       ))}
                     </select>
-                    <button type="submit" className="border border-border px-2 py-1 font-mono text-[11px] uppercase tracking-wider transition hover:border-accent hover:text-accent">
+                    <button type="submit" className="border border-border px-2 py-1 font-mono text-sm uppercase tracking-wider transition hover:border-accent hover:text-accent">
                       Save
                     </button>
                   </form>
                   ) : (
-                    <span className="font-mono text-xs uppercase tracking-wider text-accent">{ROLE_LABEL[r.role]}</span>
+                    <span className="font-mono text-sm uppercase tracking-wider text-accent">{ROLE_LABEL[r.role]}</span>
                   )}
                 </td>
               </tr>

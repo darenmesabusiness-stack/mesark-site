@@ -62,7 +62,7 @@ export function HallOfFame() {
                   className="absolute inset-y-0 left-0 w-full origin-left opacity-[0.08]"
                   style={{ background: t.hex }}
                 />
-                <div className="relative font-mono text-xs text-text-muted">
+                <div className="relative font-mono text-sm text-text-muted">
                   <span className="font-display text-3xl font-black text-text-primary">
                     {t.wins}
                   </span>{" "}

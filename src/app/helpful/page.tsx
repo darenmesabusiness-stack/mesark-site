@@ -34,7 +34,7 @@ export default function HelpfulPage() {
         {/* ── INI Setup ── */}
         <ContentSection title="PvP INI Settings (BaseDeviceProfiles)">
           <p className="text-text-primary font-medium mb-3">
-            INI files are <strong>allowed</strong> on MESA. These go in the <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">BaseDeviceProfiles.ini</code> file
+            INI files are <strong>allowed</strong> on MESA. These go in the <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-sm">BaseDeviceProfiles.ini</code> file
             inside your ARK Engine config folder. Pick the preset that matches your playstyle.
           </p>
 
@@ -42,23 +42,23 @@ export default function HelpfulPage() {
             <p className="text-text-primary font-semibold mb-3">How to install:</p>
             <div className="space-y-2.5">
               <div className="flex gap-3 items-start">
-                <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
+                <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">1</span>
                 <span>Open Steam &rarr; right-click <strong>ARK</strong> &rarr; <strong>Manage</strong> &rarr; <strong>Browse Local Files</strong></span>
               </div>
               <div className="flex gap-3 items-start">
-                <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
-                <span>Navigate to <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">Engine &rarr; Config</code></span>
+                <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">2</span>
+                <span>Navigate to <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-sm">Engine &rarr; Config</code></span>
               </div>
               <div className="flex gap-3 items-start">
-                <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+                <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">3</span>
                 <span>Find <strong>BaseDeviceProfiles.ini</strong> (highlighted below)</span>
               </div>
               <div className="flex gap-3 items-start">
-                <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">4</span>
+                <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">4</span>
                 <span>Close ARK and <strong>save a backup</strong> of the original file. Open it with Notepad, replace its contents with your chosen preset, and save. Restore the backup if the preset causes problems.</span>
               </div>
             </div>
-            <div className="mt-3 text-xs text-text-muted">
+            <div className="mt-3 text-sm text-text-muted">
               The path depends on where Steam installed ARK. The folder structure is always <code className="bg-bg-card px-1 py-0.5 rounded text-text-primary">...\ARK\Engine\Config\</code>
             </div>
           </div>
@@ -83,19 +83,19 @@ export default function HelpfulPage() {
           <p className="font-semibold text-text-primary mt-3 mb-2">Step 1 &mdash; Switch to pre-Aquatica branch:</p>
           <div className="space-y-2 mb-4">
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">1</span>
               <span>Open Steam Library &rarr; right-click <strong>ARK: Survival Evolved</strong> &rarr; <strong>Properties</strong></span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">2</span>
               <span>Click the <strong>Betas</strong> tab</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">3</span>
               <span>Select <strong>preaquatica - ASE: Pre-Aquatica</strong> from the dropdown</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">4</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">4</span>
               <span>Wait for the update to download</span>
             </div>
           </div>
@@ -103,20 +103,20 @@ export default function HelpfulPage() {
           <p className="font-semibold text-text-primary mt-3 mb-2">Step 2 &mdash; Add servers to favorites:</p>
           <div className="space-y-2">
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">1</span>
               <span>Open Steam&apos;s server browser from <strong>View</strong> (Servers or Game Servers) &rarr; <strong>Favorites</strong> tab</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">2</span>
               <span>Click &quot;Add a Server&quot; and enter a server IP from <a href="/servers" className="text-blue hover:underline">mesark.net/servers</a></span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">3</span>
               <span>Launch ARK &rarr; Join ARK &rarr; change filter to &quot;Favorites&quot;</span>
             </div>
           </div>
 
-          <div className="mt-3 p-3 rounded-lg border border-border bg-bg-card/30 text-xs">
+          <div className="mt-3 p-3 rounded-lg border border-border bg-bg-card/30 text-sm">
             <strong className="text-text-primary">Note:</strong> The server must be online for Steam to add it. If it doesn&apos;t appear, wait until after maintenance/wipe and try again.
           </div>
         </ContentSection>
@@ -126,15 +126,15 @@ export default function HelpfulPage() {
           <p className="mb-2">If staff ask for your location, send CCC coordinates in your private ticket. Never publish live base or player coordinates in community posts.</p>
           <div className="space-y-2">
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
-              <span>Open Console (default key: <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">Tab</code>)</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">1</span>
+              <span>Open Console (default key: <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-sm">Tab</code>)</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
-              <span>Type <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">ccc</code> and hit Enter</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">2</span>
+              <span>Type <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-sm">ccc</code> and hit Enter</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">3</span>
               <span>It copies automatically &mdash; just <strong>paste it</strong> in your ticket</span>
             </div>
           </div>
@@ -145,15 +145,15 @@ export default function HelpfulPage() {
           <p className="mb-2">Website sign-in identifies your Steam account automatically. If staff ask for an ID, or an application asks for tribe members&apos; Steam IDs, use this guide and share them only in private support.</p>
           <div className="space-y-2">
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">1</span>
               <span>Open <strong>Steam</strong> &rarr; click your name in the top right</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
-              <span>Copy the URL from your browser (e.g. <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-xs">steamcommunity.com/profiles/7656...</code>)</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">2</span>
+              <span>Copy the URL from your browser (e.g. <code className="bg-bg-card px-1.5 py-0.5 rounded text-text-primary text-sm">steamcommunity.com/profiles/7656...</code>)</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">3</span>
               <span>If you have a custom URL, go to <a href="https://steamid.io" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">steamid.io</a> and paste your profile link to get the 17-digit number</span>
             </div>
           </div>
@@ -166,27 +166,27 @@ export default function HelpfulPage() {
           </p>
           <div className="space-y-2.5 mb-3">
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">1</span>
               <span>Open the <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3282623549" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">MESA Mod Pack</a> on Steam Workshop</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">2</span>
               <span>First check Steam&apos;s Downloads page and let pending Workshop updates finish. Close ARK before changing subscriptions.</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">3</span>
               <span>If a specific mod still mismatches, unsubscribe and resubscribe to that mod, then wait for it to download. Use <strong>Subscribe to All</strong> on the collection if you are missing required mods.</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">4</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">4</span>
               <span>Wait for Steam to finish downloading all mods</span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">5</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">5</span>
               <span>Restart ARK and try joining again</span>
             </div>
           </div>
-          <div className="p-3 rounded-lg border border-border bg-bg-card/30 text-xs">
+          <div className="p-3 rounded-lg border border-border bg-bg-card/30 text-sm">
             <strong className="text-text-primary">Still not working?</strong> Close Steam completely, reopen it, and let the mods finish updating. Sometimes Steam doesn&apos;t download workshop updates until you restart it.
           </div>
         </ContentSection>
@@ -196,15 +196,15 @@ export default function HelpfulPage() {
           <p className="font-semibold text-text-primary mb-2">Verify Game Files (checks for missing or damaged files):</p>
           <div className="space-y-2 mb-4">
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">1</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">1</span>
               <span>Open Steam Library &rarr; right-click <strong>ARK</strong> &rarr; <strong>Properties</strong> &rarr; <strong>Installed Files</strong></span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">2</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">2</span>
               <span>Click <strong>Verify integrity of game files</strong></span>
             </div>
             <div className="flex gap-3 items-start">
-              <span className="bg-blue/20 text-blue text-xs font-bold px-2 py-0.5 rounded shrink-0">3</span>
+              <span className="bg-blue/20 text-blue text-sm font-bold px-2 py-0.5 rounded shrink-0">3</span>
               <span>Wait for Steam to check and re-download any corrupted files, then restart ARK</span>
             </div>
           </div>
@@ -218,42 +218,42 @@ export default function HelpfulPage() {
 
           <p className="font-semibold text-text-primary mt-3 mb-2">Still not working:</p>
           <RuleItem text="Open a support ticket with the error and checks you tried before a full reinstall. Keep backups of saves and configuration; do not delete the entire ARK folder as a first troubleshooting step." />
-          <p className="text-xs">File verification steps: <a href="https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB" className="text-accent underline underline-offset-4">Steam Support</a>.</p>
+          <p className="text-sm">File verification steps: <a href="https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB" className="text-accent underline underline-offset-4">Steam Support</a>.</p>
         </ContentSection>
 
         {/* ── Custom Keybinds ── */}
         <ContentSection title="MESA Custom Keybinds">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">P</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">P</code>
               <span className="text-sm">Find tribemates</span>
             </div>
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">F2</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">F2</code>
               <span className="text-sm">In-game shop</span>
             </div>
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">F3</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">F3</code>
               <span className="text-sm">Capture TP leaderboard</span>
             </div>
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">F4</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">F4</code>
               <span className="text-sm">Armor durability info</span>
             </div>
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">Ctrl+U</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">Ctrl+U</code>
               <span className="text-sm">Reset skins</span>
             </div>
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">MMB</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">MMB</code>
               <span className="text-sm">Ping your tribe</span>
             </div>
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">L.Ctrl</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">L.Ctrl</code>
               <span className="text-sm">Cryopod menu</span>
             </div>
             <div className="flex gap-3 items-center p-2 rounded bg-bg-card/30 border border-border">
-              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-xs font-bold shrink-0">Tab</code>
+              <code className="bg-blue/10 text-blue px-2 py-0.5 rounded text-sm font-bold shrink-0">Tab</code>
               <span className="text-sm">Open console</span>
             </div>
           </div>

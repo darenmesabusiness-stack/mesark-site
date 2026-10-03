@@ -43,7 +43,7 @@ export function StaffShell({
           <span className="h-px w-8 bg-accent" />
           MESA staff
         </p>
-        <p className="font-mono text-xs text-text-muted">
+        <p className="font-mono text-sm text-text-muted">
           {user.persona ?? "Signed in"} ·{" "}
           <span className="uppercase text-accent">{ROLE_LABEL[user.role]}</span>
         </p>

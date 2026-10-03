@@ -41,7 +41,7 @@ export function TicketQueueView({ d }: { d: TicketQueueData }) {
             <Table head={["Ticket", "Player", "Cluster", key === "player" || key === "empty" ? "Opened" : "Waiting", "Claimed by", ""]}>
               {rows.map((t) => (
                 <tr key={t.channel_id} className={t.overdue ? "bg-accent/[0.07]" : "bg-bg-card/40"}>
-                  <td className="px-4 py-2.5 font-mono text-xs">
+                  <td className="px-4 py-2.5 font-mono text-sm">
                     <a href={`https://discord.com/channels/${t.guild_id}/${t.channel_id}`} target="_blank" rel="noopener noreferrer" className="underline decoration-accent/40 underline-offset-4 hover:text-accent">
                       {t.name}
                     </a>
@@ -50,12 +50,12 @@ export function TicketQueueView({ d }: { d: TicketQueueData }) {
                   </td>
                   <td className="px-3 py-2.5">
                     {t.player || "–"}
-                    {t.rank && <span className="ml-2 text-[10px] font-semibold uppercase text-accent">👑 {t.rank}</span>}
+                    {t.rank && <span className="ml-2 text-sm font-semibold uppercase text-accent">👑 {t.rank}</span>}
                   </td>
-                  <td className="px-3 py-2.5 text-xs">{t.cluster || "–"}</td>
-                  <td className="px-3 py-2.5 font-mono text-xs">{waited(t, now)}</td>
-                  <td className="px-3 py-2.5 text-xs">{t.claimed_by ?? <span className="text-text-muted">nobody</span>}</td>
-                  <td className="px-3 py-2.5 text-right text-[10px] uppercase tracking-wider">
+                  <td className="px-3 py-2.5 text-sm">{t.cluster || "–"}</td>
+                  <td className="px-3 py-2.5 font-mono text-sm">{waited(t, now)}</td>
+                  <td className="px-3 py-2.5 text-sm">{t.claimed_by ?? <span className="text-text-muted">nobody</span>}</td>
+                  <td className="px-3 py-2.5 text-right text-sm uppercase tracking-wider">
                     {t.overdue && <span className="text-accent">⏰ past target</span>}
                     {t.pinged > 0 && <span className="ml-2 text-text-muted">pinged {t.pinged}/3</span>}
                     {t.escalated && <span className="ml-2 text-text-muted">escalated</span>}
@@ -78,11 +78,11 @@ export function TicketQueueView({ d }: { d: TicketQueueData }) {
               const t = d.tiers[k];
               return (
                 <div key={k} className="bg-bg-card p-4">
-                  <p className="hud-label !text-[10px]">
+                  <p className="hud-label !text-sm">
                     {TIER_LABEL[k]} · target {TIER_TARGET[k]} min
                   </p>
                   <p className="font-display mt-2 text-3xl font-black tabular-nums">{t ? minutes(t.p50_mins) : "–"}</p>
-                  <p className="mt-1 text-xs text-text-muted">{t ? `typical · 1 in 10 over ${minutes(t.p90_mins)} · ${t.tickets} tickets` : "No tickets yet"}</p>
+                  <p className="mt-1 text-sm text-text-muted">{t ? `typical · 1 in 10 over ${minutes(t.p90_mins)} · ${t.tickets} tickets` : "No tickets yet"}</p>
                 </div>
               );
             })}

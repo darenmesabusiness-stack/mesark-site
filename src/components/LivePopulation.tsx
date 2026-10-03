@@ -24,13 +24,13 @@ export function LivePopulation({ pop }: { pop: PopulationData | null }) {
     <section aria-label="Players online" className="border border-border bg-bg-card/60 px-5 py-4">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="flex items-center gap-2 font-mono text-[13px] uppercase tracking-[0.18em] text-emerald-400">
+          <p className="flex items-center gap-2 font-mono text-sm uppercase tracking-[0.18em] text-emerald-400">
             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" aria-hidden /> Live
           </p>
           <p className="font-display mt-1 text-5xl font-black leading-none tabular-nums">
             {pop.online.toLocaleString()} <span className="text-2xl text-text-muted">players online</span>
           </p>
-          <p className="mt-2 text-xs text-text-muted">
+          <p className="mt-2 text-sm text-text-muted">
             Peak in the last 24 h: {pop.peak_24h.toLocaleString()}
             {updated && <> · updated {updated.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" })} ET</>}
           </p>

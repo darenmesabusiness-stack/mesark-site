@@ -52,7 +52,7 @@ export function ServerList({ clusters }: { clusters: Cluster[] }) {
           className="w-full pl-11 pr-4 py-3 rounded-xl border border-border bg-bg-card/50 text-text-primary placeholder:text-text-muted/50 text-sm focus:outline-none focus:border-accent/50 transition"
         />
         {query && (
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-text-muted">
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-text-muted">
             {totalResults} server{totalResults !== 1 ? "s" : ""}
           </span>
         )}
@@ -83,7 +83,7 @@ export function ServerList({ clusters }: { clusters: Cluster[] }) {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-blue/20 text-blue border border-blue/30 rounded-lg hover:bg-blue/30 transition-all"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-semibold bg-blue/20 text-blue border border-blue/30 rounded-lg hover:bg-blue/30 transition-all"
                   >
                     {link.label}
                   </a>

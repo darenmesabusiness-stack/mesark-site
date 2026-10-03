@@ -41,7 +41,7 @@ async function WebsiteQueue({ user, status }: { user: User; status: string }) {
                 {t.cluster === "3/6 Man" ? "3 Man" : t.cluster}
               </span>
             </span>
-            <span className="text-xs text-accent">
+            <span className="text-sm text-accent">
               {t.priority === 2
                 ? "Emergency · "
                 : t.priority === 1
