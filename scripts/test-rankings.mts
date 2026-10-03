@@ -35,8 +35,8 @@ try {
   const players = await getRankings(query);
   assert.equal(
     players?.rows.length,
-    1,
-    "abusive names and Steam identifiers never become rows",
+    2,
+    "in-game names are preserved; Steam identifiers never become public names",
   );
   assert.equal(
     players?.rows[0].rank,
@@ -105,10 +105,9 @@ try {
   const explicit = await getRankings(rankingQuery({view:"players",cluster:"ALL",sort:"Kills"}));
   assert.deepEqual(initial, explicit, "initial and explicit settings must preserve the same podium");
   assert.deepEqual(initial?.rows.map(row=>row.rank), [1,2,3]);
-  assert.equal(initial?.rows[0].name, "Name hidden");
-  assert.equal(initial?.rows[0].nameHidden, true);
-  assert.equal(initial?.rows[0].avatar, null, "a filtered identity must not leak through its avatar");
-  assert.equal(JSON.stringify(initial).includes("N1gg3r"), false);
+  assert.equal(initial?.rows[0].name, "N1gg3r", "the original in-game name must remain unchanged");
+  assert.equal(initial?.rows[0].nameHidden, false);
+  assert.ok(initial?.rows[0].avatar, "ordinary in-game names retain their Steam avatars");
   response = {ranking_data:[{TribeName:"76561190000000000",TribeID:42,rank:1,DamageScore:200}],pagination:{total_pages:1}};
   const hiddenTribe = await getRankings(rankingQuery({view:"tribes"}));
   assert.equal(hiddenTribe?.rows[0].rank,1);
