@@ -94,7 +94,7 @@ export function Hero() {
               href="/servers"
               className="clip-corner group inline-flex items-center justify-center gap-3 bg-accent px-8 py-4 font-display text-xl font-extrabold tracking-wider text-bg-primary transition hover:bg-[#ff8c45]"
             >
-              Play now
+              Choose a server
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
             <Link
