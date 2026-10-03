@@ -113,8 +113,7 @@ export function Navbar() {
               Store
             </Link>
             <Link
-              href="https://discord.gg/jkax9Nk46x"
-              target="_blank"
+              href="/support"
               className="clip-corner-sm ml-2 bg-accent px-4 py-1.5 font-display text-lg font-extrabold uppercase tracking-wider text-bg-primary transition hover:bg-[#ff8c45]"
             >
               Support
@@ -182,8 +181,7 @@ export function Navbar() {
                   Store
                 </Link>
                 <Link
-                  href="https://discord.gg/jkax9Nk46x"
-                  target="_blank"
+                  href="/support"
                   className="clip-corner-sm bg-accent py-3 text-center font-display text-xl font-extrabold uppercase tracking-wider text-bg-primary"
                 >
                   Support
