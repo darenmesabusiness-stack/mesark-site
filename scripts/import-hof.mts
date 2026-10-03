@@ -18,6 +18,14 @@ raw.winners = raw.winners.map(
     members: w.members.map(member),
   }),
 );
+try {
+  const channels = JSON.parse(await fs.readFile("out/review/discord-rules-hof-source.json", "utf8"));
+  const posts = new Map<string, {embeds:{title?:string}[]}>(channels.find((c:{id:string})=>c.id==="1500222043453391010").messages.map((p:{id:string})=>[p.id,p]));
+  for (const winner of raw.winners) {
+    const title=posts.get(winner.id)?.embeds.find(e=>e.title)?.title ?? "";
+    if(title && !isBlockedName(title) && !/jew\W*hunt|7656\d{13}/i.test(title)) winner.videoTitle=title.slice(0,160);
+  }
+} catch { console.log("No additional public wipe-film source available."); }
 raw.honorees = raw.honorees
   .map(member)
   .sort((a: { name: string }, b: { name: string }) =>

@@ -14,6 +14,7 @@ const NAV: {
   { href: "/staff/support", label: "Support", access: "lead" },
   { href: "/staff/discord", label: "Discord", access: "lead" },
   { href: "/staff/changelog", label: "Change log", access: "lead" },
+  { href: "/staff/rules", label: "Rules", access: "staff" },
   { href: "/staff/caves", label: "Caves", access: "lead" },
   { href: "/staff/hof", label: "Hall of Fame", access: "lead" },
   { href: "/staff/mesa-map", label: "Mesa Map", access: "lead" },

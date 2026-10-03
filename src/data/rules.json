@@ -1,0 +1,274 @@
+{
+  "sections": [
+    {
+      "title": "Cluster exceptions and latest amendments",
+      "rules": [
+        "Boxing heavies with stairs on a Fortnite to prevent them from being Astrocetus bombed while being able to shoot down is forbidden",
+        "When a diplo, rex or tapejara has a noglin attached to it is not allowed to be teleported during a raid/defence under any circumstance",
+        "After having a player caged for 2 hours on Solos they must be uncaged, regardles of whether or not the base is wiped",
+        "Cycling mid raid will be allowed past Day 5 on 3/6 Man between all the cycles of a tribe. If you have no HOF ticket open and no cycles declared, you must make a ticket and let admins know who you are cycling in a fob.",
+        "Structure Capping will be allowed past Day 5 on 3/6 Man.",
+        "Turrets stacked/overlapping with any structure, including but not limited to foundations and ceilings is not allowed. Exception of vaults, however you can only place 1 vault inside a turret cap. Any more is not allowed.",
+        "Fobbing a tribe's HOF base is forbidden while they are fobbing. Fobbing main fobs is still allowed however. If a tribe is fobbing on map, their base will count as a main fob. This does not apply to solos or duos",
+        "Maximum amount of tames allowed to be whistled on aggressive or neutral at a time is 4",
+        "A player can only be caged for 24 hours on 100x. After that, the player must be freed and the tribe with the player caged can cycle."
+      ]
+    },
+    {
+      "title": "General Rules",
+      "rules": [
+        "The recommended language for communication is English.",
+        "Use common sense. Any attempts to bend or exploit rules is forbidden and will not be tolerated.",
+        "Breaking Wildcard's Code of Conduct in any way is forbidden.",
+        "No hacks, cheating, aimbotting, exploits, duping, meshing, undermeshing or lag attempts. This will result in a permanent cluster wide ban.",
+        "Account sharing is bannable.",
+        "HWID Spoofing & Mac Spoofing is bannable regardless of the reason for it.",
+        "Use of macros in any form is not allowed, autoclickers are only allowed in PVE Scenarios. Any form of AFK crafting is not allowed.\nAutoclicker can be used to level dinos in PVE but cannot be used to craft electronics.",
+        "Admins are not obliged to give back any property or dinos lost due to any in-game situation, bugs, outages or roll backs.",
+        "Don't use your upload to store stuff, we don't replace any lost items in upload.",
+        "Impersonating the Staff Team is against the rules.",
+        "Naming or Raiding anything similar to “ADMIN DNT”, “ADMIN AUCTION”, “ADMIN RAID BASE” is bannable. Admin built events are only allowed to be destroyed ONLY AFTER it’s been announced.",
+        "Keep your insults/threats to within Ark. Anything crossing over the line to IRL is bannable. I.e. Threatening to Dox or DDOS a player.",
+        "Real Money Trading (RMT) is not allowed. Selling anything for IRL money is bannable.",
+        "Scamming is NOT enforced, you trade at your own risk. Do not trade for ARB, eggs, or anything that cannot be easily traded through the /trader commands on Trading Outpost.",
+        "Insiding is forbidden and will result in a ban.\nOwners own ALL, choose your owner wisely. HOWEVER owners can inside in certain situations (admin discretion).",
+        "Blocking drops with foundations is forbidden."
+      ]
+    },
+    {
+      "title": "PVP Rules",
+      "rules": [
+        "No dinos in lava golem except velonasaurs.",
+        "You cannot block the lava golem for more than 10 minutes without doing anything.",
+        "You are not allowed to interact with people inside the no-tame bubbles on Mesa city with a tame.",
+        "Teaming with another tribe is not allowed, including open world PVP.",
+        "It is not allowed to place structures on a player to trap them (including yourself), you are allowed to do that to their dinos.",
+        "Using vacuum compartments to instantly kill ANY water dino is forbidden.",
+        "Max DPS dino on and OSD/vein is the same as the tribe limit for that cluster.\nExample: 4 Man = 4 DPS Dinos\nAny dino that is being used to deal damage counts as a DPS dino\nThe maximum limit on solos is 2 DPS Dinos.",
+        "Placing a structure cap inside a cave as a defender to structure cap yourself is forbidden - 100x Only.",
+        "Building a basilisk box to bug the hitbox of a basilisk, such as using stairs or otherwise, is not allowed.",
+        "Owner is able to be transferred if an entire tribe agrees on it. This only applies to the following clusters: 6 man main cluster",
+        "Only one type of structure is allowed in your colli/wall spam (e.g., Metal Foundations, Tek Foundations, Metal Pillars ). Mixing structure types is not allowed on spam.",
+        "Using a Stryder forcefield ability during raids is forbidden."
+      ]
+    },
+    {
+      "title": "Raiding Rules",
+      "rules": [
+        "Raiding anything similar to “ADMIN DNT” is bannable.",
+        "Mesh biting or picking is forbidden.\nAggro dinos do not count (admins discretion)\nShooting with a velonasaur through the mesh, using third person or otherwise, is not allowed.",
+        "Whistling Neutral/Aggressive on breeders or a LARGE amount of dinos during a defense or raid is not allowed.\nThe later amendment sets the maximum at four tames on aggressive or neutral at one time.",
+        "Damaging structures through the mesh is forbidden, this includes using C4, grenades, dinos, or mek hitting though the mesh.",
+        "Tunneling is forbidden (building into bases to bypass defenders defenses).\nYou are allowed to tunnel with motorboat and platform builds.",
+        "Forcefield abuse is forbidden, you cannot toggle between Min and Max multiple times within a short time or use it to trap players or dinos.",
+        "Structure capping or C4 capping is forbidden. Structure capping is permitted on 100x.\nException: structure capping is also allowed after Day 5 on 3/6 Man. This exception does not permit C4 capping.",
+        "Turret capping is allowed. Turret caps cannot be built into the mesh or placed in the mesh.",
+        "Max 3 dinos protecting entrance or choke points to a cave.\nThis rule does not include anything that doesn't body block or is stationed on the wall like stalker’s/velo’s.\nSupport dinos, such as Yuty, Mammoth, Shadowmanes and Daeodons, that are actively being used count towards the 3 limit.",
+        "Any dino protecting an entrance or choke point can only be levelled in HP or DMG not both. Any other stats are free to be levelled according to you.",
+        "Max of 5 unridden dinos allowed to be soaking at the same time.",
+        "Illegal dino builds are not allowed, 2 of the 5 sides need to be hittable.\nYou can not have billboards on 3 sides of a quetzals, 2 sides need to be fully open.\nCannot place Replicators (with exception on Astros)",
+        "Helping or gifting tribe score is not allowed, this includes but is not limited to:\nTurning off generators\nPlacing structures for own tribe to destroy or another to destroy\nThrowing another tribe or your own to kill for score.",
+        "Anything related to popcorning while being raided is forbidden, this includes but is not limited to:\nDropping item caches\nRapidly throwing out bags\nExcessively cryo sicking dinos.\nThis applies to both defending and attacking tribes.",
+        "Denying Tribe Score is forbidden including but not limited to the following:\nPicking up structures from base while fobbed (you may only port out resources, your breeders and bp’s)\nDemolishing or destroying own structures (includes both defender and attacking tribe)\nLeaving the tribe\nThis rule is included for fortnites (admin discretion).",
+        "Decomping your base is NEVER allowed. If you wish to quit for the season, please leave your base intact.",
+        "Giving away your loot such as resources, BPs, dinos or anything related during an active FOB is NOT allowed. This includes giving it to another tribe that is in an active FOB.\n1 Thatch for a slot cap of raid dinos is not a valid trade. If you want to give them anything, do it during PvE. This is considered teaming.",
+        "Cycling is allowed when in a PVE environment meaning you are NOT PvPing, raiding or defending.\nYou cannot cycle if you have a FOB placed or have any FOBs placed on your base.\nIf a tribe slot is free since PvE, you are the slot open, you are allowed to invite.\nYou cannot kick a member to replace them for a new member during PvP.\nOn 100x - you are allowed to cycle during PvP\nException: cycling mid-raid is also allowed after Day 5 on 3/6 Man, subject to the declaration requirements in Cluster exceptions and latest amendments.",
+        "You cannot cycle temporary banned or caged members for any reason. They cannot purchase an unban while in PvP.",
+        "You are not allowed to merge tribes in PvP at all.",
+        "If you abandon your FOB with the purpose of cycling (the FOB needs to be unpowered and/or be picked up) you must wait 1 hour before coming back.",
+        "Using a Dino Leash on a Noglin to allow it to tp back if a dino with a Noglin attached dies is not allowed.",
+        "Using /farm on dinos specifically to block an entrance or choke is not allowed."
+      ]
+    },
+    {
+      "title": "Counter Raiding Rules",
+      "rules": [
+        "It is not necessary to have a FOB to raid a tribe. However, if you die/get pushed off you need to follow the counter raiding rules.",
+        "Countering without a FOB is forbidden, this includes griefing such as tame sniping.",
+        "A third party is obligated to place a FOB within visual range of the ongoing attackers FOB or their surrounding spam.",
+        "Your FOB must match the effort level of the current attackers FOB, for your FOB to be considered one, it needs to have a minimum of 20 turrets.",
+        "You must be sufficiently prepared to DESTROY the attackers FOB and continue the raid on the defenders.\nIf the counter is successful, you must make a legitimate attempt to continue the raid.\nIf the counter fails, you must wait 1 hour before you can come back.",
+        "You must completely destroy the attackers FOB before looting or attacking the base.",
+        "Additionally, if one tribe is currently countering the raid, all other tribes must refrain from intervening until one of the involved tribes has been pushed off the raid."
+      ]
+    },
+    {
+      "title": "Caging Rules",
+      "rules": [
+        "Using Fjord TPs, ANYTHING from F2 Shop, exploiting or continuously reconnecting while handcuffed/laying in bed to bypass or getting out of being caged is forbidden. This also applies when a noglin is attached.\nUsing ANYTHING from F2 shop when picked by any tame is forbidden",
+        "Cloud pulling while handcuffed/laying in bed, to bypass getting out of a cage in any way, or while picked by any tame is forbidden.",
+        "If a player dies due to any bug or antimesh issue, unless you can prove that you died through a viable strategy via a clip you will be recaged. The validity of this strategy is up to admin discretion.",
+        "If you are caged as a result of a game crash, fatal error or anything along those lines you will be uncaged. However, you MUST have a clip of this in order to be uncaged or else admins will not help you.",
+        "Open World caging is forbidden. You must have a FOB placed before caging.",
+        "Once a raid or defense has concluded you must free any caged members.",
+        "Cannot have caged players inside the forcefield.",
+        "If you cage an opposing tribes member during a raid or defense you cannot keep them caged in order to fob their main base unless their main base is on the SAME map (no cross map caging). If you are not actively raiding their main base within 30 Minutes of the original raid/defense you must let the players go."
+      ]
+    },
+    {
+      "title": "Open World Turret Rules",
+      "rules": [
+        "Open world turrets are allowed at active PVP, farming and boss areas. You are required to pick it up when you are finished.",
+        "Farming outposts are allowed HOWEVER it needs to have at least 30 turrets. Otherwise, they need to be picked up after use.",
+        "Open world turrets are NOT allowed on OSD/veins. You may have them out of render of the OSD/vein."
+      ]
+    },
+    {
+      "title": "Banned Building Locations",
+      "rules": [
+        "Do not build on player spawns, teleport spots, terminals or obelisks. Exception: The area is directly outside your cave and a part of your defenses.\nCrystal Isles: Bee cave, underwater loot tunnels and snow drops\nGen 1: Volcano entrances & inside\nGen 2: Space biome entrances, not including vents\nRagnarok: Ice Queen, Golem, Desert Labyrinth\nValguero: Aberration biome entrances & underwater loot tunnels\nLost Island: Labyrinth Cave & underwater loot tunnels\nFjord: Poly cave, underwater drops, Bee cave & Yeti cave",
+        "Do not build in ratholes that require the following to enter:\nKnock out\nGrapples\nStructures\nDinos\nTek Suits",
+        "Do not build in mesh spots, spots that have access to the mesh or terrain that looks stretched.",
+        "Building in or under the lava. Exception: Foundations in lava to give foundation support.",
+        "Illegal basespots will be instantly dev wiped with no questions asked or warning."
+      ]
+    },
+    {
+      "title": "Other Building Rules",
+      "rules": [
+        "Ocean platforms are not allowed to be placed inside caves. It is prohibited to place behemoth gates in a cave if you own the cave and/or are defending. Behe gates are allowed in caves for the attacking tribe only.",
+        "Blocking drops with foundations is forbidden.",
+        "Blocking an entrance or a choke with an ORP is forbidden.",
+        "Vault dropping any structure that gives foundation claim is forbidden.",
+        "Max of 5 vaults when blocking an entrance/choke or when vault dropping structures.\nThis includes but is not limited to vault dropping generators or turret caps.",
+        "Purposefully placing meshed, stacked, overlapping or unbreakable structures/turrets is forbidden.",
+        "Excessively stacked & spammed structures will be AOE cleared regardless of what else in the area will be lost.",
+        "Any structures that give foundation support, such as pillars, gates, cliff plats or ocean plats need to be at least 30% visible outside of the mesh (admin discretion).",
+        "Building with pillars & fence supports is allowed. If a snap point is broken and causes floating structures, all floating structures must be removed.",
+        "Floating structures are forbidden (except turrets in the middle of a giant hatchframe)",
+        "Snapping structures to the world border or cave ceiling is forbidden. It will be redgunned without warning",
+        "Snapping foundations or other structures to trees, such as the big trees in the Redwoods, is not allowed",
+        "No excessive spam. You may spam within ONE render distance of the cave entrance or your tower/fornite. Random ground turrets do NOT count. A tower/fortnite must have at LEAST 75 turrets to count\nUnless actively fobbed - we expect you to fix it after FOB has been pushed off.",
+        "Spamming flexible cables or pipes at a cave entrance to cause FPS drops is forbidden",
+        "Stacking dinos in each other is forbidden.",
+        "You may only have 3 forcefields within one render distance (forcefield spam is NOT allowed). This rule only applies if forcefields are intentionally being used to protect spam, not otherwise.",
+        "C+ vacuums must remain closed on at least 1 side in order for it to be able to get legitimately damaged/destroyed. Having all sides hidden is bannable.",
+        "Trapdoors inside hatchframes are not allowed to be placed in any situation besides platform saddled dinos.",
+        "Building with structures, such as pillars, inside foundations is not permitted on Solos and Duos. This is allowed on all other clusters.",
+        "Snapping structures using C+  Fridges is forbidden. This will be punished harshly if discovered."
+      ]
+    },
+    {
+      "title": "HOF RULES",
+      "rules": [
+        "You are required to submit your HOF application through the website HOF support form IN THE FIRST 48 HOURS of server wipe and meet all other requirements or your score will not count.",
+        "Your base location MUST be in cave edits or a vanilla ark cave. Meaning NO ratholes, NO ceiling bases, etc etc. CAVES ONLY (see building requirements for additional info).Certain land spots are allowed per REQUEST.",
+        "All Tribe information must immediately be placed in your HOF application at time of opening including: Tribe name (after submitting it you must REQUEST to change it) player in game names, player discord tags, player steam ID’s (FOR ALL MEMBERS INCLUDING CYCLERS) in following format:\nSTEAM ID - CHARACTER NAME - DISCORD TAG",
+        "How many Steam IDs you have start at the wipe counts towards the total. Creating a new tribe to reset Steam ID count is forbidden.",
+        "Must list and submit screenshots of base location and CCC cords.",
+        "Must submit raid list & update it AFTER EVERY RAID has concluded with the following format; BASESPOT - TRIBE NAME -ONLINE/OFFLINE. Each new raid should be a new message in the application. Must have proof of raids in case we ask for the clips (proof is not the base already wiped).",
+        "Please refrain from using your HOF ticket as a support ticket, that is not what it is intended for.",
+        "You are required to submit a HOF video if you are in the top three tribes at the end of the wipe.\nMust include a base tour - see building requirements for what needs to be included in this portion.\nPVP highlights.\nRaid highlights."
+      ]
+    },
+    {
+      "title": "Other HOF Rules",
+      "rules": [
+        "Tribe's that merge together with other tribes to combine efforts, regardless of previous achievements, will NOT be taken into consideration at time of HOF decisions.",
+        "Players who recently joined the tribe and have not contributed to the majority of their progress may not be eligible for HOF roles.",
+        "Continuous disobedience of Mesa’s server rules or people who try to bend/cheat rules will be disqualified (lead admin decision).",
+        "Losing your main base and running with loot will get you disqualified.",
+        "Cycling more than 2 additional Steam ID’s on each cluster is not allowed and will result in instant disqualification. You may request to replace a Steam ID only if the player you wish to remove has been offline for more than 24 hours. Once approved, you may invite a new player—but this can only be done once per season per tribe. (Solos no additional Steam ID’s & 100x has no limit)\nDuos can only have one additional Steam ID",
+        "Tribes found lying about the total number of Steam IDs in a tribe and trying to “reset” the total count of Steam IDs your tribe has will result in a 60 Day Ban for all members.",
+        "Tribe score abuse is taken very seriously - 60 Day Ban.",
+        "All winners will solely be decided off of score, if score is close it will be a staff vote based off of raid list and HOF video.",
+        "Picking up structures and cryoing dinos while fobbed = denying tribe score.",
+        "Failure to make a HOF application correctly, such as not putting all player details, will get you disqualified."
+      ]
+    },
+    {
+      "title": "Building Requirements",
+      "rules": [
+        "Your HOF worthy base must include the following things to qualify in your MANDATORY base tour video:",
+        "Crafting Station (dedi’s, replicators, fabricators, chemistry benches, etc).",
+        "War Room (dedi’s, vaults, cryo fridges).",
+        "Defenses (deathwall, cage tower, fortnite, room with terrains counts has to be 100 turrets or very close), breeder’s, - Location MUST be a vanilla ark cave or included in cave edits, trees on valg/abb count as well. If you plan to build a land base location please ask via ticket if your base location counts (if you have any questions just ask by making a ticket).",
+        "No excessive spam, stacked spam, overlapping spam. You may spam within ONE render distance of cave entrance or nearest cage tower/fortnite. Random ground turrets do NOT count.\nUnless actively fobbed - we expect you to fix it after fob has been pushed off - Staff will remove without warning.",
+        "Purposefully placing meshed, stacked, overlapping or unbreakable structures to prevent raid progression is NOT allowed - Staff will remove + give warning, repeated ignoring of this will result in temporary ban for online members or players doing it if proof is provided with names"
+      ]
+    },
+    {
+      "title": "Losing HOF Role",
+      "rules": [
+        "Onlined on any cluster past day 3 = Loses HOF role (This applies to EVERY player online during the raid including cyclers)",
+        "Participating or playing with people who are doing any of the following: Cheating, duping, meshing, account sharing, popcorning.",
+        "Serious rule breaks can lose your HOF roles (Lead admin decision)",
+        "HOF roles can also be transferred. If a tribe successfully raids a tribe containing HOF role owners, one HOF role from every member of the defending tribe who has HOF will be transferred to members of the raiding tribe, to be decided upon independently by the raiding tribe.\nThe August 3 amendment additionally requires the raiding tribe to win that same season; see Later HOF eligibility updates.",
+        "As well as this, HOF roles can be lost/transferred on every cluster if online wiped past day 3. For example, If you own solos HOF and you are onlined on 100x, you will lose the solos HOF, and this is applicable to all clusters."
+      ]
+    },
+    {
+      "title": "Requirements:",
+      "rules": [
+        "The raid must be an online raid. Offline raids do not qualify.",
+        "The raid must be past day 3.",
+        "The defending tribe must be fully raided.",
+        "You must provide valid proof (clips, recordings, screenshots, etc.).",
+        "The raiding tribe chooses which members receive the transferred HOF roles.",
+        "To be elligble to steal someones HOF role, you must have a HOF ticket open and be going for HOF in that season.",
+        "If you cannot decide who will receive the roles by yourself, nobody will receive any. It is not our job to sort out tribe issues for you."
+      ]
+    },
+    {
+      "title": "Later HOF eligibility updates",
+      "rules": [
+        "To receive a transferred HOF role, you must win the season in which you online-wiped the defending player or tribe. Effective immediately from August 3, 2026, in addition to the other transfer requirements.",
+        "Glowden, Voltage Den and Glowtail are allowed for HOF, as announced September 25, 2026. This supersedes their earlier disqualification notices.",
+        "Rockwell Cave is allowed for HOF. Shadow’s Storm Depths is not allowed for HOF on 100x only. These changes apply from each cluster’s next wipe following the August 4, 2026 announcement.",
+        "Southgate is disqualified from HOF until announced otherwise. This applies from each cluster’s next wipe following the August 30, 2026 announcement.",
+        "Shook’s Crypts, Psycho Cove, Gen2 Cube (bugged, 1x), Shadow’s Dragon Den, Drunken Wakanda Cave and Doppey Cave are allowed for HOF, as announced July 2, 2026."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1528071564346523918",
+      "updated": "2026-08-05T23:00:35.350000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1517285907835650361",
+      "updated": "2026-07-31T02:22:49.190000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1517285746216665228",
+      "updated": "2026-06-18T22:43:32.544000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1516242933974564956",
+      "updated": "2026-07-31T02:53:58.019000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1516242906921570415",
+      "updated": "2026-07-18T16:07:32.287000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1516242864772743168",
+      "updated": "2026-07-01T01:50:28.523000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1516224740430188645/1516242830304088064",
+      "updated": "2026-07-18T21:10:37.613000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1533874672632991855",
+      "updated": "2026-08-03T18:58:26.516000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1553066488506748949",
+      "updated": "2026-09-25T15:31:45.440000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1534174510885113907",
+      "updated": "2026-08-04T14:24:59.379000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1543738494092845136",
+      "updated": "2026-08-30T21:45:38.266000+00:00"
+    },
+    {
+      "url": "https://discord.com/channels/1072737953895415858/1500222043453391010/1522388551566889041",
+      "updated": "2026-07-02T23:48:35.305000+00:00"
+    }
+  ],
+  "checked": "2026-10-03"
+}

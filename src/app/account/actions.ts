@@ -13,7 +13,7 @@ export async function saveProfileAction(_prev: ProfileState, form: FormData): Pr
   const user = await currentUser();
   if (!user) return { error: "Sign in through Steam first." };
   let input;
-  try { input = profileInput(form.get("bio"), form.get("accent"), form.get("published") === "yes"); }
+  try { input = profileInput(form.get("bio"), form.get("accent"), form.get("published") === "yes", form.get("share_links") === "yes"); }
   catch (e) { return { error: e instanceof Error ? e.message : "Check your profile details." }; }
   try {
     const profile = await saveAccountProfile(user.steam_id, input);
