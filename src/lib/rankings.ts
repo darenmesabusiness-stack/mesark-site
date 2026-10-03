@@ -48,6 +48,7 @@ export function rankingHref(
 
 /** Only the public fields used by this page cross the API boundary. */
 export interface RankingRow {
+  nameHidden?: boolean;
   avatar: string | null;
   name: string;
   rank: number;
@@ -91,25 +92,25 @@ export async function getRankings(
     for (const item of data.ranking_data.slice(0, 20)) {
       if (!item || typeof item !== "object") continue;
       const name = query.mode === "tribes" ? item.TribeName : item.PlayerName;
-      if (
-        typeof name !== "string" ||
-        !name.trim() ||
-        isBlockedName(name) ||
-        /7656\d{13}/.test(name)
-      )
-        continue;
+      if (typeof name !== "string" || !name.trim()) continue;
+      const rank = number(item.rank);
+      const nameHidden = isBlockedName(name) || /7656\d{13}/.test(name);
+      // Retain the actual podium position without exposing a filtered identity.
+      // Never promote a lower-ranked entry into somebody else's medal slot.
+      if (nameHidden && (!Number.isInteger(rank) || rank < 1 || rank > 3)) continue;
       const id = Number(item.TribeID);
       rows.push({
-        avatar: query.mode === "players" ? steamAvatar(item.avatar) : null,
-        name,
-        rank: number(item.rank),
+        avatar: !nameHidden && query.mode === "players" ? steamAvatar(item.avatar) : null,
+        name: nameHidden ? "Name hidden" : name,
+        nameHidden,
+        rank,
         kills: number(item.PlayerKills ?? item.TotalKills),
         deaths: number(item.DeathByPlayer ?? item.TotalDeaths),
         dinoKills: number(item.DinoKills ?? item.TotalTameKills),
         playTime: number(item.PlayTime ?? item.TotalPlayTime),
         score: number(item.DamageScore),
         tribeId:
-          query.mode === "tribes" && Number.isSafeInteger(id) && id > 0
+          !nameHidden && query.mode === "tribes" && Number.isSafeInteger(id) && id > 0
             ? id
             : null,
       });
