@@ -7,6 +7,7 @@ const NAV: { href: string; label: string; access: "staff" | "lead" | "owner" }[]
   { href: "/staff/tickets", label: "Tickets", access: "staff" },
   { href: "/staff/players", label: "Players", access: "staff" },
   { href: "/staff/support", label: "Support", access: "lead" },
+  { href: "/staff/discord", label: "Discord", access: "lead" },
   { href: "/staff/changelog", label: "Change log", access: "lead" },
   { href: "/staff/caves", label: "Caves", access: "lead" },
   { href: "/staff/team", label: "Team", access: "lead" },
