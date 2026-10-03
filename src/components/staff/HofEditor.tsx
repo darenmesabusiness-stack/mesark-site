@@ -15,7 +15,7 @@ export function HofEditor({
     { error: string | null; saved?: boolean },
     FormData
   >(saveWinner, { error: null });
-  const field = "border border-border bg-bg-card p-3 text-sm";
+  const field = "min-w-0 w-full border border-border bg-bg-card p-3 text-sm";
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [publish, setPublish] = useState(published),
     [verified, setVerified] = useState(false);
@@ -122,7 +122,7 @@ export function HofEditor({
         />
       </label>
       <label className="grid gap-2 text-sm">
-        Public achievement description
+        Their wipe story — what made this win special
         <textarea
           name="achievement"
           rows={3}
@@ -131,6 +131,20 @@ export function HofEditor({
           onChange={() => {}}
           className={field}
         />
+      </label>
+      <label className="grid gap-2 text-sm">Tribe signature / short headline
+        <input name="signature" maxLength={80} value={draft.signature ?? entry?.signature ?? ""} onChange={() => {}} className={field} placeholder="Use their own identity or a verified highlight." />
+      </label>
+      <fieldset className="border border-border p-4"><legend className="px-2 text-sm">Verified end-of-wipe results</legend>
+        <p className="mb-4 text-sm text-text-muted">Use final records from this exact cluster and season. Leave unavailable values empty. Never use a current leaderboard as an old season result.</p>
+        <div className="grid gap-4 sm:grid-cols-2">{(["score", "raids", "kills", "defenses"] as const).map(key => <label key={key} className="grid gap-2 text-sm capitalize">{key === "score" ? "Tribe score" : key}<input name={key} inputMode="numeric" pattern="[0-9]{1,12}" value={draft[key] ?? entry?.wipeStats?.[key]?.toString() ?? ""} onChange={() => {}} className={field} /></label>)}</div>
+      </fieldset>
+      <label className="grid gap-2 text-sm">Private results evidence reference
+        <textarea name="evidence" maxLength={1000} rows={2} value={draft.evidence ?? ""} onChange={() => {}} className={field} placeholder="Ticket or backup reference, season/cluster, and capture time. Required when entering results." />
+        <span className="text-text-muted">Stored only in the staff audit. Never displayed on tribute cards.</span>
+      </label>
+      <label className="grid gap-2 text-sm">Wipe film title
+        <input name="videoTitle" maxLength={160} value={draft.videoTitle ?? entry?.videoTitle ?? ""} onChange={() => {}} className={field} />
       </label>
       <label className="grid gap-2 text-sm">
         Public base tour / wipe video
@@ -185,7 +199,7 @@ export function HofEditor({
           checked={verified}
           onChange={(e) => setVerified(e.target.checked)}
         />{" "}
-        I verified this winner and the public roster.
+        I verified this winner, public roster, story and any results against this season’s records.
       </label>
       <label className="flex items-center gap-2 text-sm">
         <input

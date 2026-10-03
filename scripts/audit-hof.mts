@@ -28,7 +28,8 @@ for (const member of seed.honorees) {
   assert.deepEqual(member.honors, raw.honorees.find(m => m.id === member.id)!.honors, "Honors must remain source-backed");
 }
 for (const winner of seed.winners) {
-  keys(winner, ["id", "tribe", "season", "cluster", "date", "members", "video", "source"]);
+  keys(winner, ["id", "tribe", "season", "cluster", "date", "members", "video", "source", "videoTitle"]);
+  assert.ok(!winner.videoTitle || publicName(winner.videoTitle), "Unsafe wipe film title");
   assert.ok(publicName(winner.tribe));
   assert.ok(Number.isFinite(Date.parse(winner.date)) && Date.parse(winner.date) <= Date.now());
   assert.equal(winner.source, `${seed.source}/${winner.id}`);

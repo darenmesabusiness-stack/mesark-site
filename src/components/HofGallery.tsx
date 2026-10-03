@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { memberPath, tributeColor, tributeText, rosterHistory } from "@/lib/hofTribute";
 export type HofMember = { id: string; name: string; honors: string[] };
 export type HofWinner = {
   id: string;
@@ -13,6 +15,9 @@ export type HofWinner = {
   source: string;
   achievement?: string;
   art?: string;
+  signature?: string;
+  videoTitle?: string;
+  wipeStats?: { score?: number; raids?: number; kills?: number; defenses?: number };
 };
 export function HofGallery({
   winners,
@@ -119,6 +124,7 @@ export function HofGallery({
               key={w.id}
               id={w.id}
               className="clip-corner overflow-hidden border border-border bg-bg-card/60"
+              style={{ borderTop: `3px solid ${tributeColor(w.tribe)}` }}
             >
               <div className="relative h-40">
                 <Image
@@ -129,44 +135,49 @@ export function HofGallery({
                   className="object-cover object-[30%_50%] opacity-70"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-bg-card to-transparent" />
+                <span aria-hidden className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full border-2 bg-bg-card/80 font-display text-3xl font-black" style={{color:tributeColor(w.tribe),borderColor:tributeColor(w.tribe)}}>{w.tribe.split(/\s+/).slice(0,2).map(word=>word[0]).join("")}</span>
                 <p className="absolute bottom-4 left-5 font-mono text-sm uppercase text-accent">
                   {w.cluster} · Season {w.season}
                 </p>
               </div>
               <div className="p-5 pt-2">
+                {w.signature && <p className="mb-2 text-sm font-medium" style={{color: tributeColor(w.tribe)}}>{w.signature}</p>}
                 <h2 className="font-display text-3xl font-black break-words">
                   {w.tribe}
                 </h2>
                 <p className="mt-2 text-sm text-text-muted">
-                  {w.achievement ||
-                    "Recognized as a Hall of Fame winner in the official MESA announcement."}
+                  {tributeText(w)}
                 </p>
+                <p className="mt-3 text-sm text-text-muted">Recognized {new Date(w.date).toLocaleDateString("en-US", {timeZone:"UTC", month:"long", day:"numeric", year:"numeric"})}</p>
+                {w.wipeStats && Object.keys(w.wipeStats).length > 0 && <dl className="mt-4 grid grid-cols-2 gap-3 border-y border-border py-4">
+                  {Object.entries(w.wipeStats).map(([label,value]) => <div key={label}><dt className="text-sm capitalize text-text-muted">{label === "score" ? "Tribe score" : label}</dt><dd className="font-display text-3xl" style={{color:tributeColor(w.tribe)}}>{value.toLocaleString("en-US")}</dd></div>)}
+                </dl>}
                 <h3 className="mt-5 text-sm uppercase tracking-widest text-text-muted">
                   Winning roster
                 </h3>
                 <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
                   {w.members.map((m) => (
-                    <li key={m.id}>
-                      <a
-                        href={`https://discord.com/users/${m.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <li key={m.id} className="min-w-0 max-w-full break-words">
+                      <Link
+                        href={memberPath(m.id)}
                         className="text-sm hover:text-accent"
                       >
-                        {m.name} ↗
-                      </a>
+                        {m.name} →
+                      </Link>
                     </li>
                   ))}
                 </ul>
+                {rosterHistory(w,winners).length > 0 && <details className="mt-4 text-sm"><summary className="cursor-pointer text-text-muted">More wins from this roster ({rosterHistory(w,winners).length})</summary><ul className="mt-2 grid gap-2">{rosterHistory(w,winners).map(record => <li key={record.id}><Link href={`/hall-of-fame#${record.id}`} className="hover:text-accent">{record.tribe} · {record.cluster} · Season {record.season}</Link></li>)}</ul></details>}
                 <div className="mt-6 flex flex-wrap gap-4 text-sm">
+                  <Link href={`/hall-of-fame/tributes/${w.id}`} className="text-accent underline">Explore their tribute →</Link>
                   {w.video && (
                     <a
                       href={w.video}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-accent underline"
+                      className="break-words text-accent underline"
                     >
-                      Watch base tour / wipe video ↗
+                      {w.videoTitle || "Watch this tribe’s wipe film"} ↗
                     </a>
                   )}
                   <a
@@ -190,14 +201,12 @@ export function HofGallery({
               className="border border-border bg-bg-card/60 p-4"
             >
               <h2 className="font-display text-2xl font-bold break-words">
-                <a
-                  href={`https://discord.com/users/${m.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={memberPath(m.id)}
                   className="hover:text-accent"
                 >
-                  {m.name} ↗
-                </a>
+                  {m.name} →
+                </Link>
               </h2>
               <ul className="mt-2 grid gap-1 text-sm text-text-muted">
                 {m.honors.map((r) => (

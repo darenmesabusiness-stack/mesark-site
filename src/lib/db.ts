@@ -43,6 +43,11 @@ function connect(): Query {
 }
 
 const SCHEMA = [
+  `create table if not exists rules_revisions (id uuid primary key, raw text not null, data jsonb not null,
+    actor text not null, created_at timestamptz not null default now())`,
+  `create table if not exists rules_live (id integer primary key check(id=1), revision uuid not null references rules_revisions(id))`,
+  `create table if not exists rules_publish_audit (id bigserial primary key, actor text not null,
+    revision uuid not null references rules_revisions(id), previous text not null, at timestamptz not null default now())`,
   `create table if not exists hof_entries (
     id text primary key, data jsonb not null, published boolean not null default false,
     updated_by text not null, updated_at timestamptz not null default now()
@@ -51,6 +56,7 @@ const SCHEMA = [
     id bigserial primary key, entry_id text not null, actor text not null,
     data jsonb not null, published boolean not null, created_at timestamptz not null default now()
   )`,
+  `alter table hof_audit add column if not exists evidence text`,
   `create table if not exists support_tickets (
     id uuid primary key, number bigserial unique, opener text not null, opener_name text not null,
     discord_id text not null, type text not null, cluster text not null, subject text not null,
@@ -132,6 +138,7 @@ const SCHEMA = [
      published boolean not null default false
    )`,
   // Roles v2: the first-week "admin" (full access) is now "owner"; nothing writes "admin" any more.
+  `alter table player_profiles add column if not exists share_links boolean not null default false`,
   `update users set role = 'owner' where role = 'admin'`,
   // Change log months written in the staff editor; published rows override the built-in months.
   `create table if not exists changelog_months (

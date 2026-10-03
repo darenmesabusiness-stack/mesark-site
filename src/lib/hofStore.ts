@@ -46,6 +46,8 @@ export function parseHof(form: FormData): HofWinner | null {
     season = get("season"),
     cluster = get("cluster"),
     achievement = get("achievement"),
+    signature = get("signature"),
+    videoTitle = get("videoTitle"),
     video = get("video"),
     source = get("source"),
     art = get("art"),
@@ -59,6 +61,8 @@ export function parseHof(form: FormData): HofWinner | null {
     !/^\d{1,4}$/.test(season) ||
     !["Solo", "Duo", "3 Man", "4 Man", "6 Man", "100x"].includes(cluster) ||
     achievement.length > 1000 ||
+    signature.length > 80 || videoTitle.length > 160 ||
+    [achievement, signature, videoTitle].some(v => isBlockedName(v) || /jew\W*hunt|7656\d{13}/i.test(v)) ||
     !HOF_ART.includes(art) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
     !Number.isFinite(Date.parse(date))
@@ -101,12 +105,20 @@ export function parseHof(form: FormData): HofWinner | null {
     )
   )
     return null;
+  const wipeStats: NonNullable<HofWinner["wipeStats"]> = {};
+  for (const key of ["score", "raids", "kills", "defenses"] as const) {
+    const raw = get(key);
+    if (!raw) continue;
+    if (!/^\d{1,12}$/.test(raw)) return null;
+    wipeStats[key] = Number(raw);
+  }
   return {
     id,
     tribe,
     season,
     cluster,
     achievement,
+    signature, videoTitle, wipeStats,
     video: video || null,
     source: source || `https://mesark.net/hall-of-fame#${id}`,
     art,
@@ -118,17 +130,19 @@ export async function saveHof(
   actor: User,
   data: HofWinner,
   published: boolean,
+  evidence = "",
 ) {
   if (!validId(data.id)) return false;
+  if (evidence.length>1000 || (data.wipeStats && Object.keys(data.wipeStats).length>0 && !evidence.trim())) return false;
   return Boolean(
     (
       await ownershipQuery(
         `with allowed as(select steam_id from users where steam_id=$1 and role in ('lead','owner')),
     saved as(insert into hof_entries(id,data,published,updated_by) select $2,$3::jsonb,$4,$1 from allowed
       on conflict(id) do update set data=excluded.data,published=excluded.published,updated_by=$1,updated_at=now() returning id),
-    logged as(insert into hof_audit(entry_id,actor,data,published) select id,$1,$3::jsonb,$4 from saved returning id)
+    logged as(insert into hof_audit(entry_id,actor,data,published,evidence) select id,$1,$3::jsonb,$4,$5 from saved returning id)
     select id from logged`,
-        [actor.steam_id, data.id, JSON.stringify(data), published],
+        [actor.steam_id, data.id, JSON.stringify(data), published, evidence.trim()],
       )
     ).length,
   );

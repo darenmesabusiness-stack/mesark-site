@@ -15,8 +15,8 @@ export async function saveWinner(
         "Confirm the winner and check all public fields. Each roster line needs a name | Discord profile URL. Never publish Steam IDs, private evidence or base coordinates.",
     };
   try {
-    if (!(await saveHof(user, data, form.get("published") === "on")))
-      return { error: "Only lead admins and the owner can publish winners." };
+    if (!(await saveHof(user, data, form.get("published") === "on", String(form.get("evidence")??""))))
+      return { error: "Only leads and the owner can save. Verified results need a private evidence reference of up to 1,000 characters." };
   } catch {
     return { error: "Could not save. Your form is kept; try again." };
   }
