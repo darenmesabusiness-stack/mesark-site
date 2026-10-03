@@ -66,7 +66,10 @@ Editor browser fixture was clearly synthetic, never submitted, then removed.
 Screenshots are in ignored out/review/. No authentication bypass or production
 record edit was used for these previews.
 
-After approval merge PR45 first, retarget this PR to main, review resulting diff,
+PR45 was explicitly approved and merged as8b057806 onOctober3 at17:42UTC.
+Production deployment FZx1S9qAAjUbcjYCaimpBBaZ9re2 succeeded. This draft is now
+retargeted to main and incorporates that release without changing its tested tree.
+After separate approval for this rules/tribute draft, review the resulting diff,
 merge and wait for successful production deployment. Verify staff draft/save/
 summary/lead publish/conflict/history against a disposable nonpublic draft, real
 public rule coverage, HOF public/opt-in/withdrawal state, and mobile layouts.
