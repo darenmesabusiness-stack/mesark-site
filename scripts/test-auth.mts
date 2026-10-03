@@ -4,7 +4,7 @@
  */
 import assert from "node:assert/strict";
 import { PGlite } from "@electric-sql/pglite";
-import { useDriver, query, type Transaction } from "../src/lib/db";
+import { useDriver as setDriver, query, type Transaction } from "../src/lib/db";
 import { NextRequest } from "next/server";
 import { POST as claim } from "../src/app/api/staff/claim/route";
 import { POST as deleteRoute } from "../src/app/api/auth/delete/route";
@@ -27,7 +27,7 @@ const transaction: Transaction = (statements) => pg.transaction(async (tx) => {
   for (const { text, params = [] } of statements) results.push((await tx.query(text, params)).rows as Record<string, unknown>[]);
   return results;
 });
-const installDriver = () => useDriver(async (text, params = []) => (await pg.query(text, params)).rows as never, transaction);
+const installDriver = () => setDriver(async (text, params = []) => (await pg.query(text, params)).rows as never, transaction);
 installDriver();
 assert.equal((await claim()).status, 410, "setup is closed even before any accounts exist");
 

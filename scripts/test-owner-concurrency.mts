@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { setTimeout as delay } from "node:timers/promises";
 import { Pool } from "pg";
-import { query, useDriver, type Transaction } from "../src/lib/db";
+import { query, useDriver as setDriver, type Transaction } from "../src/lib/db";
 import { createSession, deleteAccount, upsertUser, userForToken } from "../src/lib/auth";
 import { setRole } from "../src/lib/staff";
 
@@ -31,7 +31,7 @@ const transaction: Transaction = async (statements) => {
     client.release();
   }
 };
-useDriver(async (text, params) => (await pool.query(text, params)).rows as never, transaction);
+setDriver(async (text, params) => (await pool.query(text, params)).rows as never, transaction);
 
 async function account(id: string, role: string) {
   await upsertUser(id, id, null);
