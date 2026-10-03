@@ -53,7 +53,7 @@ export default async function TribePage({ params }: Params) {
         <div className="grid grid-cols-3 gap-px border border-border bg-border sm:grid-cols-6">
           {totals.map((s) => (
             <div key={s.label} className="bg-bg-secondary px-3 py-3">
-              <p className="hud-label !text-[10px]">{s.label}</p>
+              <p className="hud-label !text-xs">{s.label}</p>
               <p className="font-display mt-1 text-3xl font-black">{s.value}</p>
             </div>
           ))}
@@ -63,7 +63,7 @@ export default async function TribePage({ params }: Params) {
         <div className="mt-4 overflow-x-auto border border-border">
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead className="bg-bg-secondary">
-              <tr className="hud-label !text-[10px]">
+              <tr className="hud-label !text-xs">
                 <th className="px-4 py-3 font-normal">Survivor</th>
                 <th className="px-3 py-3 text-right font-normal">Kills</th>
                 <th className="px-3 py-3 text-right font-normal">Deaths</th>

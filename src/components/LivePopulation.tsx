@@ -24,7 +24,7 @@ export function LivePopulation({ pop }: { pop: PopulationData | null }) {
     <section aria-label="Players online" className="border border-border bg-bg-card/60 px-5 py-4">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-emerald-400">
+          <p className="flex items-center gap-2 font-mono text-[13px] uppercase tracking-[0.18em] text-emerald-400">
             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" aria-hidden /> Live
           </p>
           <p className="font-display mt-1 text-5xl font-black leading-none tabular-nums">

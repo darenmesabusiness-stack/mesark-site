@@ -61,7 +61,7 @@ function ClusterCard({ name, wipe, rates }: {
 function StatBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="text-center py-1.5">
-      <div className="text-[10px] uppercase tracking-wider text-text-muted/60 mb-0.5">{label}</div>
+      <div className="text-xs uppercase tracking-wider text-text-muted/80 mb-0.5">{label}</div>
       <div className="text-sm font-bold text-accent">{value}</div>
     </div>
   );

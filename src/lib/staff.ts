@@ -10,26 +10,28 @@
 import { ownershipQuery, query } from "@/lib/db";
 import type { User } from "@/lib/auth";
 
-export const ROLES = ["player", "staff", "lead", "owner"] as const;
+export const ROLES = ["player", "moderator", "staff", "lead", "owner"] as const;
 export type Role = (typeof ROLES)[number];
-export const ROLE_LABEL: Record<Role, string> = { player: "Player", staff: "Admin", lead: "Lead Admin", owner: "Owner" };
+export const ROLE_LABEL: Record<Role, string> = { player: "Player", moderator: "Moderator", staff: "Admin", lead: "Lead Admin", owner: "Owner" };
 export const ROLE_HELP: Record<Role, string> = {
   player: "No staff access",
+  moderator: "Question support and own monthly rewards",
   staff: "Works tickets",
   lead: "Runs content and the admin team",
   owner: "Everything, incl. finance",
 };
-const RANK: Record<Role, number> = { player: 0, staff: 1, lead: 2, owner: 3 };
+const RANK: Record<Role, number> = { player: 0, moderator: 0, staff: 1, lead: 2, owner: 3 };
 const rank = (u: User | null) => (u ? (RANK[u.role as Role] ?? 0) : 0);
 
 export const isStaff = (u: User | null): u is User => rank(u) >= RANK.staff;
+export const canSupport = (u: User | null): u is User => Boolean(u && (u.role === "moderator" || isStaff(u)));
 /** Lead admins and owners: editors, stats, the Team page. */
 export const isLead = (u: User | null): u is User => rank(u) >= RANK.lead;
 export const isOwner = (u: User | null): u is User => rank(u) >= RANK.owner;
 
 /** Roles this person may hand out (and change away from) on the Team page. */
 export const assignableRoles = (actor: User): Role[] =>
-  isOwner(actor) ? [...ROLES] : isLead(actor) ? ["player", "staff"] : [];
+  isOwner(actor) ? [...ROLES] : isLead(actor) ? ["player", "moderator", "staff"] : [];
 
 export interface TeamRow {
   steam_id: string;
@@ -65,7 +67,7 @@ export async function setRole(actor: User, steamId: string, role: Role): Promise
          when actor_role is null or actor_role not in ('owner', 'lead')
            then 'Only owners and lead admins can change roles.'
          when target_role is null then 'That account doesn''t exist.'
-         when actor_role = 'lead' and (target_role not in ('player', 'staff') or $3 not in ('player', 'staff'))
+         when actor_role = 'lead' and (target_role not in ('player', 'moderator', 'staff') or $3 not in ('player', 'moderator', 'staff'))
            then 'Lead admins can add and remove admins. Only the owner can change lead admins and owners.'
          when target_role = 'owner' and $3 <> 'owner' and owners <= 1
            then 'This is the only owner. Make someone else owner first.'

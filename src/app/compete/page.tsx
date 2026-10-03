@@ -1,7 +1,11 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
-import { ContentSection, InfoCard, RuleItem } from "@/components/ContentSection";
+import {
+  ContentSection,
+  InfoCard,
+  RuleItem,
+} from "@/components/ContentSection";
 import { hofTiers } from "@/data/hof";
 
 export const metadata = pageMeta({
@@ -21,6 +25,14 @@ export default function CompetePage() {
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">
+        <div className="flex flex-wrap gap-5 py-4 text-sm">
+          <Link href="/hall-of-fame" className="text-accent underline">
+            Meet the Hall of Fame members
+          </Link>
+          <Link href="/support?type=hof" className="text-accent underline">
+            Submit your HOF application
+          </Link>
+        </div>
         {/* Leaderboard Link Card */}
         <Link
           href="/leaderboards"
@@ -54,9 +66,20 @@ export default function CompetePage() {
               </thead>
               <tbody className="text-text-primary">
                 {hofTiers.map((t, i) => (
-                  <tr key={t.name} className={i < hofTiers.length - 1 ? "border-b border-border/50" : ""}>
-                    <td className={`py-2.5 pr-4 font-display text-xl font-extrabold ${t.color}`}>{t.name}</td>
-                    <td className="py-2.5 pr-4 font-mono text-xs">{t.wins} win{t.wins > 1 ? "s" : ""}</td>
+                  <tr
+                    key={t.name}
+                    className={
+                      i < hofTiers.length - 1 ? "border-b border-border/50" : ""
+                    }
+                  >
+                    <td
+                      className={`py-2.5 pr-4 font-display text-xl font-extrabold ${t.color}`}
+                    >
+                      {t.name}
+                    </td>
+                    <td className="py-2.5 pr-4 font-mono text-xs">
+                      {t.wins} win{t.wins > 1 ? "s" : ""}
+                    </td>
                     <td className="py-2.5 text-accent">{t.reward}</td>
                   </tr>
                 ))}
@@ -75,11 +98,20 @@ export default function CompetePage() {
         </ContentSection>
 
         <ContentSection title="Submission Requirements">
-          <RuleItem text="Submit your Hall of Fame claim within 48 hours of the wipe." warning />
-          <RuleItem text="Your base must be located in a vanilla cave to qualify." warning />
+          <RuleItem
+            text="Submit your Hall of Fame claim within 48 hours of the wipe."
+            warning
+          />
+          <RuleItem
+            text="Your base must be located in a vanilla cave to qualify."
+            warning
+          />
           <RuleItem text="Maintain an active raid list throughout the wipe." />
           <RuleItem text="Submit a full Hall of Fame video showing your wipe performance." />
-          <RuleItem text="All tribe members' Steam IDs must be accurate — lying results in a 60-day ban." warning />
+          <RuleItem
+            text="All tribe members' Steam IDs must be accurate — lying results in a 60-day ban."
+            warning
+          />
         </ContentSection>
       </div>
     </>

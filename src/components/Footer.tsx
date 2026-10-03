@@ -23,7 +23,8 @@ const COLUMNS = [
   {
     title: "Compete",
     links: [
-      { href: "/compete", label: "Hall of Fame" },
+      { href: "/hall-of-fame", label: "Hall of Fame" },
+      { href: "/compete", label: "Qualification & Rewards" },
       { href: "/players", label: "Player Profiles" },
       { href: "/account", label: "Your Account" },
       { href: "/leaderboards", label: "Leaderboards" },
@@ -35,7 +36,10 @@ const COLUMNS = [
       { href: "/support", label: "Player Support" },
       { href: "https://discord.gg/mesark", label: "Main Discord" },
       { href: "https://discord.gg/jkax9Nk46x", label: "Support Discord" },
-      { href: "https://steamcommunity.com/sharedfiles/filedetails/?id=3282623549", label: "Steam Collection" },
+      {
+        href: "https://steamcommunity.com/sharedfiles/filedetails/?id=3282623549",
+        label: "Steam Collection",
+      },
     ],
   },
 ];
@@ -51,19 +55,24 @@ export function Footer() {
               <span className="font-display text-3xl font-black">MESA</span>
             </div>
             <p className="mt-4 max-w-sm text-sm text-text-muted">
-              Competitive ARK: Survival Evolved PvP. Fresh wipes every few days, custom mods, real rewards.
+              Competitive ARK: Survival Evolved PvP. Fresh wipes every few days,
+              custom mods, real rewards.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {COLUMNS.map((col) => (
               <div key={col.title}>
-                <h4 className="hud-label mb-4 !text-text-primary">{col.title}</h4>
+                <h4 className="hud-label mb-4 !text-text-primary">
+                  {col.title}
+                </h4>
                 <ul className="space-y-2.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        target={l.href.startsWith("http") ? "_blank" : undefined}
+                        target={
+                          l.href.startsWith("http") ? "_blank" : undefined
+                        }
                         className="text-sm text-text-muted transition hover:text-accent"
                       >
                         {l.label}
@@ -78,7 +87,10 @@ export function Footer() {
       </div>
 
       {/* Oversized wordmark */}
-      <div className="pointer-events-none mt-10 select-none overflow-hidden" aria-hidden>
+      <div
+        className="pointer-events-none mt-10 select-none overflow-hidden"
+        aria-hidden
+      >
         <div className="font-display text-stroke translate-y-[18%] text-center text-[27vw] font-black leading-none opacity-[0.07]">
           MESA ARK
         </div>
@@ -86,8 +98,8 @@ export function Footer() {
 
       <div className="relative border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 sm:flex-row sm:px-6">
-          <span className="hud-label !text-[10px]">MESA ARK &copy; {new Date().getFullYear()}</span>
-          <span className="hud-label !text-[10px]">Not affiliated with Studio Wildcard</span>
+          <span className="hud-label !text-xs">MESA ARK &copy; {new Date().getFullYear()}</span>
+          <span className="hud-label !text-xs">Not affiliated with Studio Wildcard</span>
         </div>
       </div>
     </footer>

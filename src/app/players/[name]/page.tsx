@@ -60,6 +60,7 @@ export default async function PlayerPage({ params }: Params) {
       <ProfileHero
         kicker="Player profile"
         title={name}
+        avatar={p.avatar}
         sub={`On ${clusters.map((c) => clusterByKey(c.cluster)?.name ?? c.cluster).join(" · ")} · best: #${num(t.best.killsRank)} in kills on ${art.name}`}
         art={art.art}
         focus={art.focus}
@@ -69,12 +70,12 @@ export default async function PlayerPage({ params }: Params) {
         <div className="grid grid-cols-3 gap-px border border-border bg-border sm:grid-cols-6">
           {totals.map((s) => (
             <div key={s.label} className="bg-bg-secondary px-3 py-3">
-              <p className="hud-label !text-[10px]">{s.label}</p>
+              <p className="hud-label !text-xs">{s.label}</p>
               <p className="font-display mt-1 text-3xl font-black">{s.value}</p>
             </div>
           ))}
         </div>
-        <p className="hud-label mt-3 !text-[10px]">All clusters combined</p>
+        <p className="hud-label mt-3 !text-xs">All clusters combined</p>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {clusters.map((c) => (
@@ -122,7 +123,7 @@ function ClusterCard({ c }: { c: PlayerCluster }) {
         <h2 className="font-display min-w-0 flex-1 text-4xl font-black sm:text-5xl">{cl.name}</h2>
         <p className="text-right">
           <span className="font-display block text-3xl font-black text-accent">#{num(c.killsRank)}</span>
-          <span className="hud-label !text-[10px]">in kills of {num(c.totalPlayers)}</span>
+          <span className="hud-label !text-xs">in kills of {num(c.totalPlayers)}</span>
         </p>
       </div>
       <div className="p-5 pt-4">
@@ -141,7 +142,7 @@ function ClusterCard({ c }: { c: PlayerCluster }) {
         <dl className="mt-4 grid grid-cols-4 gap-x-3 gap-y-4">
           {stats.map(([label, value]) => (
             <div key={label}>
-              <dt className="hud-label !text-[9px]">{label}</dt>
+              <dt className="hud-label !text-xs">{label}</dt>
               <dd className="font-display mt-0.5 text-2xl font-black">{value}</dd>
             </div>
           ))}

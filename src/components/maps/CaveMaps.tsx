@@ -60,7 +60,7 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
             }`}
           >
             {m.name}
-            <span className={`ml-2 font-mono text-[10px] ${m.slug === slug ? "text-bg-primary/70" : "text-text-muted"}`}>
+            <span className={`ml-2 font-mono text-xs ${m.slug === slug ? "text-bg-primary/70" : "text-text-muted"}`}>
               {m.caves.length}
             </span>
           </button>
@@ -93,7 +93,7 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search caves or features (flyers, water, choke)..."
-                  className="mt-3 w-full border border-border bg-bg-primary/60 px-3 py-2 text-sm placeholder:text-text-muted/60 focus:border-accent/50 focus:outline-none"
+                  className="mt-3 w-full border border-border bg-bg-primary/60 px-3 py-2 text-sm placeholder:text-text-muted/80 focus:border-accent/50 focus:outline-none"
                 />
               </div>
               <ul className="flex-1 overflow-y-auto p-2">
@@ -107,7 +107,7 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
                       <PinBadge n={n} />
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm font-semibold">{c.name}</span>
-                        <span className="font-mono text-[11px] text-text-muted">
+                        <span className="font-mono text-[13px] text-text-muted">
                           {c.lat}, {c.lon}
                         </span>
                       </span>
@@ -128,7 +128,7 @@ export function CaveMaps({ maps }: { maps: CaveMap[] }) {
 function PinBadge({ n, active = false }: { n: number; active?: boolean }) {
   return (
     <span
-      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 font-mono text-[10px] font-bold sm:h-7 sm:w-7 sm:text-[11px] ${
+      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 font-mono text-xs font-bold sm:h-7 sm:w-7 sm:text-[13px] ${
         active ? "border-white bg-accent text-bg-primary" : "border-accent/80 bg-bg-primary text-accent"
       }`}
     >
@@ -276,7 +276,7 @@ function MapView({ map, selected, onSelect }: { map: CaveMap; selected: string |
           </button>
         ))}
       </div>
-      <p className="pointer-events-none absolute bottom-2 left-3 font-mono text-[10px] uppercase tracking-widest text-text-primary/60">
+      <p className="pointer-events-none absolute bottom-2 left-3 font-mono text-xs uppercase tracking-widest text-text-primary/60">
         Scroll or pinch to zoom · drag to move
       </p>
     </div>
@@ -361,7 +361,7 @@ function CaveDetail({ cave, n, mapName, onBack }: { cave: Cave; n: number; mapNa
           <span className="font-mono text-lg text-text-primary">
             {cave.lat}, {cave.lon}
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-accent">{copied === "gps" ? "Copied" : "Copy"}</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-accent">{copied === "gps" ? "Copied" : "Copy"}</span>
         </button>
         {cave.notes.length > 0 && (
           <ul className="space-y-1.5 text-sm text-text-primary/85">
@@ -379,8 +379,8 @@ function CaveDetail({ cave, n, mapName, onBack }: { cave: Cave; n: number; mapNa
             onClick={() => copy(cave.spi!, "spi")}
             className="w-full border border-dashed border-border px-3 py-2 text-left transition hover:border-accent/50"
           >
-            <span className="hud-label block !text-[10px]">Admin teleport {copied === "spi" ? "· copied" : "· click to copy"}</span>
-            <code className="mt-1 block break-all font-mono text-[11px] text-text-muted">{cave.spi}</code>
+            <span className="hud-label block !text-xs">Admin teleport {copied === "spi" ? "· copied" : "· click to copy"}</span>
+            <code className="mt-1 block break-all font-mono text-[13px] text-text-muted">{cave.spi}</code>
           </button>
         )}
       </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { dbConfigured } from "@/lib/db";
-import { isOwner, isStaff } from "@/lib/staff";
+import { isOwner, canSupport } from "@/lib/staff";
 import { DiscordLink } from "@/components/account/DiscordLink";
 
 export const metadata = pageMeta({
@@ -83,7 +83,7 @@ export default async function AccountPage({
             </div>
           </div>
           {sp.welcome && <p className="mt-6 text-text-primary/80">You&apos;re signed in. Welcome to MESA.</p>}
-          {isStaff(user) && (
+          {canSupport(user) && (
             <Link
               href="/staff"
               className="clip-corner-sm mt-6 inline-flex bg-accent px-5 py-2.5 font-display text-xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]"
@@ -93,7 +93,7 @@ export default async function AccountPage({
           )}
 
           <section className="mt-10 border border-border bg-bg-card/60 p-5 sm:p-6">
-            <p className="hud-label !text-[10px]">Discord</p>
+            <p className="hud-label !text-xs">Discord</p>
             <h2 className="font-display mt-1 text-3xl font-black">Link your Discord</h2>
             <p className="mt-1 mb-5 text-sm text-text-muted">So staff know who you are in tickets, and ticket replies from the website can reach you on Discord.</p>
             <DiscordLink linkedName={user.discord_name ?? (user.discord_id ? "your Discord" : null)} />
@@ -108,7 +108,7 @@ export default async function AccountPage({
               ["Claim your profile", "Link your in-game stats to this account."],
             ].map(([title, text]) => (
               <div key={title} className="bg-bg-card p-5">
-                <p className="hud-label !text-[10px]">Coming next</p>
+                <p className="hud-label !text-xs">Coming next</p>
                 <h2 className="font-display mt-1 text-2xl font-black">{title}</h2>
                 <p className="mt-2 text-sm text-text-muted">{text}</p>
               </div>

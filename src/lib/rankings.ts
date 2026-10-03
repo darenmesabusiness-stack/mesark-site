@@ -1,4 +1,5 @@
 import { CLUSTERS, isBlockedName } from "@/lib/leaderboard";
+import { steamAvatar } from "@/lib/steamAvatar";
 
 export const PLAYER_SORTS = [
   "Kills",
@@ -47,6 +48,7 @@ export function rankingHref(
 
 /** Only the public fields used by this page cross the API boundary. */
 export interface RankingRow {
+  avatar: string | null;
   name: string;
   rank: number;
   kills: number;
@@ -98,6 +100,7 @@ export async function getRankings(
         continue;
       const id = Number(item.TribeID);
       rows.push({
+        avatar: query.mode === "players" ? steamAvatar(item.avatar) : null,
         name,
         rank: number(item.rank),
         kills: number(item.PlayerKills ?? item.TotalKills),
