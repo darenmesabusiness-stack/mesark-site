@@ -23,18 +23,14 @@ const STATUS: Record<Status, string> = {
   Planned: "border-border text-text-muted",
 };
 
-export default async function StaffHome({ searchParams }: { searchParams: Promise<{ error?: string; claimed?: string }> }) {
+export default async function StaffHome() {
   const user = await currentUser();
-  const sp = await searchParams;
-  if (!isStaff(user)) return <StaffGate user={user} error={sp.error === "claim" ? "Owner access can't be claimed any more. Ask the owner." : undefined} />;
+  if (!isStaff(user)) return <StaffGate user={user} />;
 
   const can = { staff: true, lead: isLead(user), owner: isOwner(user) };
   const modules = MODULES.filter((m) => can[m.access]);
   return (
     <StaffShell user={user} active="/staff" title="Staff section" kicker="Overview">
-      {sp.claimed && (
-        <p className="mb-8 border-l-2 border-teal bg-bg-card/80 px-4 py-3 text-sm">You&apos;re the owner now. Add your lead admin and admins on the Team page.</p>
-      )}
       <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((m) => {
           const body = (

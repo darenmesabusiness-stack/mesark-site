@@ -4,9 +4,13 @@
  */
 import assert from "node:assert/strict";
 import { PGlite } from "@electric-sql/pglite";
-import { useDriver, query } from "../src/lib/db";
+import { useDriver, query, type Transaction } from "../src/lib/db";
+import { NextRequest } from "next/server";
+import { POST as claim } from "../src/app/api/staff/claim/route";
+import { POST as deleteRoute } from "../src/app/api/auth/delete/route";
 import {
   STEAM_OPENID,
+  SESSION_COOKIE,
   createSession,
   deleteAccount,
   endSession,
@@ -15,10 +19,17 @@ import {
   userForToken,
   verifySteamReply,
 } from "../src/lib/auth";
-import { canClaimOwner, claimOwner, setRole } from "../src/lib/staff";
+import { setRole } from "../src/lib/staff";
 
 const pg = new PGlite();
-useDriver(async (text, params = []) => (await pg.query(text, params as unknown[])).rows as never);
+const transaction: Transaction = (statements) => pg.transaction(async (tx) => {
+  const results: Record<string, unknown>[][] = [];
+  for (const { text, params = [] } of statements) results.push((await tx.query(text, params)).rows as Record<string, unknown>[]);
+  return results;
+});
+const installDriver = () => useDriver(async (text, params = []) => (await pg.query(text, params)).rows as never, transaction);
+installDriver();
+assert.equal((await claim()).status, 410, "setup is closed even before any accounts exist");
 
 const origin = "https://mesark.net";
 const returnTo = `${origin}/api/auth/steam/callback?state=abc`;
@@ -89,21 +100,15 @@ assert.equal(await userForToken(t3), null);
 assert.equal((await query("select 1 from users")).length, 0, "account deleted");
 assert.equal((await query("select 1 from sessions")).length, 0, "sessions deleted with the account");
 
-// Staff roles: the only account can claim owner once; admins manage roles.
+// Setup has finished: only an operator can seed/recover an owner in an empty DB.
 await upsertUser("76561198000000010", "Owner", null);
-const owner = (await userForToken(await createSession("76561198000000010")))!;
-assert.equal(await canClaimOwner(owner), true);
-await query("update users set created_at = now() - interval '1 day' where steam_id = '76561198000000010'");
 await upsertUser("76561198000000011", "Second", null);
-const second = (await userForToken(await createSession("76561198000000011")))!;
-assert.equal(await canClaimOwner(second), false, "a later account can't claim");
-assert.equal(await claimOwner(second), false);
-assert.equal(await canClaimOwner(owner), true, "the first account still can, even with others signed in");
-assert.equal(await claimOwner(owner), true);
+assert.equal((await claim()).status, 410, "oldest account cannot claim ownership");
+assert.equal((await query("select 1 from users where role = 'owner'")).length, 0);
+await query("update users set role = 'owner' where steam_id = '76561198000000010'");
 await query("delete from users where steam_id = '76561198000000011'");
 const boss = (await userForToken(await createSession("76561198000000010")))!;
 assert.equal(boss.role, "owner");
-assert.equal(await claimOwner(boss), false, "claim works only once");
 await upsertUser("76561198000000012", "Mod", null);
 const mod = (await userForToken(await createSession("76561198000000012")))!;
 assert.equal(await setRole(mod, "76561198000000012", "owner"), "Only owners and lead admins can change roles.");
@@ -127,7 +132,52 @@ assert.match(String(await setRole(lead, "76561198000000013", "player")), /Only t
 
 // Legacy "admin" rows become "owner" when the schema runs.
 await query("update users set role = 'admin' where steam_id = '76561198000000010'");
-useDriver(async (text, params = []) => (await pg.query(text, params as unknown[])).rows as never); // re-run schema
+installDriver(); // re-run schema
 assert.equal((await query<{ role: string }>("select role from users where steam_id = '76561198000000010'"))[0].role, "owner");
 
+// A blocked deletion retains sessions and Discord linkage, including at the HTTP boundary.
+await query("update users set discord_id = 'test-discord', discord_name = 'Test' where steam_id = $1", [boss.steam_id]);
+const ownerToken = await createSession(boss.steam_id);
+assert.deepEqual(await deleteAccount(boss.steam_id), { deleted: false, blocked: true });
+const request = (cookie: string, confirmed = true) => new NextRequest(`${origin}/api/auth/delete`, {
+  method: "POST",
+  headers: { cookie: `${SESSION_COOKIE}=${cookie}`, "Content-Type": "application/x-www-form-urlencoded" },
+  body: confirmed ? "confirm=yes" : "",
+});
+const rejected = await deleteRoute(request(ownerToken));
+assert.equal(rejected.status, 303);
+assert.equal(rejected.headers.get("location"), `${origin}/account?error=last_owner`);
+assert.equal(rejected.headers.get("set-cookie"), null, "blocked deletion does not sign out the owner");
+assert.equal((await userForToken(ownerToken))?.discord_id, "test-discord", "blocked deletion preserves the link");
+assert.equal((await deleteRoute(request(ownerToken, false))).headers.get("location"), `${origin}/account?error=confirm`);
+
+// Caller objects are snapshots, never authority: revoked roles cannot be reused.
+assert.equal(await setRole(boss, lead.steam_id, "player"), null);
+assert.match(String(await setRole(lead, mod.steam_id, "staff")), /Only owners and lead admins/);
+assert.equal(await setRole(boss, mod.steam_id, "owner"), null);
+const otherOwner = (await userForToken(await createSession(mod.steam_id)))!;
+assert.equal(await setRole(boss, boss.steam_id, "player"), null, "ownership can be transferred");
+assert.match(String(await setRole(boss, otherOwner.steam_id, "player")), /Only owners and lead admins/);
+assert.deepEqual(await deleteAccount(otherOwner.steam_id), { deleted: false, blocked: true });
+
+// Valid deletion clears all sessions. Use an unlinked ordinary account to avoid network calls.
+const leadToken = await createSession(lead.steam_id);
+const accepted = await deleteRoute(request(leadToken));
+assert.equal(accepted.headers.get("location"), `${origin}/account?deleted=1`);
+assert.match(accepted.headers.get("set-cookie") ?? "", /Max-Age=0/);
+assert.equal(await userForToken(leadToken), null);
+assert.match(String(await setRole(lead, boss.steam_id, "owner")), /Only owners and lead admins/);
+
+// PGlite serializes transactions; these verify both operation orders, not multi-connection locking.
+await setRole(otherOwner, boss.steam_id, "owner");
+const deletes = await Promise.all([deleteAccount(boss.steam_id), deleteAccount(otherOwner.steam_id)]);
+assert.equal(deletes.filter((r) => r.deleted).length, 1);
+assert.equal(deletes.filter((r) => r.blocked).length, 1);
+assert.equal((await query("select 1 from users where role = 'owner'")).length, 1);
+
+// Even an operator-side removal of every owner cannot reopen public setup.
+await query("delete from users where role = 'owner'");
+assert.equal((await claim()).status, 410);
+assert.equal((await query("select 1 from users where role = 'owner'")).length, 0);
+await pg.close();
 console.log("auth + staff tests passed");

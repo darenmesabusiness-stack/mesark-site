@@ -6,15 +6,19 @@
 import { neon } from "@neondatabase/serverless";
 
 export type Query = <T = Record<string, unknown>>(text: string, params?: unknown[]) => Promise<T[]>;
+export type Statement = { text: string; params?: unknown[] };
+export type Transaction = (statements: Statement[]) => Promise<Record<string, unknown>[][]>;
 
 let driver: Query | null = null;
+let transactionDriver: Transaction | null = null;
 let ready: Promise<void> | null = null;
 
 export const dbConfigured = () => Boolean(driver || process.env.DATABASE_URL || process.env.POSTGRES_URL);
 
 /** Lets scripts run the same code against an in-memory Postgres (scripts/test-auth.mts). */
-export function useDriver(q: Query) {
+export function useDriver(q: Query, transaction?: Transaction) {
   driver = q;
+  transactionDriver = transaction ?? null;
   ready = null;
 }
 
@@ -24,6 +28,10 @@ function connect(): Query {
   if (!url) throw new Error("Database not configured");
   const sql = neon(url);
   driver = (text, params = []) => sql.query(text, params) as never;
+  transactionDriver = (statements) => sql.transaction(
+    statements.map(({ text, params = [] }) => sql.query(text, params)),
+    { isolationLevel: "ReadCommitted" },
+  );
   return driver;
 }
 
@@ -69,8 +77,7 @@ const SCHEMA = [
    )`,
 ];
 
-/** Run a query, creating the schema first if this instance hasn't yet. */
-export async function query<T = Record<string, unknown>>(text: string, params: unknown[] = []): Promise<T[]> {
+async function ensureReady() {
   const q = connect();
   if (!ready) {
     ready = (async () => {
@@ -81,5 +88,25 @@ export async function query<T = Record<string, unknown>>(text: string, params: u
     });
   }
   await ready;
-  return q<T>(text, params);
+}
+
+/** Run a query, creating the schema first if this instance hasn't yet. */
+export async function query<T = Record<string, unknown>>(text: string, params: unknown[] = []): Promise<T[]> {
+  await ensureReady();
+  return connect()<T>(text, params);
+}
+
+/**
+ * Serialize account deletion and role changes across all app instances. The mutation
+ * is a separate statement after the lock, so READ COMMITTED sees the preceding
+ * transaction's changes. Both statements must run in one database transaction.
+ */
+export async function ownershipQuery<T>(text: string, params: unknown[] = []): Promise<T[]> {
+  await ensureReady();
+  if (!transactionDriver) throw new Error("Ownership changes require a transaction driver");
+  const results = await transactionDriver([
+    { text: "select pg_advisory_xact_lock(1296388929, 1)" }, // MESA ownership lifecycle
+    { text, params },
+  ]);
+  return results[1] as T[];
 }

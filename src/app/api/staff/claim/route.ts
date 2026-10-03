@@ -1,13 +1,6 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { currentUser } from "@/lib/auth";
-import { claimOwner } from "@/lib/staff";
+import { NextResponse } from "next/server";
 
-/** One-time setup: the only account on the site becomes the owner. */
-export async function POST(request: NextRequest) {
-  const origin = request.nextUrl.origin;
-  const user = await currentUser();
-  if (!user) return NextResponse.redirect(`${origin}/staff`, 303);
-  const ok = await claimOwner(user);
-  if (ok) console.log("staff: owner access claimed");
-  return NextResponse.redirect(`${origin}/staff?${ok ? "claimed=1" : "error=claim"}`, 303);
+/** Initial setup is complete. This must never reopen when owners disappear. */
+export async function POST() {
+  return NextResponse.json({ error: "Owner setup is closed." }, { status: 410 });
 }
