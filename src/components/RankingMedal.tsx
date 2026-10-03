@@ -115,7 +115,7 @@ export function RankingPodium({
               </span>
             </div>
             <div className="mt-4 flex items-center gap-3">
-              {query.mode === "players" && (
+              {query.mode === "players" && !row.nameHidden && (
                 <SteamAvatar
                   avatar={row.avatar}
                   name={name}
@@ -139,7 +139,7 @@ export function RankingPodium({
           </>
         );
         const style = `clip-corner group block border p-5 ${medal.frame} ${medal.glow}`;
-        return query.mode === "tribes" && row.tribeId === null ? (
+        return row.nameHidden || (query.mode === "tribes" && row.tribeId === null) ? (
           <div key={row.rank} className={style}>
             {content}
           </div>
