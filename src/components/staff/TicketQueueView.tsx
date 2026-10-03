@@ -1,5 +1,6 @@
 import { minutes, type QueueTicket, type TicketQueueData } from "@/lib/bot";
 import { Section, Table, Tile, Tiles } from "@/components/staff/StatBits";
+import { ReviewForm } from "@/components/staff/ReviewForm";
 
 const SECTIONS: { key: keyof TicketQueueData["sections"]; title: string; note: string }[] = [
   { key: "emergency", title: "🚨 Emergency", note: "Flagged urgent by the bot. Answer first." },
@@ -34,16 +35,18 @@ export function TicketQueueView({ d }: { d: TicketQueueData }) {
 
       {SECTIONS.map(({ key, title, note }) => {
         const rows = d.sections[key] ?? [];
-        if (!rows.length || key === "hold") return null;
+        if (!rows.length) return null;
         return (
           <Section key={key} title={`${title} (${rows.length})`} note={note}>
             <Table head={["Ticket", "Player", "Cluster", key === "player" || key === "empty" ? "Opened" : "Waiting", "Claimed by", ""]}>
-              {rows.slice(0, 60).map((t) => (
+              {rows.map((t) => (
                 <tr key={t.channel_id} className={t.overdue ? "bg-accent/[0.07]" : "bg-bg-card/40"}>
                   <td className="px-4 py-2.5 font-mono text-xs">
                     <a href={`https://discord.com/channels/${t.guild_id}/${t.channel_id}`} target="_blank" rel="noopener noreferrer" className="underline decoration-accent/40 underline-offset-4 hover:text-accent">
                       {t.name}
                     </a>
+                    {t.legacy && <p className="mt-1 text-text-muted">Legacy record · historical timestamps may be incomplete</p>}
+                    <ReviewForm kind="ticket" id={t.channel_id} state={t.review?.state ?? "unreviewed"} note={t.review?.note ?? ""} />
                   </td>
                   <td className="px-3 py-2.5">
                     {t.player || "–"}
@@ -60,10 +63,13 @@ export function TicketQueueView({ d }: { d: TicketQueueData }) {
                 </tr>
               ))}
             </Table>
-            {rows.length > 60 && <p className="mt-2 text-xs text-text-muted">…and {rows.length - 60} more.</p>}
           </Section>
         );
       })}
+      <Section title="Human response and ticket closure" note="Tickets opened in the last 30 days, separated by collection history. Bot replies are excluded.">
+        <p className="mb-3 text-sm text-text-muted">Closure time runs from opening to recorded close for tickets with player activity. It does not establish that the issue was resolved. Review labels do not change queue state, priority, claims or hold rules.</p>
+        <Table head={["Cohort", "Tickets", "Human reply median / p90", "Closure median / p90", "Coverage"]}>{Object.entries(d.cohorts ?? {}).map(([name, c]) => <tr key={name}><td className="p-3">{name}</td><td className="p-3">{c.tickets}</td><td className="p-3">{minutes(c.response_p50)} / {minutes(c.response_p90)}</td><td className="p-3">{minutes(c.resolution_p50)} / {minutes(c.resolution_p90)}</td><td className="p-3">{c.response_samples} reply samples · {c.resolution_samples} closure samples · {c.invalid_response_intervals} invalid reply intervals excluded</td></tr>)}</Table>
+      </Section>
 
       {Object.keys(d.tiers).length > 0 && (
         <Section title="First reply by priority" note="Last 30 days, from when the player first wrote. Tracked since the queue went live.">
