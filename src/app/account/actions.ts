@@ -4,8 +4,24 @@ import { revalidatePath } from "next/cache";
 import { currentUser } from "@/lib/auth";
 import { botPost } from "@/lib/bot";
 import { query } from "@/lib/db";
+import { profileInput, saveAccountProfile } from "@/lib/account-profile";
 
 export type LinkState = { error: string | null; linked?: string };
+export type ProfileState = { error: string | null; saved?: boolean };
+
+export async function saveProfileAction(_prev: ProfileState, form: FormData): Promise<ProfileState> {
+  const user = await currentUser();
+  if (!user) return { error: "Sign in through Steam first." };
+  let input;
+  try { input = profileInput(form.get("bio"), form.get("accent"), form.get("published") === "yes"); }
+  catch (e) { return { error: e instanceof Error ? e.message : "Check your profile details." }; }
+  try {
+    const profile = await saveAccountProfile(user.steam_id, input);
+    revalidatePath("/account");
+    revalidatePath(`/survivors/${profile.id}`);
+    return { error: null, saved: true };
+  } catch { return { error: "Couldn't save your profile. Try again in a minute." }; }
+}
 
 /** Redeems a /link code from Discord for the signed-in Steam account. */
 export async function linkDiscordAction(_prev: LinkState, form: FormData): Promise<LinkState> {

@@ -19,7 +19,7 @@ export default function HelpfulPage() {
         subtitle="Find your issue, try the first checks, and know what to send support."
         image="/art/ark/solo.jpg"
         focus="object-[50%_25%]"
-        kicker="Guides"
+        kicker="Info"
       />
 
       <div className="max-w-4xl mx-auto px-4 pb-20 space-y-4">

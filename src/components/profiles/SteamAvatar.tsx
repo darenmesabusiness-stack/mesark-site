@@ -7,16 +7,19 @@ export function SteamAvatar({
   avatar,
   name,
   className = "h-11 w-11",
+  borderColor,
 }: {
   avatar?: string | null;
   name: string;
   className?: string;
+  borderColor?: string;
 }) {
   const [failed, setFailed] = useState<string | null>(null);
   const source = steamAvatar(avatar);
   return (
     <span
       aria-hidden="true"
+      style={borderColor ? { borderColor } : undefined}
       className={`relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-bg-card font-display text-xl font-black text-text-primary/80 ${className}`}
     >
       {source && failed !== source ? (

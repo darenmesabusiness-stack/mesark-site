@@ -9,12 +9,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
   { href: "/servers", label: "Servers" },
-  { href: "/rules", label: "Rules" },
 ];
 
 type NavLink = { href: string; label: string; external?: boolean };
 const NAV_GROUPS: { label: string; links: NavLink[] }[] = [
-  { label: "Guides", links: [
+  { label: "Info", links: [
+    { href: "/rules", label: "Rules" },
     { href: "/helpful", label: "Common Issues" },
     { href: "/settings", label: "Settings" },
     { href: "/maps", label: "Cave maps" },
