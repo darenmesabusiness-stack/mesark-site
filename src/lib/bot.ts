@@ -28,7 +28,7 @@ export async function botGet<T>(path: string, user: User): Promise<BotResult<T>>
     const body = await res.json().catch(() => null);
     if (!res.ok) {
       console.error("bot bridge", path, res.status, body);
-      if (res.status === 400 && body?.error) return { ok: false, error: body.error };
+      if ([400, 403, 404, 409, 429].includes(res.status) && body?.error) return { ok: false, error: body.error };
       return { ok: false, error: res.status === 401 ? "The bot didn't accept this request." : "The bot couldn't answer. Try again in a minute." };
     }
     return { ok: true, data: body as T };
@@ -93,7 +93,7 @@ export async function botPost<T>(path: string, user: User, body: unknown = {}): 
     });
     const data = await res.json().catch(() => null);
     if (!res.ok) {
-      if ((res.status === 400 || res.status === 429) && data?.error) return { ok: false, error: data.error };
+      if ([400, 403, 404, 409, 429].includes(res.status) && data?.error) return { ok: false, error: data.error };
       console.error("bot bridge", path, res.status, data);
       return { ok: false, error: "The bot couldn't answer. Try again in a minute." };
     }

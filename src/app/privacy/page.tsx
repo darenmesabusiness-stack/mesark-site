@@ -7,7 +7,7 @@ export const metadata = pageMeta({
   description: "What MESARK collects, why, and how to have it deleted.",
 });
 
-const UPDATED = "1 October 2026";
+const UPDATED = "3 October 2026";
 const SUPPORT = "https://discord.gg/jkax9Nk46x";
 
 export default function PrivacyPage() {
@@ -32,6 +32,7 @@ export default function PrivacyPage() {
 
         <ContentSection title="This website" defaultOpen>
           <RuleItem text="Signing in is optional. If you sign in through Steam, you log in on Steam's own site and Steam confirms your Steam ID to us. We store that ID with your public Steam name and avatar, when you joined and when you last signed in. Your password only ever goes to Steam." />
+          <RuleItem text="Website support requires Steam sign-in and a verified Discord link. Your website ticket and replies are sent to the same private Discord conversation used by staff. We keep a submission record to prevent duplicate tickets and messages. Unlinking stops website access; it does not erase existing support records or transcripts." />
           <RuleItem text="Signing in sets one cookie that keeps you signed in for up to 30 days. We use no advertising or tracking cookies." />
           <RuleItem text="Your Steam ID is never shown publicly. You can sign out or delete your account on the Account page. If you are the only site owner, appoint another owner before deleting your account." />
           <RuleItem text="Player and tribe profile pages show the same public stats as the leaderboards. They are not listed in search engines." />
@@ -54,7 +55,7 @@ export default function PrivacyPage() {
         <ContentSection title="Discord and our support bot" defaultOpen>
           <RuleItem text="Our Discord bot answers questions and handles support tickets. It stores ticket transcripts and the questions you ask it." />
           <RuleItem text="It reads messages in our public community channels to spot common questions, measure how the community feels about updates and write weekly reports for staff. Messages are stored with your Discord user ID." />
-          <RuleItem text="Message text is sent to Anthropic (the Claude AI model) to write answers and classify topics and sentiment. Anthropic processes it for us and does not use it to train its models." warning />
+          <RuleItem text="Message text is sent to OpenAI to write support answers and classify topics and sentiment." warning />
           <RuleItem text="If you link your Discord to your Steam ID (the /link command), we keep your Discord user ID and username with your account so staff can help you faster. Unlink any time on the Account page; deleting your account removes the link too." />
           <RuleItem text="The bot may send you a direct message, for example about a ticket or to welcome you back after time away." />
         </ContentSection>
@@ -74,7 +75,7 @@ export default function PrivacyPage() {
           <RuleItem text="Vercel (website hosting and analytics) and Neon (the database behind website accounts)." />
           <RuleItem text="Our game server and bot hosting providers." />
           <RuleItem text="Discord (the platform our community and bot run on)." />
-          <RuleItem text="Anthropic (AI processing for the support bot)." />
+          <RuleItem text="OpenAI (AI processing for the support bot)." />
           <RuleItem text="Tip4Serv and its payment providers (store purchases)." />
           <p>We may also share information when the law requires it, or to deal with fraud or chargebacks.</p>
         </ContentSection>
