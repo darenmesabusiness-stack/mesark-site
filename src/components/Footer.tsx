@@ -32,6 +32,7 @@ const COLUMNS = [
   {
     title: "Community",
     links: [
+      { href: "/support", label: "Player Support" },
       { href: "https://discord.gg/mesark", label: "Main Discord" },
       { href: "https://discord.gg/jkax9Nk46x", label: "Support Discord" },
       { href: "https://steamcommunity.com/sharedfiles/filedetails/?id=3282623549", label: "Steam Collection" },

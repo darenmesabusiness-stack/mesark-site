@@ -11,7 +11,7 @@ export function ClusterCards() {
     <section className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading kicker="Four clusters" lead="Pick your" accent="war.">
+          <SectionHeading kicker="Choose a cluster" lead="Find your" accent="server.">
             Solo, Duo and 3/4 Man wipe weekly, 100x every other week — all at 1:00 PM EST. Same mods, same rules, different pressure.
           </SectionHeading>
           <Link href="/settings" className="hud-label !text-text-primary hover:!text-accent transition shrink-0">
@@ -58,7 +58,7 @@ export function ClusterCards() {
                 <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
                   <span className="hud-label !text-[10px]">{c.tribe}</span>
                   <span className="font-display text-lg font-extrabold tracking-wider text-accent transition-transform group-hover:translate-x-1">
-                    Get IPs →
+                    View servers →
                   </span>
                 </div>
               </div>

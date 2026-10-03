@@ -2,22 +2,69 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
   { href: "/servers", label: "Servers" },
-  { href: "/live", label: "Live" },
-  { href: "/maps", label: "Maps" },
-  { href: "/changelog", label: "Changelog" },
   { href: "/rules", label: "Rules" },
-  { href: "/settings", label: "Settings" },
-  { href: "/helpful", label: "Helpful" },
-  { href: "/compete", label: "Compete" },
-  { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
 ];
+
+type NavLink = { href: string; label: string; external?: boolean };
+const NAV_GROUPS: { label: string; links: NavLink[] }[] = [
+  { label: "Guides", links: [
+    { href: "/helpful", label: "Player guides" },
+    { href: "/settings", label: "Rates & wipes" },
+    { href: "/maps", label: "Cave maps" },
+    { href: "/changelog", label: "Updates" },
+  ] },
+  { label: "Community", links: [
+    { href: "/live", label: "Live activity" },
+    { href: "/compete", label: "Hall of Fame" },
+    { href: "https://leaderboards.mesark.net", label: "Leaderboards", external: true },
+    { href: "https://discord.gg/mesark", label: "Join Discord", external: true },
+  ] },
+];
+
+function NavGroup({ group, pathname }: { group: typeof NAV_GROUPS[number]; pathname: string }) {
+  const ref = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const closeOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !ref.current?.contains(event.target) && ref.current) ref.current.open = false;
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    return () => document.removeEventListener("pointerdown", closeOutside);
+  }, []);
+  const active = group.links.some((link) => !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`)));
+  return (
+    <details ref={ref} name="desktop-navigation" className="group relative"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && ref.current) {
+          ref.current.open = false;
+          ref.current.querySelector("summary")?.focus();
+        }
+      }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.open = false;
+      }}>
+      <summary className={`cursor-pointer list-none px-3 py-2 font-display text-lg font-bold uppercase tracking-wider transition hover:text-text-primary [&::-webkit-details-marker]:hidden ${active ? "text-text-primary" : "text-text-primary/60"}`}>
+        {group.label} <span aria-hidden className="ml-1 text-xs text-accent">⌄</span>
+      </summary>
+      <div className="absolute left-0 top-full mt-2 w-56 border border-border bg-bg-primary p-2 shadow-xl">
+        {group.links.map((link) => (
+          <Link key={link.href} href={link.href} target={link.external ? "_blank" : undefined}
+            onClick={() => { if (ref.current) ref.current.open = false; }}
+            aria-current={pathname === link.href ? "page" : undefined}
+            className="block px-3 py-3 text-sm text-text-primary/80 transition hover:bg-accent/10 hover:text-accent">
+            {link.label}{link.external && <span aria-hidden className="float-right">↗</span>}
+          </Link>
+        ))}
+      </div>
+    </details>
+  );
+}
 
 type Me = { enabled: boolean; user: { persona: string | null; avatar: string | null } | null };
 
@@ -69,6 +116,7 @@ export function Navbar() {
 
   return (
     <nav
+      aria-label="Main navigation"
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         solid ? "border-b border-border bg-bg-primary/85 backdrop-blur-xl" : "border-b border-transparent bg-transparent"
       }`}
@@ -88,13 +136,14 @@ export function Navbar() {
 
           {/* Desktop */}
           <div className="hidden items-center gap-1 lg:flex">
-            {NAV_LINKS.map((link) => {
+            {NAV_LINKS.map((link: NavLink) => {
               const isActive = !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`));
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
+                  aria-current={isActive ? "page" : undefined}
                   className={`relative px-3 py-2 font-display text-lg font-bold uppercase tracking-wider transition ${
                     isActive ? "text-text-primary" : "text-text-primary/60 hover:text-text-primary"
                   }`}
@@ -104,6 +153,7 @@ export function Navbar() {
                 </Link>
               );
             })}
+            {NAV_GROUPS.map((group) => <NavGroup key={`${pathname}:${group.label}`} group={group} pathname={pathname} />)}
             {me?.enabled && <AccountButton me={me} />}
             <Link
               href="https://store.mesark.net/"
@@ -125,6 +175,7 @@ export function Navbar() {
             onClick={() => setOpen(!open)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-navigation"
             className="relative h-10 w-10 lg:hidden"
           >
             <span className={`absolute left-2 right-2 top-[14px] h-[2px] bg-text-primary transition ${open ? "translate-y-[5px] rotate-45" : ""}`} />
@@ -137,14 +188,15 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-border bg-bg-primary/95 backdrop-blur-xl lg:hidden"
+            className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-bg-primary/95 backdrop-blur-xl lg:hidden"
           >
             <div className="px-4 py-4">
-              {NAV_LINKS.map((link, i) => {
+              {NAV_LINKS.map((link: NavLink, i) => {
                 const isActive = !link.external && (pathname === link.href || pathname.startsWith(`${link.href}/`));
                 return (
                   <motion.div
@@ -156,6 +208,8 @@ export function Navbar() {
                     <Link
                       href={link.href}
                       target={link.external ? "_blank" : undefined}
+                      onClick={() => setOpen(false)}
+                      aria-current={isActive ? "page" : undefined}
                       className={`flex items-center justify-between border-b border-border/60 py-3 font-display text-3xl font-black uppercase ${
                         isActive ? "text-accent" : "text-text-primary"
                       }`}
@@ -166,8 +220,23 @@ export function Navbar() {
                   </motion.div>
                 );
               })}
+              <div className="grid grid-cols-2 gap-4 border-b border-border/60 py-4">
+                {NAV_GROUPS.map((group) => (
+                  <div key={group.label}>
+                    <p className="hud-label mb-2 text-accent">{group.label}</p>
+                    {group.links.map((link) => (
+                      <Link key={link.href} href={link.href} target={link.external ? "_blank" : undefined}
+                        onClick={() => setOpen(false)}
+                        aria-current={pathname === link.href ? "page" : undefined}
+                        className={`block py-2 text-sm hover:text-accent ${pathname === link.href ? "text-accent" : "text-text-primary/80"}`}>
+                        {link.label}{link.external && <span aria-hidden> ↗</span>}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
               {me?.enabled && (
-                <Link href="/account" className="flex items-center justify-between border-b border-border/60 py-3 font-display text-3xl font-black uppercase text-text-primary">
+                <Link href="/account" onClick={() => setOpen(false)} className="flex items-center justify-between border-b border-border/60 py-3 font-display text-3xl font-black uppercase text-text-primary">
                   {me.user ? "Your account" : "Sign in"}
                   <span className="text-base text-text-muted">→</span>
                 </Link>
