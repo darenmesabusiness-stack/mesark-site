@@ -81,7 +81,10 @@ async function ensureReady() {
   const q = connect();
   if (!ready) {
     ready = (async () => {
-      for (const stmt of SCHEMA) await q(stmt);
+      // Neon executes this batch in order in one HTTP round trip. Separate requests
+      // made cold sign-in/staff navigation pay the network latency for every DDL.
+      if (transactionDriver) await transactionDriver(SCHEMA.map((text) => ({ text })));
+      else for (const stmt of SCHEMA) await q(stmt);
     })().catch((e) => {
       ready = null;
       throw e;
