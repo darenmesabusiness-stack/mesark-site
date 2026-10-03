@@ -32,7 +32,7 @@ export function WebsiteTicket({
       <h1 className="font-display mt-2 text-4xl font-black">
         {supportLabel(t.type)}
       </h1>
-      <p className="mt-3 text-text-muted">
+      <p className="mt-3 break-words text-text-muted">
         {t.subject} · {t.opener_name}
         {t.assigned_name
           ? ` · Assigned to ${t.assigned_name}`
@@ -94,9 +94,9 @@ export function WebsiteTicket({
           <h2 className="font-display text-2xl font-bold">Attachments</h2>
           <ul className="mt-3 grid gap-2">
             {uploads.map((f) => (
-              <li key={f.id}>
+              <li key={f.id} className="min-w-0">
                 <a
-                  className="text-sm text-accent underline"
+                  className="break-words text-sm text-accent underline"
                   href={`/api/support/files/${f.id}`}
                 >
                   {f.name} · {(f.bytes / 1048576).toFixed(1)} MB
