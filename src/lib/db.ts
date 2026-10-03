@@ -91,6 +91,8 @@ const SCHEMA = [
     severity text not null check(severity in ('normal','major')), actor text not null,
     created_at timestamptz not null default now()
   )`,
+  `create index if not exists moderator_credits_month on moderator_credits(moderator, credited_at)`,
+  `create index if not exists moderator_deductions_month on moderator_deductions(month, moderator)`,
   `create table if not exists mesa_map_wipes (
      cluster text primary key, wiped_at timestamptz not null, expires_at timestamptz not null,
      updated_by text, updated_at timestamptz not null default now(),
