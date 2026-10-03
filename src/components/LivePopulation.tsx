@@ -1,20 +1,23 @@
 import type { PopulationData } from "@/lib/bot";
 
-const ORDER = ["MESA Solos", "MESA Duos", "MESA 3 MAN", "MESA 4 MAN", "MESA 100x"];
-const LABEL: Record<string, string> = {
-  "MESA Solos": "Solo",
-  "MESA Duos": "Duo",
-  "MESA 3 MAN": "3 Man",
-  "MESA 4 MAN": "4 Man",
-  "MESA 100x": "100x",
-};
+// Bot cluster names → the names players use. 3 Man and 4 Man are one "3/4 Man" cluster to players.
+export const CLUSTER_GROUPS: { name: string; clusters: string[] }[] = [
+  { name: "Solo", clusters: ["MESA Solos"] },
+  { name: "Duo", clusters: ["MESA Duos"] },
+  { name: "3/4 Man", clusters: ["MESA 3 MAN", "MESA 4 MAN"] },
+  { name: "100x", clusters: ["MESA 100x"] },
+];
+const GROUPED = new Set(CLUSTER_GROUPS.flatMap((g) => g.clusters));
 
 /** "112 players online now" banner with a chip per cluster. Renders nothing without fresh data. */
 export function LivePopulation({ pop }: { pop: PopulationData | null }) {
   if (!pop) return null;
-  const chips = ORDER.filter((c) => pop.clusters[c]).map((c) => ({ name: LABEL[c], ...pop.clusters[c] }));
+  const chips = CLUSTER_GROUPS.filter((g) => g.clusters.some((c) => pop.clusters[c])).map((g) => ({
+    name: g.name,
+    players: g.clusters.reduce((n, c) => n + (pop.clusters[c]?.players ?? 0), 0),
+  }));
   const events = Object.entries(pop.clusters)
-    .filter(([c, v]) => !ORDER.includes(c) && v.players > 0)
+    .filter(([c, v]) => !GROUPED.has(c) && v.players > 0)
     .map(([c, v]) => ({ name: c.replace(/^MESA /, ""), players: v.players }));
   const updated = pop.updated ? new Date(pop.updated * 1000) : null;
   return (
