@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { dbConfigured } from "@/lib/db";
-import { canClaimOwner, isStaff } from "@/lib/staff";
+import { isOwner, isStaff } from "@/lib/staff";
 import { DiscordLink } from "@/components/account/DiscordLink";
 
 export const metadata = pageMeta({
@@ -18,6 +18,7 @@ const ERRORS: Record<string, string> = {
   steam: "Steam didn't confirm the sign-in. Try again.",
   server: "Something went wrong on our side while signing you in. Try again in a minute.",
   confirm: "Tick the box to confirm before deleting your account.",
+  last_owner: "Your account is the only owner. Make someone else an owner on the Team page before deleting it.",
 };
 
 export default async function AccountPage({
@@ -28,7 +29,6 @@ export default async function AccountPage({
   const sp = await searchParams;
   const enabled = dbConfigured();
   const user = enabled ? await currentUser() : null;
-  const claim = user && !isStaff(user) ? await canClaimOwner(user).catch(() => false) : false;
   const notice = sp.error ? ERRORS[sp.error] : sp.deleted ? "Your account and sign-ins are deleted." : null;
 
   return (
@@ -83,14 +83,6 @@ export default async function AccountPage({
             </div>
           </div>
           {sp.welcome && <p className="mt-6 text-text-primary/80">You&apos;re signed in. Welcome to MESA.</p>}
-          {claim && (
-            <Link
-              href="/staff"
-              className="clip-corner-sm mt-6 inline-flex bg-accent px-5 py-2.5 font-display text-xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]"
-            >
-              Set up staff access →
-            </Link>
-          )}
           {isStaff(user) && (
             <Link
               href="/staff"
@@ -127,6 +119,12 @@ export default async function AccountPage({
               </button>
             </form>
             <form action="/api/auth/delete" method="post" className="grid gap-2">
+              {isOwner(user) && (
+                <p className="max-w-sm text-sm text-text-muted">
+                  Another owner must remain before you can delete your account. Manage owners on the{" "}
+                  <Link href="/staff/team" className="underline underline-offset-4 hover:text-accent">Team page</Link>.
+                </p>
+              )}
               <label className="flex items-center gap-2 text-sm text-text-muted">
                 <input type="checkbox" name="confirm" value="yes" className="accent-[var(--accent)]" />
                 Delete my MESA account and sign-ins

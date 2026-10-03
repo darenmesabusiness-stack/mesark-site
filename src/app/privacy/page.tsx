@@ -33,7 +33,7 @@ export default function PrivacyPage() {
         <ContentSection title="This website" defaultOpen>
           <RuleItem text="Signing in is optional. If you sign in through Steam, you log in on Steam's own site and Steam confirms your Steam ID to us. We store that ID with your public Steam name and avatar, when you joined and when you last signed in. Your password only ever goes to Steam." />
           <RuleItem text="Signing in sets one cookie that keeps you signed in for up to 30 days. We use no advertising or tracking cookies." />
-          <RuleItem text="Your Steam ID is never shown publicly. You can sign out or delete your account on the Account page at any time." />
+          <RuleItem text="Your Steam ID is never shown publicly. You can sign out or delete your account on the Account page. If you are the only site owner, appoint another owner before deleting your account." />
           <RuleItem text="Player and tribe profile pages show the same public stats as the leaderboards. They are not listed in search engines." />
           <RuleItem text="We use Vercel Web Analytics to count page views. It does not use cookies; it records the page, referrer, country, browser and device type, and counts visitors without identifying them." />
           <RuleItem text="Our host (Vercel) keeps standard server logs, such as IP address and request time, to run and protect the site." />

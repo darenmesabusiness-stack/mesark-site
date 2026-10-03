@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { User } from "@/lib/auth";
-import { ROLE_LABEL, canClaimOwner, isLead, isOwner } from "@/lib/staff";
+import { ROLE_LABEL, isLead, isOwner } from "@/lib/staff";
 
 const NAV: { href: string; label: string; access: "staff" | "lead" | "owner" }[] = [
   { href: "/staff", label: "Overview", access: "staff" },
@@ -48,9 +48,8 @@ export function StaffShell({ user, active, title, kicker, children }: { user: Us
   );
 }
 
-/** What a non-staff visitor sees on /staff: sign in, claim owner access (first setup only), or no access. */
-export async function StaffGate({ user, error }: { user: User | null; error?: string }) {
-  const claim = user ? await canClaimOwner(user).catch(() => false) : false;
+/** What a non-staff visitor sees on /staff: sign in or ask for access. */
+export function StaffGate({ user, error }: { user: User | null; error?: string }) {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-24 pt-32 sm:pt-40">
       <p className="hud-label mb-4 flex items-center gap-3">
@@ -68,17 +67,6 @@ export async function StaffGate({ user, error }: { user: User | null; error?: st
           >
             Sign in through Steam
           </a>
-        </>
-      ) : claim ? (
-        <>
-          <p className="mt-4 text-lg text-text-primary/75">
-            Nobody runs the staff section yet, and yours is the first account on mesark.net. Claim owner access to run it.
-          </p>
-          <form action="/api/staff/claim" method="post" className="mt-8">
-            <button type="submit" className="clip-corner-sm bg-accent px-6 py-3 font-display text-2xl font-extrabold uppercase tracking-wide text-bg-primary transition hover:bg-[#ff8c45]">
-              Claim owner access
-            </button>
-          </form>
         </>
       ) : (
         <p className="mt-4 text-lg text-text-primary/75">

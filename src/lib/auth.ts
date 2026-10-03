@@ -7,7 +7,7 @@
  * database stores only its SHA-256, so a leaked table can't be replayed as cookies.
  */
 import { cookies } from "next/headers";
-import { query } from "@/lib/db";
+import { ownershipQuery, query } from "@/lib/db";
 
 export const STEAM_OPENID = "https://steamcommunity.com/openid/login";
 export const SESSION_COOKIE = "__Host-mesa_session";
@@ -129,9 +129,20 @@ export async function endSession(token: string | undefined) {
   if (token) await query(`delete from sessions where id_hash = $1`, [await sha256(token)]);
 }
 
-/** Removes the account and every session (privacy: "delete my data"). */
+/** Removes the account and every session, unless this is the last owner. */
 export async function deleteAccount(steamId: string) {
-  await query(`delete from users where steam_id = $1`, [steamId]);
+  const [result] = await ownershipQuery<{ deleted: boolean; blocked: boolean }>(
+    `with guard as (
+       select exists (select 1 from users where steam_id = $1 and role = 'owner')
+          and (select count(*) from users where role = 'owner') <= 1 as blocked
+     ), deleted as (
+       delete from users where steam_id = $1 and not (select blocked from guard)
+       returning steam_id
+     )
+     select (select blocked from guard) as blocked, exists (select 1 from deleted) as deleted`,
+    [steamId],
+  );
+  return result;
 }
 
 /** The signed-in user for this request (server components, route handlers). */

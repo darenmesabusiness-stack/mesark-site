@@ -4,10 +4,10 @@
  *   staff   "Admin": works tickets
  *   lead    "Lead Admin": runs things day to day: change log, caves, stats, adds/removes admins
  *   owner   everything, including finance and choosing leads
- * The first owner is claimed once, by the oldest account on the site (the owner signed in first
- * when sign-in went live), so no IDs or secrets live in this public repo.
+ * Initial setup is complete. Ownership is assigned by an existing owner; recovery
+ * requires an operator with database access, never a public account claim.
  */
-import { query } from "@/lib/db";
+import { ownershipQuery, query } from "@/lib/db";
 import type { User } from "@/lib/auth";
 
 export const ROLES = ["player", "staff", "lead", "owner"] as const;
@@ -31,29 +31,6 @@ export const isOwner = (u: User | null): u is User => rank(u) >= RANK.owner;
 export const assignableRoles = (actor: User): Role[] =>
   isOwner(actor) ? [...ROLES] : isLead(actor) ? ["player", "staff"] : [];
 
-/** True while nobody is owner yet and this user is the oldest account. */
-export async function canClaimOwner(u: User) {
-  const [r] = await query<{ owners: number; first: string | null }>(
-    `select (count(*) filter (where role = 'owner'))::int as owners,
-            (select steam_id from users order by created_at, steam_id limit 1) as first
-       from users`,
-  );
-  return r.owners === 0 && r.first === u.steam_id;
-}
-
-/** Makes `u` owner if the claim conditions still hold (checked atomically in SQL). */
-export async function claimOwner(u: User) {
-  const rows = await query(
-    `update users set role = 'owner'
-      where steam_id = $1
-        and steam_id = (select steam_id from users order by created_at, steam_id limit 1)
-        and not exists (select 1 from users where role = 'owner')
-      returning steam_id`,
-    [u.steam_id],
-  );
-  return rows.length === 1;
-}
-
 export interface TeamRow {
   steam_id: string;
   persona: string | null;
@@ -76,18 +53,29 @@ export const listAccounts = () =>
  */
 export async function setRole(actor: User, steamId: string, role: Role): Promise<string | null> {
   if (!ROLES.includes(role)) return "Unknown role.";
-  const allowed = assignableRoles(actor);
-  if (!allowed.length) return "Only owners and lead admins can change roles.";
-
-  const [target] = await query<{ role: Role }>(`select role from users where steam_id = $1`, [steamId]);
-  if (!target) return "That account doesn't exist.";
-  if (!allowed.includes(role) || !allowed.includes(target.role)) {
-    return "Lead admins can add and remove admins. Only the owner can change lead admins and owners.";
-  }
-  if (steamId === actor.steam_id && target.role === "owner" && role !== "owner") {
-    const [r] = await query<{ owners: number }>(`select count(*)::int as owners from users where role = 'owner'`);
-    if (r.owners <= 1) return "You're the only owner. Make someone else owner first.";
-  }
-  await query(`update users set role = $2 where steam_id = $1`, [steamId, role]);
-  return null;
+  // Re-read both roles under the lock: the actor may have been demoted or deleted
+  // since their session was loaded at the start of this request.
+  const [result] = await ownershipQuery<{ error: string | null }>(
+    `with context as (
+       select (select role from users where steam_id = $1) as actor_role,
+              (select role from users where steam_id = $2) as target_role,
+              (select count(*) from users where role = 'owner') as owners
+     ), decision as (
+       select case
+         when actor_role is null or actor_role not in ('owner', 'lead')
+           then 'Only owners and lead admins can change roles.'
+         when target_role is null then 'That account doesn''t exist.'
+         when actor_role = 'lead' and (target_role not in ('player', 'staff') or $3 not in ('player', 'staff'))
+           then 'Lead admins can add and remove admins. Only the owner can change lead admins and owners.'
+         when target_role = 'owner' and $3 <> 'owner' and owners <= 1
+           then 'This is the only owner. Make someone else owner first.'
+         else null end as error from context
+     ), changed as (
+       update users set role = $3 where steam_id = $2 and (select error from decision) is null
+       returning steam_id
+     )
+     select error from decision`,
+    [actor.steam_id, steamId, role],
+  );
+  return result.error;
 }
